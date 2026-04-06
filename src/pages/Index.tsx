@@ -17,6 +17,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 const Index = () => {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [view, setView] = useState<"agent" | "settings">("agent");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
