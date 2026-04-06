@@ -40,6 +40,8 @@
     --chip-foreground: 0 0% 100%;
     --teal: 174 70% 42%;
     --teal-foreground: 0 0% 100%;
+    --amber: 38 92% 50%;
+    --amber-foreground: 0 0% 10%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
