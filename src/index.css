@@ -4,40 +4,43 @@
 
 @layer base {
   :root {
-    --background: 240 10% 6%;
-    --foreground: 220 20% 92%;
+    --background: 0 0% 99%;
+    --foreground: 220 15% 15%;
 
-    --card: 240 8% 10%;
-    --card-foreground: 220 20% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
 
-    --popover: 240 8% 10%;
-    --popover-foreground: 220 20% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
 
     --primary: 270 70% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 16%;
-    --secondary-foreground: 220 20% 85%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 25%;
 
-    --muted: 240 6% 14%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 220 14% 95%;
+    --muted-foreground: 220 8% 46%;
 
-    --accent: 270 50% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 270 50% 96%;
+    --accent-foreground: 270 60% 40%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 18%;
-    --input: 240 6% 18%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 270 70% 60%;
 
     --radius: 0.75rem;
 
-    --chat-user: 270 40% 20%;
-    --chat-ai: 240 6% 14%;
-    --chip: 270 60% 55%;
+    --chat-user: 270 30% 95%;
+    --chat-ai: 220 14% 97%;
+    --chip-purple: 270 70% 60%;
+    --chip-teal: 174 70% 42%;
+    --chip-amber: 38 92% 50%;
     --chip-foreground: 0 0% 100%;
+
     --teal: 174 70% 42%;
     --teal-foreground: 0 0% 100%;
     --amber: 38 92% 50%;
@@ -66,7 +69,7 @@
 
 @layer utilities {
   .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
