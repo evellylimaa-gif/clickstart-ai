@@ -57,13 +57,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        teal: {
-          DEFAULT: "hsl(var(--teal))",
-          foreground: "hsl(var(--teal-foreground))",
+        "agent-purple": {
+          DEFAULT: "hsl(var(--agent-purple))",
+          foreground: "hsl(var(--agent-purple-foreground))",
         },
-        amber: {
-          DEFAULT: "hsl(var(--amber))",
-          foreground: "hsl(var(--amber-foreground))",
+        "agent-teal": {
+          DEFAULT: "hsl(var(--agent-teal))",
+          foreground: "hsl(var(--agent-teal-foreground))",
+        },
+        "agent-amber": {
+          DEFAULT: "hsl(var(--agent-amber))",
+          foreground: "hsl(var(--agent-amber-foreground))",
         },
       },
       borderRadius: {
