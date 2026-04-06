@@ -56,6 +56,46 @@
     --sidebar-border: 217 33% 17%;
     --sidebar-ring: 263 70% 58%;
   }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 263 70% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 263 40% 20%;
+    --accent-foreground: 263 70% 80%;
+
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 263 70% 58%;
+
+    --chat-user: 263 30% 18%;
+    --chat-ai: 222 47% 12%;
+
+    --sidebar-bg: 222 47% 7%;
+    --sidebar-muted: 217 33% 12%;
+
+    --agent-purple: 263 70% 62%;
+    --agent-teal: 174 84% 38%;
+    --agent-amber: 32 95% 50%;
+  }
 }
 
 @layer base {
@@ -80,3 +120,12 @@
     border-radius: 3px;
   }
 }
+
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+.typing-dot:nth-child(1) { animation: typing-dot 1.4s infinite 0s; }
+.typing-dot:nth-child(2) { animation: typing-dot 1.4s infinite 0.2s; }
+.typing-dot:nth-child(3) { animation: typing-dot 1.4s infinite 0.4s; }
