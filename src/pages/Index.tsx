@@ -25,6 +25,7 @@ const Index = () => {
 
   const handleSelect = (i: number) => {
     setActiveIdx(i);
+    setView("agent");
     setSidebarOpen(false);
   };
 
