@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { agents } from "@/lib/agents";
 import { ChatPanel } from "@/components/ChatPanel";
+import { SettingsPage } from "@/pages/Settings";
 import {
   Bot, Briefcase, TrendingUp, Wand2, Menu, X,
-  Sun, Moon, Zap, Shield, Users, Crown,
+  Sun, Moon, Zap, Shield, Users, Crown, Settings,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";

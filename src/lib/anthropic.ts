@@ -7,8 +7,8 @@ export async function sendMessage(
   messages: Message[],
   systemPrompt: string
 ): Promise<string> {
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("VITE_ANTHROPIC_API_KEY não configurada");
+  const apiKey = localStorage.getItem("anthropic_api_key") || import.meta.env.VITE_ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error("API key não configurada. Vá em Configurações para adicionar sua chave.");
 
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
