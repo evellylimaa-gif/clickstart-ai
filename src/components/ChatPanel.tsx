@@ -9,9 +9,9 @@ function TypingIndicator() {
   return (
     <div className="flex items-center gap-3 bg-card border border-border rounded-2xl px-5 py-4 mr-8 shadow-sm">
       <div className="flex gap-1">
-        <span className="typing-dot w-2 h-2 rounded-full bg-muted-foreground" />
-        <span className="typing-dot w-2 h-2 rounded-full bg-muted-foreground" />
-        <span className="typing-dot w-2 h-2 rounded-full bg-muted-foreground" />
+        <span className="typing-dot w-2 h-2 rounded-full bg-primary/60" />
+        <span className="typing-dot w-2 h-2 rounded-full bg-primary/60" />
+        <span className="typing-dot w-2 h-2 rounded-full bg-primary/60" />
       </div>
       <span className="text-sm text-muted-foreground">Agente pensando...</span>
     </div>
@@ -58,8 +58,6 @@ export function ChatPanel({ agent }: { agent: Agent }) {
     }
   };
 
-  const accentVar = `var(--${agent.color})`;
-
   return (
     <div className={`flex flex-col flex-1 ${isMobile ? "pb-[72px]" : ""}`}>
       {/* Agent description card + chips */}
@@ -67,13 +65,10 @@ export function ChatPanel({ agent }: { agent: Agent }) {
         <div className="px-4 sm:px-8 pt-6">
           <div className="max-w-4xl mx-auto">
             {/* Description card */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm mb-6">
+            <div className="rounded-2xl border border-primary/10 bg-card p-6 shadow-sm mb-6">
               <div className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `hsl(${accentVar} / 0.12)` }}
-                >
-                  <Sparkles className="w-6 h-6" style={{ color: `hsl(${accentVar})` }} />
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-foreground mb-1">{agent.name}</h3>
@@ -92,9 +87,9 @@ export function ChatPanel({ agent }: { agent: Agent }) {
                   <button
                     key={chip}
                     onClick={() => send(chip)}
-                    className="flex items-center gap-2.5 text-left text-sm px-4 py-3 rounded-xl border border-border bg-card hover:bg-accent hover:border-accent transition-all group shadow-sm"
+                    className="flex items-center gap-2.5 text-left text-sm px-4 py-3 rounded-xl border border-primary/15 bg-card hover:bg-accent hover:border-primary/30 transition-all group shadow-sm"
                   >
-                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" style={{ color: `hsl(${accentVar})` }} />
+                    <ArrowRight className="w-3.5 h-3.5 text-primary group-hover:translate-x-0.5 transition-transform" />
                     <span className="text-foreground">{chip}</span>
                   </button>
                 ))}
@@ -107,7 +102,6 @@ export function ChatPanel({ agent }: { agent: Agent }) {
       {/* Chat area */}
       <div className="flex-1 overflow-y-auto scrollbar-thin px-4 sm:px-8 py-4">
         <div className="max-w-4xl mx-auto space-y-4">
-          {messages.length > 0 && messages.length === 0 && null}
           {messages.map((m, i) => (
             <div
               key={i}
@@ -116,13 +110,13 @@ export function ChatPanel({ agent }: { agent: Agent }) {
               <div
                 className={`rounded-2xl px-5 py-3.5 text-sm leading-relaxed max-w-[85%] ${
                   m.role === "user"
-                    ? "bg-[hsl(var(--chat-user))] text-foreground"
+                    ? "bg-primary text-primary-foreground"
                     : "bg-card border border-border shadow-sm text-foreground"
                 }`}
               >
                 {m.role === "assistant" && (
                   <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border">
-                    <MessageSquare className="w-3.5 h-3.5" style={{ color: `hsl(${accentVar})` }} />
+                    <MessageSquare className="w-3.5 h-3.5 text-primary" />
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                       {agent.badge}
                     </span>
@@ -148,7 +142,7 @@ export function ChatPanel({ agent }: { agent: Agent }) {
           }}
           className="max-w-4xl mx-auto"
         >
-          <div className="flex gap-2 items-end bg-card border border-border rounded-2xl p-2 shadow-sm focus-within:ring-2 focus-within:ring-ring/20 transition-shadow">
+          <div className="flex gap-2 items-end bg-card border border-border rounded-2xl p-2 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 transition-shadow">
             <textarea
               ref={textareaRef}
               value={input}
@@ -166,8 +160,7 @@ export function ChatPanel({ agent }: { agent: Agent }) {
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="rounded-xl px-4 py-2.5 hover:opacity-90 transition-all disabled:opacity-30 shrink-0 text-primary-foreground shadow-sm"
-              style={{ backgroundColor: `hsl(${accentVar})` }}
+              className="rounded-xl px-4 py-2.5 bg-primary text-primary-foreground hover:opacity-90 transition-all disabled:opacity-30 shrink-0 shadow-sm"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>
