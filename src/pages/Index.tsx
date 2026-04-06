@@ -34,10 +34,6 @@ const Index = () => {
             {agent.badge}
           </button>
         ))}
-        {/* Placeholder tabs */}
-        <button className="px-4 py-2.5 text-sm font-medium text-muted-foreground/40 border-b-2 border-transparent cursor-not-allowed">
-          Tab 2 (em breve)
-        </button>
         <button className="px-4 py-2.5 text-sm font-medium text-muted-foreground/40 border-b-2 border-transparent cursor-not-allowed">
           Tab 3 (em breve)
         </button>
