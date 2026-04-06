@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { agents } from "@/lib/agents";
 import { ChatPanel } from "@/components/ChatPanel";
+import { SettingsPage } from "@/pages/Settings";
 import {
   Bot, Briefcase, TrendingUp, Wand2, Menu, X,
-  Sun, Moon, Zap, Shield, Users, Crown,
+  Sun, Moon, Zap, Shield, Users, Crown, Settings,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
@@ -16,6 +17,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 const Index = () => {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [view, setView] = useState<"agent" | "settings">("agent");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
@@ -23,6 +25,7 @@ const Index = () => {
 
   const handleSelect = (i: number) => {
     setActiveIdx(i);
+    setView("agent");
     setSidebarOpen(false);
   };
 
@@ -99,15 +102,26 @@ const Index = () => {
 
           {/* Bottom: theme toggle + profile */}
           <div className="mt-auto">
-            <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
-            <div className="px-3 py-3 space-y-1">
-              <button
-                onClick={toggleTheme}
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)] transition-all"
-              >
-                {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                <span>{dark ? "Modo Claro" : "Modo Escuro"}</span>
-              </button>
+             <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
+             <div className="px-3 py-3 space-y-1">
+               <button
+                 onClick={() => { setView("settings"); setSidebarOpen(false); }}
+                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] transition-all ${
+                   view === "settings"
+                     ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] font-medium"
+                     : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
+                 }`}
+               >
+                 <Settings className="w-4 h-4" />
+                 <span>Configurações</span>
+               </button>
+               <button
+                 onClick={toggleTheme}
+                 className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)] transition-all"
+               >
+                 {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                 <span>{dark ? "Modo Claro" : "Modo Escuro"}</span>
+               </button>
               <div className="flex items-center gap-3 px-3 py-2.5">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                   <span className="text-xs font-bold text-primary">E</span>
@@ -191,7 +205,7 @@ const Index = () => {
           </div>
         </div>
 
-        <ChatPanel key={agent.id} agent={agent} />
+        {view === "settings" ? <SettingsPage /> : <ChatPanel key={agent.id} agent={agent} />}
       </main>
 
       {/* Mobile bottom navigation */}
