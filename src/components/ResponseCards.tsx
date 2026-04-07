@@ -6,6 +6,7 @@ interface ResponseCardsProps {
   content: string;
   badge: string;
   onDeeper: (text: string) => void;
+  onPlanSaved?: () => void;
 }
 
 function extractSection(content: string, heading: string): string | null {
