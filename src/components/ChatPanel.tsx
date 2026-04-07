@@ -22,6 +22,7 @@ function TypingIndicator() {
 interface ChatPanelProps {
   agent: Agent;
   initialMessage?: string;
+  extraChips?: string[];
   onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
   onPlanSaved?: () => void;
 }
