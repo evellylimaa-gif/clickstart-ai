@@ -25,6 +25,54 @@ const sidebarLabels = [
   { emoji: "🧠", label: "Criar Prompts que Vendem" },
 ];
 
+const sidebarChips: { emoji: string; title: string; agentIdx: number; chips: string[] }[] = [
+  {
+    emoji: "💰", title: "Agentes de IA", agentIdx: 0,
+    chips: [
+      "O que as empresas mais compram",
+      "Como precificar agentes",
+      "Primeiros clientes sem experiência",
+      "Melhores nichos no Brasil",
+      "Portfólio partindo do zero",
+      "Quanto cobrar por um agente de atendimento",
+      "Como vender agentes para dentistas e clínicas",
+      "Criar agente de onboarding para SaaS",
+      "Automação de follow-up com IA para vendas",
+      "Como apresentar um agente de IA numa reunião de vendas",
+    ],
+  },
+  {
+    emoji: "🌐", title: "Monetização Web", agentIdx: 1,
+    chips: [
+      "Renda rápida com IA",
+      "Vender templates e prompts",
+      "Micro-SaaS no-code",
+      "Melhores plataformas para vender",
+      "Curso de IA online",
+      "Como criar e vender pacote de automações no Make",
+      "Monetizar canal do YouTube com IA em 2026",
+      "Criar comunidade paga no Skool sobre IA",
+      "Vender serviço de criação de GPTs personalizados",
+      "Lançar infoproduto digital em 7 dias com IA",
+    ],
+  },
+  {
+    emoji: "🧠", title: "Engenheiro de Prompts", agentIdx: 2,
+    chips: [
+      "Prompt para agente de vendas B2B",
+      "Prompt para coach de finanças",
+      "Prompt para atendimento ao cliente",
+      "Prompt para criador de conteúdo",
+      "Revisão do meu prompt atual",
+      "Prompt para agente de qualificação de leads",
+      "System prompt para assistente jurídico",
+      "Criar prompt que gera copy de vendas automaticamente",
+      "Prompt para agente de suporte técnico nível 1",
+      "Como estruturar guardrails para agentes sensíveis",
+    ],
+  },
+];
+
 const Index = () => {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [view, setView] = useState<"hero" | "agent" | "settings" | "history">("hero");
