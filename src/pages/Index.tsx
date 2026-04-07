@@ -30,7 +30,9 @@ const Index = () => {
   const [view, setView] = useState<"hero" | "agent" | "settings" | "history">("hero");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string | undefined>();
-  const [plansGenerated, setPlansGenerated] = useState(0);
+  const [plansGenerated, setPlansGenerated] = useState(() => {
+    try { return parseInt(localStorage.getItem("evelly_plans_generated") || "0", 10); } catch { return 0; }
+  });
   const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
@@ -47,7 +49,14 @@ const Index = () => {
     setActiveIdx(agentIdx);
     setInitialMessage(prefill);
     setView("agent");
-    setPlansGenerated((p) => p + 1);
+  };
+
+  const incrementPlans = () => {
+    setPlansGenerated((p) => {
+      const next = p + 1;
+      localStorage.setItem("evelly_plans_generated", String(next));
+      return next;
+    });
   };
 
   const goHome = () => {
@@ -331,6 +340,7 @@ const Index = () => {
             agent={agents[activeIdx]}
             initialMessage={initialMessage}
             onSaveConversation={(data) => saveConversation(data)}
+            onPlanSaved={incrementPlans}
           />
         )}
       </main>

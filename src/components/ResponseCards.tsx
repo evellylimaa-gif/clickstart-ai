@@ -6,6 +6,7 @@ interface ResponseCardsProps {
   content: string;
   badge: string;
   onDeeper: (text: string) => void;
+  onPlanSaved?: () => void;
 }
 
 function extractSection(content: string, heading: string): string | null {
@@ -35,7 +36,7 @@ function extractPotential(content: string): string | null {
   return match ? match[0] : null;
 }
 
-export function ResponseCards({ content, badge, onDeeper }: ResponseCardsProps) {
+export function ResponseCards({ content, badge, onDeeper, onPlanSaved }: ResponseCardsProps) {
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [saved, setSaved] = useState(false);
 
@@ -134,6 +135,7 @@ export function ResponseCards({ content, badge, onDeeper }: ResponseCardsProps) 
         <button
           onClick={() => {
             setSaved(true);
+            onPlanSaved?.();
             setTimeout(() => setSaved(false), 2000);
           }}
           className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border border-primary/20 bg-card text-foreground hover:bg-accent transition-all"

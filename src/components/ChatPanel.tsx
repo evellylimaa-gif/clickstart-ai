@@ -23,9 +23,10 @@ interface ChatPanelProps {
   agent: Agent;
   initialMessage?: string;
   onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
+  onPlanSaved?: () => void;
 }
 
-export function ChatPanel({ agent, initialMessage, onSaveConversation }: ChatPanelProps) {
+export function ChatPanel({ agent, initialMessage, onSaveConversation, onPlanSaved }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -141,7 +142,7 @@ export function ChatPanel({ agent, initialMessage, onSaveConversation }: ChatPan
                 </div>
               ) : (
                 <div className="w-full max-w-[95%]">
-                  <ResponseCards content={m.content} badge={agent.badge} onDeeper={send} />
+                  <ResponseCards content={m.content} badge={agent.badge} onDeeper={send} onPlanSaved={onPlanSaved} />
                 </div>
               )}
             </div>
