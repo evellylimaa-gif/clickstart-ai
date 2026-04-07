@@ -63,9 +63,9 @@ export function ChatPanel({ agent, initialMessage, onSaveConversation }: ChatPan
     setLoading(true);
     try {
       const reply = await sendMessage(next, agent.systemPrompt);
-      const updated = [...next, { role: "assistant", content: reply }];
+      const assistantMsg: Message = { role: "assistant", content: reply };
+      const updated = [...next, assistantMsg];
       setMessages(updated);
-      // Save conversation after each assistant reply
       const firstQ = updated.find((m) => m.role === "user")?.content || "";
       onSaveConversation?.({
         agentId: agent.id,
