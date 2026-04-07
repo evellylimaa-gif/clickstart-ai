@@ -50,7 +50,6 @@ const Index = () => {
     setInitialMessage(prefill);
     setView("agent");
   };
-  };
 
   const goHome = () => {
     setView("hero");
