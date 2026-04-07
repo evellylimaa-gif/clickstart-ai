@@ -22,11 +22,12 @@ function TypingIndicator() {
 interface ChatPanelProps {
   agent: Agent;
   initialMessage?: string;
+  extraChips?: string[];
   onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
   onPlanSaved?: () => void;
 }
 
-export function ChatPanel({ agent, initialMessage, onSaveConversation, onPlanSaved }: ChatPanelProps) {
+export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConversation, onPlanSaved }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -106,13 +107,13 @@ export function ChatPanel({ agent, initialMessage, onSaveConversation, onPlanSav
               </div>
             </div>
 
-            {/* Quick chips */}
+            {/* Quick chips — agent default + extra from sidebar */}
             <div className="mb-4">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
                 Perguntas rápidas
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                {agent.chips.map((chip) => (
+                {[...agent.chips, ...extraChips.filter(c => !agent.chips.includes(c))].map((chip) => (
                   <button
                     key={chip}
                     onClick={() => send(chip)}
