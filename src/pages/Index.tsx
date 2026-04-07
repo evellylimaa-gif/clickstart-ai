@@ -340,6 +340,7 @@ const Index = () => {
             agent={agents[activeIdx]}
             initialMessage={initialMessage}
             onSaveConversation={(data) => saveConversation(data)}
+            onPlanSaved={incrementPlans}
           />
         )}
       </main>
