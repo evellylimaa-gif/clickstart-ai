@@ -69,6 +69,10 @@ export default {
           DEFAULT: "hsl(var(--agent-amber))",
           foreground: "hsl(var(--agent-amber-foreground))",
         },
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          foreground: "hsl(var(--gold-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
