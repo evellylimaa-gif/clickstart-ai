@@ -103,7 +103,7 @@ const Index = () => {
 
   const toggleChipGroup = (idx: number) => {
     setOpenChipGroups((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  
+  };
 
   const handleHeroPath = (agentIdx: number, prefill: string) => {
     setActiveIdx(agentIdx);
