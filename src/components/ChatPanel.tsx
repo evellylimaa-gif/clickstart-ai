@@ -27,7 +27,7 @@ interface ChatPanelProps {
   onPlanSaved?: () => void;
 }
 
-export function ChatPanel({ agent, initialMessage, onSaveConversation, onPlanSaved }: ChatPanelProps) {
+export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConversation, onPlanSaved }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
