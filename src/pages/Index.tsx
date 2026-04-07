@@ -27,12 +27,14 @@ const sidebarLabels = [
 
 const Index = () => {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
-  const [view, setView] = useState<"hero" | "agent" | "settings">("hero");
+  const [view, setView] = useState<"hero" | "agent" | "settings" | "history">("hero");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string | undefined>();
   const [plansGenerated, setPlansGenerated] = useState(0);
+  const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
+  const { history, saveConversation, clearHistory } = useHistory();
 
   const handleSelect = (i: number) => {
     setActiveIdx(i);
