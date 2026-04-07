@@ -235,6 +235,45 @@ const Index = () => {
             </button>
           </nav>
 
+          {/* Consultas Rápidas */}
+          <div className="px-3 mt-2">
+            <div className="mx-2 mb-2">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--sidebar-foreground)/0.35)]">
+                ⚡ Consultas rápidas
+              </span>
+            </div>
+            <div className="space-y-0.5 max-h-[200px] overflow-y-auto scrollbar-thin">
+              {sidebarChips.map((group, gi) => {
+                const isOpen = openChipGroups[gi] ?? false;
+                return (
+                  <div key={gi}>
+                    <button
+                      onClick={() => toggleChipGroup(gi)}
+                      className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] font-medium text-[hsl(var(--sidebar-foreground)/0.6)] hover:text-[hsl(var(--sidebar-foreground)/0.9)] transition-colors"
+                    >
+                      {isOpen ? <ChevronDown className="w-3 h-3 shrink-0" /> : <ChevronRight className="w-3 h-3 shrink-0" />}
+                      <span>{group.emoji} {group.title}</span>
+                      <span className="ml-auto text-[10px] opacity-50">{group.chips.length}</span>
+                    </button>
+                    {isOpen && (
+                      <div className="pl-5 pr-2 pb-1 space-y-0.5">
+                        {group.chips.map((chip, ci) => (
+                          <button
+                            key={ci}
+                            onClick={() => handleChipClick(group.agentIdx, chip)}
+                            className="w-full text-left px-2.5 py-1.5 rounded-lg text-[11px] text-[hsl(var(--sidebar-foreground)/0.45)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-primary transition-colors truncate"
+                          >
+                            {chip}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Bottom */}
           <div className="mt-auto">
             <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
