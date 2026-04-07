@@ -25,6 +25,54 @@ const sidebarLabels = [
   { emoji: "🧠", label: "Criar Prompts que Vendem" },
 ];
 
+const sidebarChips: { emoji: string; title: string; agentIdx: number; chips: string[] }[] = [
+  {
+    emoji: "💰", title: "Agentes de IA", agentIdx: 0,
+    chips: [
+      "O que as empresas mais compram",
+      "Como precificar agentes",
+      "Primeiros clientes sem experiência",
+      "Melhores nichos no Brasil",
+      "Portfólio partindo do zero",
+      "Quanto cobrar por um agente de atendimento",
+      "Como vender agentes para dentistas e clínicas",
+      "Criar agente de onboarding para SaaS",
+      "Automação de follow-up com IA para vendas",
+      "Como apresentar um agente de IA numa reunião de vendas",
+    ],
+  },
+  {
+    emoji: "🌐", title: "Monetização Web", agentIdx: 1,
+    chips: [
+      "Renda rápida com IA",
+      "Vender templates e prompts",
+      "Micro-SaaS no-code",
+      "Melhores plataformas para vender",
+      "Curso de IA online",
+      "Como criar e vender pacote de automações no Make",
+      "Monetizar canal do YouTube com IA em 2026",
+      "Criar comunidade paga no Skool sobre IA",
+      "Vender serviço de criação de GPTs personalizados",
+      "Lançar infoproduto digital em 7 dias com IA",
+    ],
+  },
+  {
+    emoji: "🧠", title: "Engenheiro de Prompts", agentIdx: 2,
+    chips: [
+      "Prompt para agente de vendas B2B",
+      "Prompt para coach de finanças",
+      "Prompt para atendimento ao cliente",
+      "Prompt para criador de conteúdo",
+      "Revisão do meu prompt atual",
+      "Prompt para agente de qualificação de leads",
+      "System prompt para assistente jurídico",
+      "Criar prompt que gera copy de vendas automaticamente",
+      "Prompt para agente de suporte técnico nível 1",
+      "Como estruturar guardrails para agentes sensíveis",
+    ],
+  },
+];
+
 const Index = () => {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [view, setView] = useState<"hero" | "agent" | "settings" | "history">("hero");
@@ -34,6 +82,7 @@ const Index = () => {
     try { return parseInt(localStorage.getItem("evelly_plans_generated") || "0", 10); } catch { return 0; }
   });
   const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
+  const [openChipGroups, setOpenChipGroups] = useState<Record<number, boolean>>({});
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
@@ -43,6 +92,17 @@ const Index = () => {
     setView("agent");
     setInitialMessage(undefined);
     setSidebarOpen(false);
+  };
+
+  const handleChipClick = (agentIdx: number, chip: string) => {
+    setActiveIdx(agentIdx);
+    setInitialMessage(chip);
+    setView("agent");
+    setSidebarOpen(false);
+  };
+
+  const toggleChipGroup = (idx: number) => {
+    setOpenChipGroups((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   const handleHeroPath = (agentIdx: number, prefill: string) => {
@@ -174,6 +234,45 @@ const Index = () => {
               )}
             </button>
           </nav>
+
+          {/* Consultas Rápidas */}
+          <div className="px-3 mt-2">
+            <div className="mx-2 mb-2">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--sidebar-foreground)/0.35)]">
+                ⚡ Consultas rápidas
+              </span>
+            </div>
+            <div className="space-y-0.5 max-h-[200px] overflow-y-auto scrollbar-thin">
+              {sidebarChips.map((group, gi) => {
+                const isOpen = openChipGroups[gi] ?? false;
+                return (
+                  <div key={gi}>
+                    <button
+                      onClick={() => toggleChipGroup(gi)}
+                      className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] font-medium text-[hsl(var(--sidebar-foreground)/0.6)] hover:text-[hsl(var(--sidebar-foreground)/0.9)] transition-colors"
+                    >
+                      {isOpen ? <ChevronDown className="w-3 h-3 shrink-0" /> : <ChevronRight className="w-3 h-3 shrink-0" />}
+                      <span>{group.emoji} {group.title}</span>
+                      <span className="ml-auto text-[10px] opacity-50">{group.chips.length}</span>
+                    </button>
+                    {isOpen && (
+                      <div className="pl-5 pr-2 pb-1 space-y-0.5">
+                        {group.chips.map((chip, ci) => (
+                          <button
+                            key={ci}
+                            onClick={() => handleChipClick(group.agentIdx, chip)}
+                            className="w-full text-left px-2.5 py-1.5 rounded-lg text-[11px] text-[hsl(var(--sidebar-foreground)/0.45)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-primary transition-colors truncate"
+                          >
+                            {chip}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Bottom */}
           <div className="mt-auto">
