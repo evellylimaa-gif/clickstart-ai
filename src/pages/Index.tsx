@@ -51,6 +51,14 @@ const Index = () => {
     setView("agent");
   };
 
+  const incrementPlans = () => {
+    setPlansGenerated((p) => {
+      const next = p + 1;
+      localStorage.setItem("evelly_plans_generated", String(next));
+      return next;
+    });
+  };
+
   const goHome = () => {
     setView("hero");
     setActiveIdx(null);
