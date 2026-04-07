@@ -94,6 +94,17 @@ const Index = () => {
     setSidebarOpen(false);
   };
 
+  const handleChipClick = (agentIdx: number, chip: string) => {
+    setActiveIdx(agentIdx);
+    setInitialMessage(chip);
+    setView("agent");
+    setSidebarOpen(false);
+  };
+
+  const toggleChipGroup = (idx: number) => {
+    setOpenChipGroups((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  
+
   const handleHeroPath = (agentIdx: number, prefill: string) => {
     setActiveIdx(agentIdx);
     setInitialMessage(prefill);
