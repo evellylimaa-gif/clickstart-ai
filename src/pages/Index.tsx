@@ -422,6 +422,7 @@ const Index = () => {
             key={`${agents[activeIdx].id}-${initialMessage || ""}`}
             agent={agents[activeIdx]}
             initialMessage={initialMessage}
+            extraChips={sidebarChips[activeIdx]?.chips || []}
             onSaveConversation={(data) => saveConversation(data)}
             onPlanSaved={incrementPlans}
           />
