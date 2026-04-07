@@ -101,9 +101,7 @@ const Index = () => {
     setSidebarOpen(false);
   };
 
-  const toggleChipGroup = (idx: number) => {
-    setOpenChipGroups((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  };
+  // toggleChipGroup removed
 
   const handleHeroPath = (agentIdx: number, prefill: string) => {
     setActiveIdx(agentIdx);
