@@ -144,6 +144,26 @@ const Index = () => {
               </span>
               <span>📊 Meu Progresso</span>
             </button>
+
+            {/* Histórico nav item */}
+            <button
+              onClick={() => { setView("history"); setActiveIdx(null); setSidebarOpen(false); }}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
+                view === "history"
+                  ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] shadow-sm"
+                  : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
+              }`}
+            >
+              <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-primary/20">
+                <History className="w-4 h-4 text-primary" />
+              </span>
+              <span>📝 Histórico</span>
+              {history.length > 0 && (
+                <span className="ml-auto text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full font-bold">
+                  {history.length}
+                </span>
+              )}
+            </button>
           </nav>
 
           {/* Bottom */}
@@ -234,11 +254,83 @@ const Index = () => {
       <main className={`flex-1 flex flex-col min-h-screen ${isMobile ? "pt-[52px]" : ""}`}>
         {view === "hero" && <HeroScreen onSelectPath={handleHeroPath} />}
         {view === "settings" && <SettingsPage />}
+        {view === "history" && (
+          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-foreground">📝 Histórico de Conversas</h2>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {history.length === 0 ? "Nenhuma conversa salva ainda." : `${history.length} conversa${history.length > 1 ? "s" : ""} salva${history.length > 1 ? "s" : ""}`}
+                  </p>
+                </div>
+                {history.length > 0 && (
+                  <button
+                    onClick={clearHistory}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-destructive bg-destructive/10 hover:bg-destructive/20 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Limpar histórico
+                  </button>
+                )}
+              </div>
+              <div className="space-y-3">
+                {history.map((convo) => {
+                  const isExpanded = expandedConvoId === convo.id;
+                  const date = new Date(convo.date);
+                  const dateStr = date.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
+                  const timeStr = date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+                  return (
+                    <div key={convo.id} className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+                      <button
+                        onClick={() => setExpandedConvoId(isExpanded ? null : convo.id)}
+                        className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-muted/30 transition-colors"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                          <History className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                              {convo.agentBadge}
+                            </span>
+                            <span className="text-[11px] text-muted-foreground">{dateStr} · {timeStr}</span>
+                          </div>
+                          <p className="text-sm font-medium text-foreground truncate">{convo.firstQuestion}</p>
+                        </div>
+                        {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" /> : <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />}
+                      </button>
+                      {isExpanded && (
+                        <div className="border-t border-border px-5 py-4 space-y-3 bg-muted/10 max-h-[400px] overflow-y-auto">
+                          {convo.messages.map((m, i) => (
+                            <div key={i} className={`text-sm ${m.role === "user" ? "text-right" : "text-left"}`}>
+                              <span className={`inline-block max-w-[90%] px-4 py-2.5 rounded-2xl ${
+                                m.role === "user"
+                                  ? "bg-primary text-primary-foreground"
+                                  : "bg-card border border-border text-foreground"
+                              }`}>
+                                <span className="text-[10px] font-semibold uppercase tracking-wider block mb-1 opacity-60">
+                                  {m.role === "user" ? "Você" : convo.agentName}
+                                </span>
+                                <span className="whitespace-pre-wrap break-words">{m.content.slice(0, 500)}{m.content.length > 500 ? "..." : ""}</span>
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
         {view === "agent" && activeIdx !== null && (
           <ChatPanel
             key={`${agents[activeIdx].id}-${initialMessage || ""}`}
             agent={agents[activeIdx]}
             initialMessage={initialMessage}
+            onSaveConversation={(data) => saveConversation(data)}
           />
         )}
       </main>
