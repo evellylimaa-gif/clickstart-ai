@@ -22,9 +22,10 @@ function TypingIndicator() {
 interface ChatPanelProps {
   agent: Agent;
   initialMessage?: string;
+  onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
 }
 
-export function ChatPanel({ agent, initialMessage }: ChatPanelProps) {
+export function ChatPanel({ agent, initialMessage, onSaveConversation }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -62,7 +63,17 @@ export function ChatPanel({ agent, initialMessage }: ChatPanelProps) {
     setLoading(true);
     try {
       const reply = await sendMessage(next, agent.systemPrompt);
-      setMessages([...next, { role: "assistant", content: reply }]);
+      const assistantMsg: Message = { role: "assistant", content: reply };
+      const updated = [...next, assistantMsg];
+      setMessages(updated);
+      const firstQ = updated.find((m) => m.role === "user")?.content || "";
+      onSaveConversation?.({
+        agentId: agent.id,
+        agentName: agent.name,
+        agentBadge: agent.badge,
+        firstQuestion: firstQ,
+        messages: updated,
+      });
     } catch (e: any) {
       setMessages([
         ...next,
