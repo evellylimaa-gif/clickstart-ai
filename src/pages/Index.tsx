@@ -6,10 +6,12 @@ import { SettingsPage } from "@/pages/Settings";
 import {
   Bot, Briefcase, TrendingUp, Wand2, Menu, X,
   Sun, Moon, Zap, BarChart3, Settings, DollarSign,
+  History, Trash2, ChevronDown, ChevronRight,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
 import { Progress } from "@/components/ui/progress";
+import { useHistory, ConversationRecord } from "@/hooks/use-history";
 
 const iconMap: Record<string, React.ElementType> = {
   briefcase: Briefcase,
