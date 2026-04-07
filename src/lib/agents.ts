@@ -21,11 +21,11 @@ export const agents: Agent[] = [
 
 CONTEXTO DO USUÁRIO: Evelly é brasileira, trabalha remotamente como Analista de Fotos na Seazone. Tem experiência real em vendas consultivas presenciais (hotéis, eventos, hospedagem). Domina ferramentas de IA: Suno, Veo3, Midjourney, Leonardo AI, Claude, ChatGPT, Lovable, Make, Pipefy. Tem 3 canais no YouTube: Zion Groove Worship (680 inscritos, gospel americano), Semillitas de Fe (infantil espanhol, em crescimento), Sonara Soul (frequências, 105 inscritos). Quer monetizar online sem depender do emprego. Nunca vendeu nada online ainda. Tem API da Anthropic ativa e está construindo agentes de IA.`,
     chips: [
-      "O que as empresas mais compram",
-      "Como precificar agentes",
-      "Primeiros clientes sem experiência",
-      "Melhores nichos no Brasil",
-      "Portfólio partindo do zero",
+      "Tenho 2h por dia — o que faço?",
+      "Preciso de R$500 essa semana",
+      "Tenho R$0 para investir",
+      "Já sei usar IA — próximo nível",
+      "Quero viver de renda online",
     ],
   },
   {
@@ -37,11 +37,11 @@ CONTEXTO DO USUÁRIO: Evelly é brasileira, trabalha remotamente como Analista d
     icon: "trending-up",
     systemPrompt: `Você é um estrategista de monetização online especializado em criadores e empreendedores que usam IA como alavanca de negócio. Você conhece todas as formas de gerar renda na internet com IA em 2026: venda de prompts e templates (Gumroad, Etsy, PromptBase), micro-SaaS no-code (Bubble, Glide, Softr), cursos e workshops (Hotmart, Teachable, Kajabi), comunidades pagas (Skool, Discord), afiliados de ferramentas de IA, serviços de IA freelance, consultoria, infoprodutos digitais. Você sabe o que está em alta, o que está saturado, quais plataformas têm menor concorrência, e como validar uma ideia antes de investir tempo. Foco em resultados em 30 a 90 dias. Seja extremamente prático, cite exemplos reais, e dê o próximo passo acionável logo no início da resposta.`,
     chips: [
-      "Renda rápida com IA",
-      "Vender templates e prompts",
-      "Micro-SaaS no-code",
-      "Melhores plataformas para vender",
-      "Curso de IA online",
+      "Tenho 2h por dia — o que faço?",
+      "Preciso de R$500 essa semana",
+      "Tenho R$0 para investir",
+      "Já sei usar IA — próximo nível",
+      "Quero viver de renda online",
     ],
   },
   {
@@ -53,11 +53,11 @@ CONTEXTO DO USUÁRIO: Evelly é brasileira, trabalha remotamente como Analista d
     icon: "wand-2",
     systemPrompt: `Você é um engenheiro de prompts nível sênior/hard. Sua missão é criar system prompts excepcionais para agentes de IA especializados em qualquer nicho. Um prompt de nível hard deve conter 5 camadas: 1) IDENTIDADE: quem o agente é, expertise, postura epistêmica; 2) CONTEXTO OPERACIONAL: ambiente de uso, quem são os usuários; 3) PROCESSO DE RACIOCÍNIO: chain-of-thought, verificações, autocrítica; 4) CONTROLE DE OUTPUT: formato, estrutura, extensão, tom; 5) GUARDRAILS: o que nunca fazer, como lidar com ambiguidade. Você gera prompts completos, robustos, com mínimo 400 palavras. Sempre pergunta nicho, tipo de agente, público-alvo, tom e capacidades desejadas antes de gerar. Nunca gera prompt genérico.`,
     chips: [
-      "Prompt para agente de vendas B2B",
-      "Prompt para coach de finanças",
-      "Prompt para atendimento ao cliente",
-      "Prompt para criador de conteúdo",
-      "Revisão do meu prompt atual",
+      "Tenho 2h por dia — o que faço?",
+      "Preciso de R$500 essa semana",
+      "Tenho R$0 para investir",
+      "Já sei usar IA — próximo nível",
+      "Quero viver de renda online",
     ],
   },
 ];

@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Loader2, Sparkles, MessageSquare, ArrowRight } from "lucide-react";
+import { Send, Loader2, Sparkles, ArrowRight } from "lucide-react";
 import { Agent } from "@/lib/agents";
 import { Message, sendMessage } from "@/lib/anthropic";
-import ReactMarkdown from "react-markdown";
+import { ResponseCards } from "@/components/ResponseCards";
+import { ProgressTracker } from "@/components/ProgressTracker";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 function TypingIndicator() {
@@ -18,13 +19,19 @@ function TypingIndicator() {
   );
 }
 
-export function ChatPanel({ agent }: { agent: Agent }) {
+interface ChatPanelProps {
+  agent: Agent;
+  initialMessage?: string;
+}
+
+export function ChatPanel({ agent, initialMessage }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isMobile = useIsMobile();
+  const sentInitial = useRef(false);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,6 +44,14 @@ export function ChatPanel({ agent }: { agent: Agent }) {
       el.style.height = Math.min(el.scrollHeight, 160) + "px";
     }
   }, [input]);
+
+  // Send initial message from hero path
+  useEffect(() => {
+    if (initialMessage && !sentInitial.current) {
+      sentInitial.current = true;
+      send(initialMessage);
+    }
+  }, [initialMessage]);
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
@@ -57,6 +72,8 @@ export function ChatPanel({ agent }: { agent: Agent }) {
       setLoading(false);
     }
   };
+
+  const assistantCount = messages.filter((m) => m.role === "assistant").length;
 
   return (
     <div className={`flex flex-col flex-1 ${isMobile ? "pb-[72px]" : ""}`}>
@@ -87,9 +104,9 @@ export function ChatPanel({ agent }: { agent: Agent }) {
                   <button
                     key={chip}
                     onClick={() => send(chip)}
-                    className="flex items-center gap-2.5 text-left text-sm px-4 py-3 rounded-xl border border-primary/15 bg-card hover:bg-accent hover:border-primary/30 transition-all group shadow-sm"
+                    className="flex items-center gap-2.5 text-left text-sm px-4 py-3 rounded-xl border border-gold/20 bg-card hover:bg-gold/5 hover:border-gold/40 transition-all group shadow-sm"
                   >
-                    <ArrowRight className="w-3.5 h-3.5 text-primary group-hover:translate-x-0.5 transition-transform" />
+                    <ArrowRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-0.5 transition-transform" />
                     <span className="text-foreground">{chip}</span>
                   </button>
                 ))}
@@ -107,31 +124,30 @@ export function ChatPanel({ agent }: { agent: Agent }) {
               key={i}
               className={`animate-fade-in ${m.role === "user" ? "flex justify-end" : "flex justify-start"}`}
             >
-              <div
-                className={`rounded-2xl px-5 py-3.5 text-sm leading-relaxed max-w-[85%] ${
-                  m.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-card border border-border shadow-sm text-foreground"
-                }`}
-              >
-                {m.role === "assistant" && (
-                  <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border">
-                    <MessageSquare className="w-3.5 h-3.5 text-primary" />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      {agent.badge}
-                    </span>
-                  </div>
-                )}
-                <div className="prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:rounded">
-                  <ReactMarkdown>{m.content}</ReactMarkdown>
+              {m.role === "user" ? (
+                <div className="rounded-2xl px-5 py-3.5 text-sm leading-relaxed max-w-[85%] bg-primary text-primary-foreground">
+                  {m.content}
                 </div>
-              </div>
+              ) : (
+                <div className="w-full max-w-[95%]">
+                  <ResponseCards content={m.content} badge={agent.badge} onDeeper={send} />
+                </div>
+              )}
             </div>
           ))}
           {loading && <TypingIndicator />}
           <div ref={bottomRef} />
         </div>
       </div>
+
+      {/* Progress tracker */}
+      {assistantCount > 0 && (
+        <div className="px-4 sm:px-8 pb-2">
+          <div className="max-w-4xl mx-auto">
+            <ProgressTracker messageCount={messages.length} />
+          </div>
+        </div>
+      )}
 
       {/* Input */}
       <div className="px-4 sm:px-8 pb-4 pt-3 border-t border-border bg-background/80 backdrop-blur-sm">
@@ -153,14 +169,14 @@ export function ChatPanel({ agent }: { agent: Agent }) {
                   send(input);
                 }
               }}
-              placeholder="Digite sua pergunta..."
+              placeholder="O que você quer monetizar hoje?"
               rows={1}
               className="flex-1 bg-transparent text-foreground px-3 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none resize-none"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="rounded-xl px-4 py-2.5 bg-primary text-primary-foreground hover:opacity-90 transition-all disabled:opacity-30 shrink-0 shadow-sm"
+              className="rounded-xl px-4 py-2.5 bg-gold text-gold-foreground hover:opacity-90 transition-all disabled:opacity-30 shrink-0 shadow-sm"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>
