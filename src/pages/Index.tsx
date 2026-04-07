@@ -82,7 +82,7 @@ const Index = () => {
     try { return parseInt(localStorage.getItem("evelly_plans_generated") || "0", 10); } catch { return 0; }
   });
   const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
-  const [openChipGroups, setOpenChipGroups] = useState<Record<number, boolean>>({});
+  // openChipGroups removed — no longer collapsible
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
