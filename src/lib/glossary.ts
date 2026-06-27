@@ -18,6 +18,18 @@ export interface GlossaryTerm {
 
 export const glossary: GlossaryTerm[] = [
   {
+    term: "IA",
+    category: "IA",
+    meaning: "Tecnologia que ajuda a criar, analisar, organizar e automatizar tarefas usando linguagem, dados, imagem, áudio e código.",
+    purpose: "Pensar melhor, produzir mais rápido e executar com mais clareza, em vez de fazer tudo no braço.",
+    example: "Usar IA para gerar a estrutura de um ebook, escrever a página de venda, criar a thumbnail e organizar o plano de 7 dias.",
+    whenNeeded: "Agora. Quem está começando ganha tempo desde o primeiro dia usando IA como assistente.",
+    nextStep: "Escolha uma tarefa repetitiva da sua semana e teste resolver com IA hoje.",
+    whereSeen: "Em chatbots, geradores de imagem, automações, agentes especializados, editores de vídeo, ferramentas de pesquisa e dentro do ClickStart AI.",
+    commonMistake: "Achar que IA é um botão mágico. IA bem usada exige clareza do que você quer e contexto do seu caso.",
+    relatedTrail: "Serviços com IA",
+  },
+  {
     term: "SaaS",
     category: "SaaS",
     meaning: "Software como serviço. É um programa que você acessa pela internet pagando uma assinatura, em vez de comprar e instalar.",
