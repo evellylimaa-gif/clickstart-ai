@@ -416,7 +416,7 @@ const Index = () => {
             { id: "diagnostico", label: "Diagnóstico", icon: Compass },
             { id: "conversas", label: "Conversas", icon: MessageSquare },
             { id: "kits", label: "Kits", icon: Package },
-            { id: "configuracoes", label: "Ajustes", icon: Settings },
+            { id: "configuracoes", label: "Conta", icon: UserCircle },
           ] as { id: View; label: string; icon: React.ElementType }[]).map((item) => {
             const Icon = item.icon;
             const isActive = view === item.id || (item.id === "conversas" && view === "chat");
