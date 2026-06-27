@@ -22,12 +22,15 @@ function TypingIndicator() {
 interface ChatPanelProps {
   agent: Agent;
   initialMessage?: string;
+  hiddenContext?: string;
   extraChips?: string[];
   onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
   onPlanSaved?: (content: string) => void;
 }
 
-export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConversation, onPlanSaved }: ChatPanelProps) {
+const USER_FACING_ERROR = "Não consegui responder agora. Tente novamente em alguns segundos.";
+
+export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [], onSaveConversation, onPlanSaved }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,7 +67,10 @@ export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConver
     setInput("");
     setLoading(true);
     try {
-      const reply = await sendMessage(next, agent.systemPrompt);
+      const systemPrompt = hiddenContext
+        ? `${agent.systemPrompt}\n\nCONTEXTO INTERNO DA AÇÃO DO USUÁRIO (não repita como texto bruto; use apenas para orientar a resposta):\n${hiddenContext}`
+        : agent.systemPrompt;
+      const reply = await sendMessage(next, systemPrompt);
       const assistantMsg: Message = { role: "assistant", content: reply };
       const updated = [...next, assistantMsg];
       setMessages(updated);
@@ -81,7 +87,7 @@ export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConver
         ...next,
         {
           role: "assistant",
-          content: e?.message || "Não consegui responder agora. Tente novamente em alguns segundos.",
+          content: USER_FACING_ERROR,
         },
       ]);
     } finally {
