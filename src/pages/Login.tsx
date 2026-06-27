@@ -41,10 +41,10 @@ export default function Login() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold tracking-tight">
-              {mode === "signin" ? "Entrar no ClickStart AI" : "Criar sua conta"}
+              {mode === "signin" ? "Entrar no ClickStart AI" : "Criar sua conta de assinante"}
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Acesse seu painel de assinante e continue sua trilha.
+              Use esta área apenas se você já tem acesso ao ClickStart AI.
             </p>
           </div>
 
@@ -102,21 +102,27 @@ export default function Login() {
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
-              {mode === "signin" ? "Ainda não tem conta?" : "Já tem conta?"}{" "}
-              <button
-                type="button"
-                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                className="text-indigo-400 hover:text-indigo-300 font-semibold"
-              >
-                {mode === "signin" ? "Criar conta" : "Entrar"}
-              </button>
+              {mode === "signin" ? "Ainda não assinou?" : "Já é assinante?"}{" "}
+              {mode === "signin" ? (
+                <Link to="/checkout" className="text-indigo-400 hover:text-indigo-300 font-semibold">
+                  Ver o plano ClickStart Plus
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setMode("signin")}
+                  className="text-indigo-400 hover:text-indigo-300 font-semibold"
+                >
+                  Entrar
+                </button>
+              )}
             </p>
           </form>
 
           <div className="mt-5 flex items-start gap-2 text-xs text-muted-foreground px-1">
             <ShieldCheck className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
             <span>
-              Beta privado: o cadastro libera o painel de assinante para validação. O checkout oficial entra em breve.
+              Área do assinante. Depois de assinar, entre com seu e-mail para continuar sua trilha.
             </span>
           </div>
         </div>
