@@ -37,10 +37,10 @@ export function ConversasPicker({ onSelectAgent }: ConversasPickerProps) {
             Conversas com IA
           </p>
           <h1 style={{ fontFamily: "Sora, Inter, sans-serif" }} className="text-3xl sm:text-4xl font-extrabold text-foreground mb-2">
-            Escolha com qual agente conversar
+            Escolha um agente para começar
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl">
-            Cada agente é especialista em um tipo de jornada digital. Escolha o que mais combina com seu momento.
+            Cada agente é especialista em um caminho. Suas conversas salvas aparecerão organizadas por tema, para você continuar de onde parou.
           </p>
         </div>
 

@@ -128,7 +128,7 @@ export default function Landing() {
           </div>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Se você quer ganhar dinheiro na internet mas não sabe por onde começar, nunca vendeu nada online,
-            não tem audiência e se sente travado com tantos termos em inglês — o ClickStart AI é pra você.
+            não tem audiência e se sente travado com tantos termos em inglês, o ClickStart AI é pra você.
             Não importa se você nunca abriu um Canva ou já tentou várias coisas e desistiu.
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function Landing() {
             <p className="mt-5 text-muted-foreground text-lg leading-relaxed">
               Afiliados, TikTok Shop, ebooks, SaaS, YouTube, templates, prompts, tráfego, funil, copy…
               cada vídeo fala uma coisa diferente e cada guru jura ter o método definitivo.
-              Você termina o dia mais confuso do que começou — e ainda sem faturar nada.
+              Você termina o dia mais confuso do que começou, e ainda sem faturar nada.
             </p>
           </div>
 
@@ -196,7 +196,7 @@ export default function Landing() {
               <Map className="w-4 h-4" /> O QUE ESTÁ INCLUSO
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
-              Tudo o que você precisa para começar — em um só lugar.
+              Tudo o que você precisa para começar, em um só lugar.
             </h2>
           </div>
 

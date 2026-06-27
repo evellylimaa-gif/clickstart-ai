@@ -2,14 +2,18 @@ import { useState } from "react";
 import { agents } from "@/lib/agents";
 import { ChatPanel } from "@/components/ChatPanel";
 import { Dashboard } from "@/components/Dashboard";
-import { PlaceholderView } from "@/components/PlaceholderView";
 import { ConversasPicker } from "@/components/ConversasPicker";
 import { TrilhasView } from "@/components/TrilhasView";
+import { GlossarioView } from "@/components/GlossarioView";
+import { KitsView } from "@/components/KitsView";
+import { PlanosView } from "@/components/PlanosView";
+import { DiagnosticoView } from "@/components/DiagnosticoView";
+import { MinhaContaView } from "@/components/MinhaContaView";
 import type { Trail } from "@/lib/trails";
-import { SettingsPage } from "@/pages/Settings";
+import type { Kit } from "@/lib/kits";
 import {
   Compass, Map as MapIcon, MessageSquare, BookOpen, Package, ClipboardList,
-  LayoutDashboard, Settings, Menu, X, Sun, Moon, ShieldCheck, Sparkles,
+  LayoutDashboard, UserCircle, Menu, X, Sun, Moon, ShieldCheck, Sparkles,
   ArrowLeft, History, Trash2, ChevronDown, ChevronRight,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -43,7 +47,7 @@ const navItems: NavItem[] = [
   { id: "glossario", label: "Glossário", icon: BookOpen },
   { id: "kits", label: "Kits Digitais", icon: Package },
   { id: "planos", label: "Planos Salvos", icon: ClipboardList },
-  { id: "configuracoes", label: "Configurações", icon: Settings },
+  { id: "configuracoes", label: "Minha conta", icon: UserCircle },
 ];
 
 const heroFont = { fontFamily: "Sora, Inter, sans-serif" };
@@ -218,12 +222,12 @@ const Index = () => {
         );
       case "diagnostico":
         return (
-          <PlaceholderView
-            title="Diagnóstico Digital"
-            description="Em 2 minutos, descobrimos seu perfil digital (criador, vendedor, freelancer, automatizador) e indicamos o caminho ideal pra começar."
-            icon={Compass}
-            accent="purple"
-            onBack={() => goView("dashboard")}
+          <DiagnosticoView
+            onStart={() => {
+              const idx = agents.findIndex((a) => a.id === "diagnostico");
+              if (idx >= 0) openAgent(idx, "Quero fazer o diagnóstico digital. Pode começar fazendo a primeira pergunta?");
+              else goView("conversas");
+            }}
           />
         );
       case "trilhas":
@@ -237,37 +241,26 @@ const Index = () => {
           />
         );
       case "glossario":
-        return (
-          <PlaceholderView
-            title="Glossário"
-            description="Funil, lead, copy, CTA, SaaS, dropship... Traduzimos cada termo do digital em português claro, com exemplos do dia a dia."
-            icon={BookOpen}
-            accent="teal"
-            onBack={() => goView("dashboard")}
-          />
-        );
+        return <GlossarioView />;
       case "kits":
         return (
-          <PlaceholderView
-            title="Kits Digitais"
-            description="Templates, prompts, planilhas e automações prontas para usar hoje. Você baixa, adapta e já está pronto pra publicar."
-            icon={Package}
-            accent="amber"
-            onBack={() => goView("dashboard")}
+          <KitsView
+            onGeneratePlan={(kit: Kit) => {
+              const idx = kit.agentId ? agents.findIndex((a) => a.id === kit.agentId) : -1;
+              const prompt = `Quero usar o kit "${kit.title}". Gere um plano de ação prático com base nesse checklist: ${kit.checklist.join("; ")}.`;
+              if (idx >= 0) openAgent(idx, prompt);
+              else {
+                const di = agents.findIndex((a) => a.id === "plano-acao");
+                if (di >= 0) openAgent(di, prompt);
+                else goView("conversas");
+              }
+            }}
           />
         );
       case "planos":
-        return (
-          <PlaceholderView
-            title="Planos Salvos"
-            description="Todos os planos de ação que você gerou ficam aqui — organizados por data, pra você acompanhar sua jornada sem perder nada."
-            icon={ClipboardList}
-            accent="pink"
-            onBack={() => goView("dashboard")}
-          />
-        );
+        return <PlanosView onCreatePlan={() => goView("conversas")} />;
       case "configuracoes":
-        return <SettingsPage />;
+        return <MinhaContaView user={user} />;
       case "conversas":
         return <ConversasPicker onSelectAgent={(idx) => openAgent(idx)} />;
       case "chat":
@@ -423,7 +416,7 @@ const Index = () => {
             { id: "diagnostico", label: "Diagnóstico", icon: Compass },
             { id: "conversas", label: "Conversas", icon: MessageSquare },
             { id: "kits", label: "Kits", icon: Package },
-            { id: "configuracoes", label: "Ajustes", icon: Settings },
+            { id: "configuracoes", label: "Conta", icon: UserCircle },
           ] as { id: View; label: string; icon: React.ElementType }[]).map((item) => {
             const Icon = item.icon;
             const isActive = view === item.id || (item.id === "conversas" && view === "chat");
