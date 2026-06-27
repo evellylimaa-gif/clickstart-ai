@@ -68,6 +68,7 @@ const Index = () => {
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
   const user = useUser();
+  const { completed: hasCompletedDiagnosis, markCompleted: markDiagnosisDone } = useDiagnosis();
 
   const goView = (v: View) => {
     setView(v);
@@ -82,6 +83,10 @@ const Index = () => {
     setInitialMessage(prefill);
     setView("chat");
     setSidebarOpen(false);
+    const agent = agents[idx];
+    if (agent && (agent.id === "diagnostico-digital" || agent.id === "diagnostico")) {
+      markDiagnosisDone();
+    }
   };
 
   const { savePlan } = useSavedPlans();
