@@ -88,22 +88,22 @@ const glossaryPreviews = [
 const painCards = [
   {
     icon: Compass,
-    title: "Não sei por onde começar",
-    text: "A pessoa quer entrar no digital, mas fica perdida entre afiliados, TikTok Shop, ebooks, SaaS, YouTube e mil promessas diferentes.",
+    title: "Eu não sei o que vender.",
+    text: "Para quem está perdida entre produtos digitais, afiliados, TikTok Shop, SaaS, serviços com IA e mil promessas diferentes.",
     accent: "accent-l-purple",
     iconColor: "text-purple-300",
   },
   {
     icon: Heart,
-    title: "Comprei conteúdo, mas continuo travada",
+    title: "Eu já vi muito conteúdo, mas continuo travada.",
     text: "O problema nem sempre é falta de informação. Muitas vezes é falta de direção, sequência e próximo passo.",
     accent: "accent-l-pink",
     iconColor: "text-pink-300",
   },
   {
-    icon: Languages,
-    title: "Os termos parecem outro idioma",
-    text: "Funil, copy, SaaS, MVP, lead, CTA, tráfego. O ClickStart traduz esses termos e mostra quando eles realmente importam.",
+    icon: ShieldCheck,
+    title: "Eu quero começar, mas sem cair em promessa falsa.",
+    text: "O ClickStart AI organiza os caminhos, traduz os termos difíceis e mostra uma ação prática para começar com clareza.",
     accent: "accent-l-teal",
     iconColor: "text-teal-300",
   },
@@ -111,8 +111,8 @@ const painCards = [
 
 const validationCards = [
   { intent: "Quero começar com produtos digitais, mas não sei o que vender.", tag: "Produtos digitais", color: "text-pink-300", accent: "accent-l-pink" },
-  { intent: "Tenho interesse em TikTok Shop, mas não sei se é o melhor caminho para mim.", tag: "TikTok Shop", color: "text-cyan-300", accent: "accent-l-cyan" },
-  { intent: "Quero algo mais inteligente, como SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
+  { intent: "Quero oferecer serviços com IA, mas não sei como empacotar e cobrar.", tag: "Serviços com IA", color: "text-teal-300", accent: "accent-l-teal" },
+  { intent: "Quero algo mais inteligente, como micro-SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
 ];
 
 const faqQA: { q: string; a: string }[] = [
