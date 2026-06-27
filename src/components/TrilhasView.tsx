@@ -19,29 +19,41 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const colorMap: Record<Trail["color"], { grad: string; ring: string; chip: string; text: string }> = {
+  indigo: {
+    grad: "from-indigo-500 to-purple-600",
+    ring: "hover:border-indigo-400/50",
+    chip: "bg-indigo-500/15 text-indigo-300",
+    text: "text-indigo-300",
+  },
   purple: {
-    grad: "from-brand-purple to-brand-pink",
-    ring: "hover:border-brand-purple/50",
-    chip: "bg-brand-purple/15 text-brand-purple",
-    text: "text-brand-purple",
+    grad: "from-purple-500 to-indigo-600",
+    ring: "hover:border-purple-400/50",
+    chip: "bg-purple-500/15 text-purple-300",
+    text: "text-purple-300",
   },
   teal: {
-    grad: "from-brand-teal to-brand-purple",
-    ring: "hover:border-brand-teal/50",
-    chip: "bg-brand-teal/15 text-brand-teal",
-    text: "text-brand-teal",
+    grad: "from-teal-500 to-cyan-600",
+    ring: "hover:border-teal-400/50",
+    chip: "bg-teal-500/15 text-teal-300",
+    text: "text-teal-300",
   },
-  pink: {
-    grad: "from-brand-pink to-brand-amber",
-    ring: "hover:border-brand-pink/50",
-    chip: "bg-brand-pink/15 text-brand-pink",
-    text: "text-brand-pink",
+  cyan: {
+    grad: "from-cyan-500 to-indigo-600",
+    ring: "hover:border-cyan-400/50",
+    chip: "bg-cyan-500/15 text-cyan-300",
+    text: "text-cyan-300",
   },
   amber: {
-    grad: "from-brand-amber to-brand-pink",
-    ring: "hover:border-brand-amber/50",
-    chip: "bg-brand-amber/15 text-brand-amber",
-    text: "text-brand-amber",
+    grad: "from-amber-500 to-orange-600",
+    ring: "hover:border-amber-400/50",
+    chip: "bg-amber-500/15 text-amber-300",
+    text: "text-amber-300",
+  },
+  pink: {
+    grad: "from-pink-500 to-purple-600",
+    ring: "hover:border-pink-400/50",
+    chip: "bg-pink-500/15 text-pink-300",
+    text: "text-pink-300",
   },
 };
 
