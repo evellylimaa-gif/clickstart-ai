@@ -194,3 +194,25 @@ COMO RESPONDER:
     ],
   },
 ];
+
+/**
+ * Display order used across Conversas, sidebar pickers and dashboard cards.
+ * Keep this in sync with the trails order in `src/lib/trails.ts`.
+ */
+const DISPLAY_ORDER = [
+  "produtos-digitais",
+  "servicos-ia",
+  "micro-saas",
+  "tiktok-shop",
+  "youtube-faceless",
+  "diagnostico-digital", // "Revisar meu caminho"
+  "plano-de-acao",
+  "glossario-digital",
+  "assistente-compra",
+];
+
+export const orderedAgents: Agent[] = DISPLAY_ORDER
+  .map((id) => agents.find((a) => a.id === id))
+  .filter((a): a is Agent => Boolean(a))
+  .concat(agents.filter((a) => !DISPLAY_ORDER.includes(a.id)));
+
