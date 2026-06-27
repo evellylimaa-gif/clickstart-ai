@@ -253,7 +253,7 @@ const Index = () => {
         return (
           <DiagnosticoView
             onStart={() => {
-              const idx = agents.findIndex((a) => a.id === "diagnostico");
+              const idx = agents.findIndex((a) => a.id === "diagnostico-digital" || a.id === "diagnostico");
               if (idx >= 0) openAgent(idx, "Quero fazer o diagnóstico digital. Pode começar fazendo a primeira pergunta?");
               else goView("conversas");
             }}
