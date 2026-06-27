@@ -509,13 +509,13 @@ export default function Landing() {
       {/* Price */}
       <section id="preco" className="max-w-6xl mx-auto px-5 py-12 relative">
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
-          <SectionLabel color="text-amber-300">PREÇO FUNDADOR</SectionLabel>
+          <SectionLabel color="text-amber-300">PREÇO DE LANÇAMENTO</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
-            Entre agora com preço fundador.
+            Entre agora com preço de lançamento.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quem entrar no início mantém <span className="text-foreground font-semibold">R$39,90/mês</span> enquanto a assinatura estiver ativa.
-            Depois do lançamento, novos assinantes poderão pagar <span className="text-foreground font-semibold">R$79,90/mês</span>.
+            Quem entrar hoje paga <span className="text-foreground font-semibold">R$39,90/mês</span>.
+            Depois do lançamento, o valor para novas assinantes será <span className="text-foreground font-semibold">R$79,90/mês</span>.
           </p>
         </div>
 
@@ -529,7 +529,7 @@ export default function Landing() {
                   <h3 className="text-2xl font-bold mt-1">Plano único</h3>
                 </div>
                 <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
-                  <Zap className="w-3 h-3" /> FUNDADOR
+                  <Zap className="w-3 h-3" /> LANÇAMENTO
                 </span>
               </div>
 
@@ -538,7 +538,7 @@ export default function Landing() {
                 <span className="text-muted-foreground">/mês</span>
               </div>
               <p className="mt-1.5 text-xs text-muted-foreground">
-                <span className="line-through opacity-60">R$79,90</span> · preço congelado enquanto ativo
+                <span className="line-through opacity-60">R$79,90</span> · valor pós-lançamento para novas assinantes
               </p>
 
               <ul className="mt-7 space-y-2.5">
@@ -554,7 +554,7 @@ export default function Landing() {
 
               <Link to="/checkout" className="block mt-8">
                 <Button className="w-full h-12 btn-gradient text-white border-0 text-[15px]">
-                  Quero ser fundadora por R$39,90
+                  Começar agora por R$39,90/mês
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -563,7 +563,7 @@ export default function Landing() {
                 <ShieldCheck className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
                 <span>
                   Você tem <span className="text-foreground font-semibold">7 dias</span> para testar.
-                  Se não fizer sentido para você, pede reembolso. Sem burocracia.
+                  Se não fizer sentido para você, pode pedir reembolso.
                 </span>
               </div>
             </div>
