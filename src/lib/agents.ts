@@ -24,7 +24,7 @@ Evite blocos longos de texto corrido. Sempre que possível, mantenha a resposta 
 // Sequence: Produtos Digitais → Serviços com IA → Micro-SaaS → TikTok Shop →
 // YouTube sem aparecer → Afiliados → Templates e Prompts → Revisar meu caminho →
 // Plano de Ação → Glossário.
-export const agents: Agent[
+export const agents: Agent[] = [
   {
     id: "produtos-digitais",
     name: "Produtos Digitais com IA",
