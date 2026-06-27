@@ -14,7 +14,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   if (user.isAuthenticated) {
-    return <Navigate to={user.isAdmin ? "/admin" : "/app"} replace />;
+    // Always send authenticated users to the subscriber app.
+    // Admins can intentionally open /admin from inside Minha Conta.
+    return <Navigate to="/app" replace />;
   }
 
   const [error, setError] = useState<string | null>(null);

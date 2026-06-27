@@ -103,7 +103,7 @@ const Index = () => {
 
   // Sidebar (desktop & mobile drawer share markup)
   const Sidebar = (
-    <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 h-screen border-r border-[hsl(var(--sidebar-border))]">
+    <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 h-screen sticky top-0 border-r border-[hsl(var(--sidebar-border))]">
       {/* Brand */}
       <button onClick={() => goView("dashboard")} className="px-5 pt-6 pb-5 text-left hover:opacity-90 transition-opacity">
         <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ const Index = () => {
       <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 pt-4 pb-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 pt-4 pb-6 space-y-1 min-h-0">
         <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-[hsl(var(--sidebar-foreground)/0.4)]">
           Menu
         </p>
@@ -218,7 +218,7 @@ const Index = () => {
               className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 text-white text-[12px] font-semibold shadow-lg hover:scale-[1.02] transition-all"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              Assinar por R$39,90/mês
+              Ver planos
             </a>
           )}
         </div>

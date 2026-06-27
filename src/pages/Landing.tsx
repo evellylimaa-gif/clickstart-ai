@@ -122,11 +122,60 @@ const faqQA: { q: string; a: string }[] = [
   { q: "Preciso aparecer em vídeo?", a: "Não. Existem trilhas específicas para quem não quer aparecer, como produtos digitais, YouTube sem aparecer e TikTok Shop sem rosto." },
   { q: "Preciso saber inglês?", a: "Não. Tudo é em português, e o glossário traduz os termos técnicos que aparecem no digital." },
   { q: "Qual a diferença para o ChatGPT?", a: "O ChatGPT é genérico. O ClickStart tem agentes especializados em monetização, trilhas guiadas, glossário e plano de ação salvo no seu painel." },
-  { q: "O que recebo por R$39,90?", a: "Acesso a todos os agentes, trilhas, diagnóstico, glossário, kits digitais, histórico de conversas e planos salvos." },
+  { q: "Quais são os planos?", a: "São três: Essencial (R$39,90/mês), Plus (R$79,90/mês, recomendado) e Pro (R$149,90/mês). Você pode trocar de plano quando quiser." },
+  { q: "Existe limite de uso?", a: "O ClickStart AI inclui uso mensal suficiente para seguir sua trilha, tirar dúvidas e gerar planos. Para manter a qualidade da plataforma para todos, usamos uma política de uso justo." },
   { q: "Como funciona a garantia de 7 dias?", a: "Você testa por 7 dias. Se não fizer sentido para você, pede reembolso. Sem burocracia." },
   { q: "Posso cancelar quando quiser?", a: "Sim. A assinatura é mensal e o cancelamento é a qualquer momento, direto na sua conta." },
-  { q: "Serve para quem começa do zero?", a: "Sim. O ponto de partida do ClickStart é justamente quem nunca vendeu nada online." },
   { q: "O que acontece depois que eu assino?", a: "Você cria sua conta, faz o diagnóstico, recebe sua trilha recomendada e começa a conversar com os agentes." },
+];
+
+const plans = [
+  {
+    id: "essencial",
+    name: "ClickStart Essencial",
+    price: "R$39,90",
+    tagline: "Para começar com direção.",
+    recommended: false,
+    features: [
+      "Diagnóstico digital",
+      "Trilhas guiadas",
+      "Glossário inteligente",
+      "Kits digitais",
+      "Planos salvos",
+      "Uso justo básico de IA",
+    ],
+  },
+  {
+    id: "plus",
+    name: "ClickStart Plus",
+    price: "R$79,90",
+    tagline: "Para quem quer executar com mais apoio.",
+    recommended: true,
+    features: [
+      "Tudo do Essencial",
+      "Mais conversas com agentes",
+      "Plano de 7 dias",
+      "Roadmap de 30 dias",
+      "Revisão de rota",
+      "Respostas mais completas",
+      "Mais planos salvos",
+    ],
+  },
+  {
+    id: "pro",
+    name: "ClickStart Pro",
+    price: "R$149,90",
+    tagline: "Para uso intenso e análise mais profunda.",
+    recommended: false,
+    features: [
+      "Tudo do Plus",
+      "Mais análises estratégicas",
+      "Revisão de ofertas",
+      "Análise de nicho",
+      "Planos avançados",
+      "Uso ampliado de IA",
+    ],
+  },
 ];
 
 const SectionLabel = ({ color, children }: { color: string; children: React.ReactNode }) => (
@@ -215,7 +264,7 @@ export default function Landing() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Começar agora por R$39,90/mês
+                Começar agora
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
@@ -505,70 +554,85 @@ export default function Landing() {
 
       <Divider />
 
-      {/* Price */}
+      {/* Price — três planos */}
       <section id="preco" className="max-w-6xl mx-auto px-5 py-12 relative">
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
-          <SectionLabel color="text-amber-300">PREÇO DE LANÇAMENTO</SectionLabel>
+          <SectionLabel color="text-amber-300">PLANOS</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
-            Entre agora com preço de lançamento.
+            Escolha o plano certo para começar.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quem entrar agora paga <span className="text-foreground font-semibold">R$39,90/mês</span> enquanto a assinatura estiver ativa.
-            Depois do lançamento, o valor para novos assinantes será <span className="text-foreground font-semibold">R$79,90/mês</span>.
+            Três opções honestas. Comece pelo básico ou vá direto ao plano com mais apoio.
+            Todos incluem <span className="text-foreground font-semibold">uso justo mensal de IA</span> e garantia de 7 dias.
           </p>
         </div>
 
-        <div className="max-w-md mx-auto relative">
-          <div className="pricing-bloom" />
-          <div className="rotating-border">
-            <div className="rounded-[calc(1.5rem-1.5px)] p-8 relative z-10">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-indigo-300 font-bold">ClickStart Plus</p>
-                  <h3 className="text-2xl font-bold mt-1">Plano único</h3>
-                </div>
-                <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
-                  <Zap className="w-3 h-3" /> LANÇAMENTO
-                </span>
-              </div>
-
-              <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-[3.25rem] font-extrabold leading-none bg-gradient-to-br from-white to-white/70 bg-clip-text text-transparent" style={{ fontWeight: 800 }}>R$39,90</span>
-                <span className="text-muted-foreground">/mês</span>
-              </div>
-              <p className="mt-1.5 text-xs text-muted-foreground">
-                <span className="line-through opacity-60">R$79,90</span> · valor pós-lançamento para novos assinantes
-              </p>
-
-              <ul className="mt-7 space-y-2.5">
-                {planBenefits.map((b) => (
-                  <li key={b} className="flex items-center gap-3 text-sm">
-                    <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-300 grid place-items-center shrink-0">
-                      <Check className="w-3 h-3" />
+        <div className="grid md:grid-cols-3 gap-5 items-stretch">
+          {plans.map((p) => {
+            const recommended = p.recommended;
+            const Card = (
+              <div className={`h-full rounded-[calc(1.5rem-1.5px)] p-7 relative z-10 flex flex-col ${recommended ? "" : "glass-card"}`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className={`text-[10px] uppercase tracking-widest font-bold ${recommended ? "text-indigo-300" : "text-muted-foreground"}`}>
+                      {p.name}
+                    </p>
+                    <h3 className="text-xl font-bold mt-1">{p.tagline}</h3>
+                  </div>
+                  {recommended && (
+                    <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
+                      <Zap className="w-3 h-3" /> RECOMENDADO
                     </span>
-                    {b}
-                  </li>
-                ))}
-              </ul>
+                  )}
+                </div>
 
-              <Link to="/checkout" className="block mt-8">
-                <Button className="w-full h-12 btn-gradient text-white border-0 text-[15px]">
-                  Começar agora por R$39,90/mês
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              </Link>
+                <div className="mt-5 flex items-baseline gap-2">
+                  <span className="text-[2.5rem] font-extrabold leading-none bg-gradient-to-br from-white to-white/70 bg-clip-text text-transparent" style={{ fontWeight: 800 }}>
+                    {p.price}
+                  </span>
+                  <span className="text-muted-foreground text-sm">/mês</span>
+                </div>
 
-              <div className="mt-5 flex items-start gap-2 text-xs text-muted-foreground">
-                <ShieldCheck className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
-                <span>
-                  Você tem <span className="text-foreground font-semibold">7 dias</span> para testar.
-                  Se não fizer sentido para você, pode pedir reembolso.
-                </span>
+                <ul className="mt-6 space-y-2 flex-1">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm">
+                      <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-300 grid place-items-center shrink-0 mt-0.5">
+                        <Check className="w-3 h-3" />
+                      </span>
+                      <span className="text-foreground/90">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link to={`/checkout?plan=${p.id}`} className="block mt-7">
+                  <Button className={`w-full h-11 text-[14px] ${recommended ? "btn-gradient text-white border-0" : "bg-white/5 text-foreground border border-white/10 hover:bg-white/10"}`}>
+                    Começar agora
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+
+                <div className="mt-4 flex items-center gap-2 text-[11px] text-muted-foreground">
+                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                  7 dias de garantia · cancela quando quiser
+                </div>
               </div>
-            </div>
-          </div>
+            );
+            return recommended ? (
+              <div key={p.id} className="relative">
+                <div className="pricing-bloom" />
+                <div className="rotating-border h-full">{Card}</div>
+              </div>
+            ) : (
+              <div key={p.id} className="h-full">{Card}</div>
+            );
+          })}
         </div>
+
+        <p className="text-center mt-7 text-xs text-muted-foreground max-w-2xl mx-auto">
+          Todos os planos seguem nossa <span className="text-foreground font-semibold">política de uso justo</span>: uso mensal inteligente para manter a qualidade da plataforma para todos.
+        </p>
       </section>
+
 
       <Divider />
 
@@ -587,7 +651,7 @@ export default function Landing() {
               </p>
               <Link to="/checkout" className="inline-block mt-6">
                 <Button className="btn-gradient text-white border-0">
-                  Começar agora por R$39,90/mês
+                  Começar agora
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -637,12 +701,12 @@ export default function Landing() {
             Comece com <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
           </h2>
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-[15px]">
-            O próximo passo não precisa ser mais um curso solto. Entre hoje por R$39,90/mês e construa do seu jeito.
+            O próximo passo não precisa ser mais um curso solto. Escolha o plano que faz sentido para você e comece com clareza.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Começar agora por R$39,90/mês
+                Começar agora
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
@@ -689,7 +753,7 @@ export default function Landing() {
             <div className="mt-6 flex flex-col gap-2">
               <Link to="/checkout">
                 <Button className="w-full h-11 btn-gradient text-white border-0">
-                  Assinar por R$39,90/mês
+                  Ver planos
                 </Button>
               </Link>
               <button
