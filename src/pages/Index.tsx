@@ -47,7 +47,7 @@ const navItems: NavItem[] = [
   { id: "glossario", label: "Glossário", icon: BookOpen },
   { id: "kits", label: "Kits Digitais", icon: Package },
   { id: "planos", label: "Planos Salvos", icon: ClipboardList },
-  { id: "configuracoes", label: "Configurações", icon: Settings },
+  { id: "configuracoes", label: "Minha conta", icon: UserCircle },
 ];
 
 const heroFont = { fontFamily: "Sora, Inter, sans-serif" };
