@@ -218,7 +218,7 @@ const Index = () => {
               className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 text-white text-[12px] font-semibold shadow-lg hover:scale-[1.02] transition-all"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              Assinar por R$39,90/mês
+              Ver planos
             </a>
           )}
         </div>

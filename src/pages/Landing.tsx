@@ -264,7 +264,7 @@ export default function Landing() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Começar agora por R$39,90/mês
+                Começar agora
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
@@ -651,7 +651,7 @@ export default function Landing() {
               </p>
               <Link to="/checkout" className="inline-block mt-6">
                 <Button className="btn-gradient text-white border-0">
-                  Começar agora por R$39,90/mês
+                  Começar agora
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -701,12 +701,12 @@ export default function Landing() {
             Comece com <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
           </h2>
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-[15px]">
-            O próximo passo não precisa ser mais um curso solto. Entre hoje por R$39,90/mês e construa do seu jeito.
+            O próximo passo não precisa ser mais um curso solto. Escolha o plano que faz sentido para você e comece com clareza.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Começar agora por R$39,90/mês
+                Começar agora
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
@@ -753,7 +753,7 @@ export default function Landing() {
             <div className="mt-6 flex flex-col gap-2">
               <Link to="/checkout">
                 <Button className="w-full h-11 btn-gradient text-white border-0">
-                  Assinar por R$39,90/mês
+                  Ver planos
                 </Button>
               </Link>
               <button
