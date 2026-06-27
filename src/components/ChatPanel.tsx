@@ -5,6 +5,10 @@ import { Message, sendMessage } from "@/lib/anthropic";
 import { ResponseCards } from "@/components/ResponseCards";
 import { ProgressTracker } from "@/components/ProgressTracker";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useUser } from "@/hooks/use-user";
+import { useUsage } from "@/hooks/use-usage";
+import { UsageBar, UpgradeDialog } from "@/components/UsageBar";
+
 
 function TypingIndicator() {
   return (
