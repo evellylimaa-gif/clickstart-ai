@@ -8,6 +8,12 @@ export interface GlossaryTerm {
   example: string;
   whenNeeded: string;
   nextStep: string;
+  /** Onde isso aparece no digital, no dia a dia do iniciante. */
+  whereSeen?: string;
+  /** Erro mais comum de quem está começando com esse conceito. */
+  commonMistake?: string;
+  /** Trilha relacionada do ClickStart AI (label visível). */
+  relatedTrail?: string;
 }
 
 export const glossary: GlossaryTerm[] = [
