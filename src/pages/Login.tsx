@@ -17,12 +17,26 @@ export default function Login() {
     return <Navigate to={user.isAdmin ? "/admin" : "/app"} replace />;
   }
 
+  const [error, setError] = useState<string | null>(null);
+
+  // MVP-only temporary credential gate. Replace with Supabase auth once integrated.
+  const TEMP_EMAIL = "admin@clickstart.ai";
+  const TEMP_PASSWORD = "clickstart2026";
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    loginAs({ email, displayName: name || undefined });
-    const isAdmin = email.trim().toLowerCase() === "admin@clickstart.ai";
-    navigate(isAdmin ? "/admin" : "/app", { replace: true });
+    setError(null);
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail) return;
+
+    // Temporary MVP gate: only the seeded owner account unlocks the app.
+    if (normalizedEmail !== TEMP_EMAIL || password !== TEMP_PASSWORD) {
+      setError("Credenciais inválidas. Verifique seu e-mail e senha.");
+      return;
+    }
+
+    loginAs({ email: normalizedEmail, displayName: name || "Admin" });
+    navigate("/app", { replace: true });
   };
 
   return (
