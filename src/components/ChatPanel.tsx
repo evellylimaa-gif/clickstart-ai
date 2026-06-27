@@ -69,11 +69,17 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
+    if (user.isAuthenticated && !user.isAdmin && !usage.canSend) {
+      setShowUpgrade(true);
+      return;
+    }
     const userMsg: Message = { role: "user", content: text.trim() };
     const next = [...messages, userMsg];
     setMessages(next);
     setInput("");
     setLoading(true);
+    if (user.isAuthenticated && !user.isAdmin) usage.increment();
+
     try {
       const systemPrompt = hiddenContext
         ? `${agent.systemPrompt}\n\nCONTEXTO INTERNO DA AÇÃO DO USUÁRIO (não repita como texto bruto; use apenas para orientar a resposta):\n${hiddenContext}`
