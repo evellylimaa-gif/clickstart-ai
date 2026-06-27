@@ -337,7 +337,8 @@
 
   /* Soft section bg variation */
   .section-tone {
-    background: radial-gradient(ellipse 80% 100% at 50% 0%, rgba(124,58,237,0.06), transparent 60%);
+    background: radial-gradient(ellipse 80% 100% at 50% 0%,
+      rgba(124,58,237,0.10), transparent 60%);
   }
 
   /* Pricing premium bloom */
