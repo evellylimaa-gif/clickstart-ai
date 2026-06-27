@@ -226,6 +226,133 @@ export const glossary: GlossaryTerm[] = [
   },
 ];
 
+/**
+ * Enrichment layer with extra fields per term. Kept separate to evolve
+ * without rewriting the main list.
+ */
+const enrichment: Record<string, Pick<GlossaryTerm, "whereSeen" | "commonMistake" | "relatedTrail">> = {
+  "SaaS": {
+    whereSeen: "Em qualquer ferramenta que você acessa pelo navegador pagando por mês: Canva, Notion, Spotify, ClickStart AI.",
+    commonMistake: "Achar que precisa ser um app gigante. SaaS pode resolver uma coisa só e ainda funcionar.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "Micro-SaaS": {
+    whereSeen: "Em ferramentas pequenas feitas por 1 pessoa que cobram R$19 a R$97/mês.",
+    commonMistake: "Tentar resolver tudo. Micro-SaaS bom resolve uma única dor muito bem.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "MVP": {
+    whereSeen: "Sempre que você vê alguém lançando 'a versão 1.0 ainda crua'. Aquilo é o MVP.",
+    commonMistake: "Esperar estar 'pronto' pra lançar. MVP é o oposto disso.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "API": {
+    whereSeen: "Quando um app mostra dados de outro, como o tempo, mapa ou pagamento integrado.",
+    commonMistake: "Confundir API com algo que o usuário final vê. API é encanamento, não vitrine.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "Lead": {
+    whereSeen: "Toda vez que alguém deixa email pra baixar um ebook ou clica em 'quero saber mais'.",
+    commonMistake: "Tratar todo lead como cliente. Lead ainda precisa ser conquistado.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "Funil": {
+    whereSeen: "TikTok manda pro link na bio, link leva pra página de venda, página fecha compra. Isso é funil.",
+    commonMistake: "Pular etapas e tentar vender no primeiro contato.",
+    relatedTrail: "TikTok Shop",
+  },
+  "Copy": {
+    whereSeen: "Em toda legenda, título, página de venda e botão que tenta te convencer de algo.",
+    commonMistake: "Escrever bonito em vez de escrever claro. Copy boa é clara antes de ser criativa.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "CTA": {
+    whereSeen: "Em todo botão 'Quero garantir', 'Assinar agora', 'Baixar grátis'.",
+    commonMistake: "Pedir várias coisas ao mesmo tempo. Bom CTA pede uma ação por vez.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "Conversão": {
+    whereSeen: "Em dashboards de loja, anúncio, página de captura e checkout.",
+    commonMistake: "Achar que conversão baixa é culpa do tráfego. Quase sempre é a oferta.",
+    relatedTrail: "Afiliados",
+  },
+  "Checkout": {
+    whereSeen: "Na tela final de compra da Hotmart, Eduzz, Kiwify, Stripe, Shopify.",
+    commonMistake: "Pedir dado demais. Quanto menos campo, mais venda.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "Nicho": {
+    whereSeen: "No perfil de quem fala com um público bem específico e tem comentário engajado.",
+    commonMistake: "Querer falar com 'todo mundo' pra não 'perder cliente'. É o jeito mais rápido de não vender.",
+    relatedTrail: "Começar do Zero",
+  },
+  "Tráfego pago": {
+    whereSeen: "Em qualquer post 'patrocinado' ou anúncio que aparece no feed.",
+    commonMistake: "Pagar anúncio antes de ter oferta validada. É queimar dinheiro.",
+    relatedTrail: "Afiliados",
+  },
+  "Tráfego orgânico": {
+    whereSeen: "Em vídeos que viralizam, posts indexados no Google e indicações boca a boca.",
+    commonMistake: "Postar sem constância. Algoritmo só recompensa quem aparece.",
+    relatedTrail: "YouTube Sem Aparecer",
+  },
+  "Afiliado": {
+    whereSeen: "Em links de Hotmart, Eduzz, Amazon, Shopee com código no final da URL.",
+    commonMistake: "Vender produto ruim só pela comissão. Quebra confiança e some o público.",
+    relatedTrail: "Afiliados",
+  },
+  "Produto digital": {
+    whereSeen: "Em ebooks, planners, templates, prompts, cursos e comunidades pagas.",
+    commonMistake: "Querer fazer perfeito antes de vender. Versão simples já vende.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "Template": {
+    whereSeen: "Em modelos de Notion, Canva, planilhas e prompts vendidos por R$9 a R$97.",
+    commonMistake: "Vender template genérico. Específico vende mais.",
+    relatedTrail: "Templates e Prompts",
+  },
+  "Prompt": {
+    whereSeen: "Em toda conversa com ChatGPT, Claude, Gemini e dentro do ClickStart AI.",
+    commonMistake: "Pedir vago. 'Me ajuda com marketing' não funciona. Detalhe contexto, papel e formato.",
+    relatedTrail: "Templates e Prompts",
+  },
+  "Landing page": {
+    whereSeen: "Em páginas únicas de venda, de inscrição em webinar e de captura de email.",
+    commonMistake: "Encher de menu e link. Landing tem 1 objetivo e 1 botão.",
+    relatedTrail: "Produtos Digitais",
+  },
+  "Onboarding": {
+    whereSeen: "Nas primeiras telas de qualquer app pago e nas mensagens de boas-vindas.",
+    commonMistake: "Achar que onboarding é só um tutorial. Onboarding é entregar valor logo.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "Churn": {
+    whereSeen: "Em painéis da Hotmart, Stripe e qualquer SaaS com assinatura.",
+    commonMistake: "Focar só em ganhar cliente novo. Reter custa menos que conquistar.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "MRR": {
+    whereSeen: "Em dashboards de assinatura, como Stripe Atlas, Kiwify recorrente, Hotmart pro.",
+    commonMistake: "Comparar com receita pontual de lançamento. MRR é outro jogo.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "ARR": {
+    whereSeen: "Em decks de fundadores e relatórios de empresas de tecnologia.",
+    commonMistake: "Comemorar ARR sem olhar churn. ARR alto com churn alto é furo no balde.",
+    relatedTrail: "Micro-SaaS",
+  },
+  "Webhook": {
+    whereSeen: "Em integrações de Make, Zapier, n8n, Hotmart, Stripe.",
+    commonMistake: "Confundir webhook com API. Webhook avisa, API responde.",
+    relatedTrail: "Serviços com IA",
+  },
+};
+
+export const glossaryTerms: GlossaryTerm[] = glossary.map((t) => ({
+  ...t,
+  ...(enrichment[t.term] || {}),
+}));
+
 export const glossaryCategories: ("Todos" | GlossaryCategory)[] = [
   "Todos", "Vendas", "SaaS", "Marketing", "IA", "Produto digital",
 ];
