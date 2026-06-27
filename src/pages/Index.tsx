@@ -46,9 +46,9 @@ const navItems: NavItem[] = [
   { id: "diagnostico", label: "Diagnóstico Digital", icon: Compass },
   { id: "trilhas", label: "Trilhas", icon: MapIcon },
   { id: "conversas", label: "Conversas", icon: MessageSquare },
-  { id: "glossario", label: "Glossário", icon: BookOpen },
-  { id: "kits", label: "Kits Digitais", icon: Package },
   { id: "planos", label: "Planos Salvos", icon: ClipboardList },
+  { id: "kits", label: "Kits Digitais", icon: Package },
+  { id: "glossario", label: "Glossário", icon: BookOpen },
   { id: "configuracoes", label: "Minha conta", icon: UserCircle },
 ];
 

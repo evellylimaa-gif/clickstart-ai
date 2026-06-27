@@ -1,4 +1,5 @@
-import { ShieldCheck, Sparkles, LogOut, Settings as SettingsIcon, Bell, Lock, Monitor } from "lucide-react";
+import { ShieldCheck, Sparkles, LogOut, Settings as SettingsIcon, Bell, Lock, Monitor, ShieldAlert } from "lucide-react";
+import { Link } from "react-router-dom";
 import { logout, type ClickStartUser } from "@/hooks/use-user";
 
 function handleLogout() {
@@ -82,6 +83,21 @@ export function MinhaContaView({ user }: MinhaContaViewProps) {
             Por segurança, só uma sessão fica ativa por vez. Ao entrar em outro aparelho, a anterior é encerrada automaticamente.
           </p>
         </Section>
+
+        {/* Admin (only visible to admin users) */}
+        {user.isAdmin && (
+          <Section icon={ShieldAlert} title="Administração">
+            <p className="text-[13px] text-muted-foreground mb-3">
+              Você tem acesso ao painel interno do ClickStart AI.
+            </p>
+            <Link
+              to="/admin"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-sm font-semibold text-indigo-200 hover:bg-indigo-500/25 transition-colors"
+            >
+              <ShieldAlert className="w-4 h-4" /> Abrir painel admin
+            </Link>
+          </Section>
+        )}
       </div>
     </div>
   );

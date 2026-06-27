@@ -2,7 +2,7 @@ import {
   Bot, Briefcase, TrendingUp, Wand2, Compass, Video, Boxes, FileText,
   Youtube, BookOpen, ClipboardList, ArrowRight, type LucideIcon,
 } from "lucide-react";
-import { agents } from "@/lib/agents";
+import { agents, orderedAgents } from "@/lib/agents";
 
 const iconMap: Record<string, LucideIcon> = {
   briefcase: Briefcase,
@@ -45,7 +45,8 @@ export function ConversasPicker({ onSelectAgent }: ConversasPickerProps) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {agents.map((a, i) => {
+          {orderedAgents.map((a) => {
+            const i = agents.findIndex((x) => x.id === a.id);
             const Icon = iconMap[a.icon] || Bot;
             const gradient = accentMap[a.color] || "from-brand-purple to-brand-pink";
             return (

@@ -1,6 +1,6 @@
 import {
-  Compass, Map, MessageSquare, BookOpen, Package, ClipboardList, Sparkles,
-  ArrowRight, Zap, Calendar, Target, RefreshCw, TrendingUp, Plus, CheckCircle2,
+  Compass, Map, BookOpen, ClipboardList, Sparkles, ArrowRight,
+  Target, RefreshCw, TrendingUp, CheckCircle2, User, Calendar, Lightbulb,
 } from "lucide-react";
 
 interface DashboardProps {
@@ -16,385 +16,260 @@ interface DashboardProps {
 
 const heroFont = { fontFamily: "Sora, Inter, sans-serif" };
 
-const primaryCards = [
-  {
-    id: "diagnostico",
-    title: "Fazer Diagnóstico Digital",
-    subtitle: "Descubra qual perfil digital combina com você em 2 minutos.",
-    icon: Compass,
-    badge: "Comece aqui",
-    gradient: "from-brand-purple via-brand-pink to-brand-amber",
-    glow: "glow-purple",
-  },
-  {
-    id: "trilhas",
-    title: "Abrir minha trilha",
-    subtitle: "Um caminho passo a passo, personalizado para o seu objetivo.",
-    icon: Map,
-    badge: "Plano guiado",
-    gradient: "from-brand-teal to-brand-purple",
-    glow: "glow-teal",
-  },
-  {
-    id: "conversas",
-    title: "Continuar conversa",
-    subtitle: "Volte para o agente de IA e siga de onde você parou.",
-    icon: MessageSquare,
-    badge: "Agente IA",
-    gradient: "from-brand-purple to-brand-pink",
-    glow: "glow-purple",
-  },
-];
-
-const secondaryCards = [
-  {
-    id: "glossario",
-    title: "Consultar Glossário",
-    subtitle: "Traduza os termos chatos do digital para português claro.",
-    icon: BookOpen,
-    accent: "text-brand-teal",
-    bg: "bg-brand-teal/10",
-  },
-  {
-    id: "kits",
-    title: "Ver Kits Digitais",
-    subtitle: "Templates, prompts e ferramentas prontas para usar hoje.",
-    icon: Package,
-    accent: "text-brand-amber",
-    bg: "bg-brand-amber/10",
-  },
-  {
-    id: "planos",
-    title: "Plano de hoje",
-    subtitle: "Sua próxima ação concreta, sem rolar feed sem rumo.",
-    icon: ClipboardList,
-    accent: "text-brand-pink",
-    bg: "bg-brand-pink/10",
-  },
-];
-
-// Long-term journey — 5 stages the user advances through.
-const phases = [
-  { n: 1, label: "Descoberta", desc: "Você entende seu perfil e escolhe um caminho." },
-  { n: 2, label: "Validação", desc: "Você testa a ideia rápido, antes de investir." },
-  { n: 3, label: "Primeiras vendas", desc: "Você fecha as primeiras vendas e ajusta a oferta." },
-  { n: 4, label: "Otimização", desc: "Você melhora o que funciona e corta o que não." },
-  { n: 5, label: "Escala", desc: "Você multiplica resultados com processo e ferramentas." },
-];
-
-// Retention shortcuts — value loop chips that bring the user back.
-const loopChips: { id: string; label: string; icon: typeof Plus; route: string }[] = [
-  { id: "review", label: "Quero revisar meu plano", icon: RefreshCw, route: "planos" },
-  { id: "next", label: "Quero o próximo passo", icon: ArrowRight, route: "conversas" },
-  { id: "trail", label: "Quero uma nova trilha", icon: Map, route: "trilhas" },
-  { id: "second", label: "Quero uma segunda fonte de renda", icon: TrendingUp, route: "trilhas" },
-  { id: "transform", label: "Transformar meu progresso em novo plano", icon: Plus, route: "conversas" },
-];
-
 export function Dashboard({
   onNavigate, onOpenConversa, plansGenerated, userName, isAuthenticated,
+  hasCompletedDiagnosis = false, onStartDiagnosis, onExploreTrails,
 }: DashboardProps) {
-  const handleClick = (id: string) => {
-    if (id === "conversas") return onOpenConversa();
-    onNavigate(id);
-  };
+  // FIRST-ACCESS GUIDED FLOW ------------------------------------------------
+  if (isAuthenticated && !hasCompletedDiagnosis) {
+    return (
+      <div className="flex-1 overflow-y-auto scrollbar-thin bg-[#020617]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-8 py-16">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/80 backdrop-blur p-8 sm:p-12">
+            <div className="absolute -top-32 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-indigo-500/30 via-purple-500/20 to-teal-500/10 blur-3xl pointer-events-none" />
+            <div className="relative">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300 mb-3">
+                Bem-vindo ao ClickStart AI
+              </p>
+              <h1 style={heroFont} className="text-3xl sm:text-4xl font-extrabold text-foreground leading-[1.15] mb-4">
+                Vamos descobrir seu melhor caminho no digital
+              </h1>
+              <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-xl">
+                Responda algumas perguntas rápidas para o ClickStart AI entender seu objetivo, seu tempo, seu nível e seu ponto de partida.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={onStartDiagnosis}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 text-white font-semibold text-sm shadow-lg shadow-indigo-500/30 hover:scale-[1.02] transition-all"
+                >
+                  <Compass className="w-4 h-4" /> Fazer diagnóstico agora
+                </button>
+                <button
+                  onClick={onExploreTrails}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-foreground font-semibold text-sm hover:bg-white/10 transition-all"
+                >
+                  <Map className="w-4 h-4" /> Explorar trilhas
+                </button>
+              </div>
 
-  // Heuristic for journey position based on plans generated.
-  const currentPhase = plansGenerated === 0 ? 1 : Math.min(5, 1 + Math.floor(plansGenerated / 2));
-  const greeting = isAuthenticated ? `Olá, ${userName}.` : "Bem-vindo.";
-
-  return (
-    <div className="flex-1 overflow-y-auto scrollbar-thin">
-      {/* Hero */}
-      <div className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-hero-gradient pointer-events-none" />
-        <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-8 pt-10 sm:pt-14 pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-semibold text-foreground/80 mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-teal animate-pulse-glow" />
-            ClickStart AI · Sua bússola digital
-          </div>
-          <p className="text-sm text-muted-foreground mb-2">{greeting}</p>
-          <h1
-            style={heroFont}
-            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground max-w-3xl"
-          >
-            Comece no digital{" "}
-            <span className="gradient-text">com clareza.</span>
-          </h1>
-          <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            O ClickStart AI entende seu perfil e mostra qual caminho faz mais sentido para você começar
-            com clareza, sem guru, sem inglês confuso e sem curso solto.
-          </p>
-
-          <div className="mt-8 grid grid-cols-3 gap-3 max-w-xl">
-            <Stat label="Planos gerados" value={plansGenerated} accent="text-brand-amber" />
-            <Stat label="Trilhas ativas" value={plansGenerated > 0 ? 1 : 0} accent="text-brand-teal" />
-            <Stat label="Termos no glossário" value={120} accent="text-brand-pink" />
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { n: 1, t: "Diagnóstico", d: "Suas respostas viram seu perfil." },
+                  { n: 2, t: "Caminho recomendado", d: "Uma trilha que combina com você." },
+                  { n: 3, t: "Primeira ação", d: "Algo concreto para fazer hoje." },
+                ].map((s) => (
+                  <div key={s.n} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <span className="inline-flex w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-300 items-center justify-center text-xs font-bold mb-2">
+                      {s.n}
+                    </span>
+                    <p className="text-sm font-semibold text-foreground">{s.t}</p>
+                    <p className="text-[12px] text-muted-foreground mt-1">{s.d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Seu momento atual + Próximo passo + Plano da semana */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 pt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <MomentCard
-            phase={currentPhase}
-            phaseLabel={phases[currentPhase - 1].label}
-            phaseDesc={phases[currentPhase - 1].desc}
-          />
-          <NextStepCard onAction={() => onOpenConversa()} />
-          <WeekPlanCard onAction={() => onNavigate("planos")} plansGenerated={plansGenerated} />
-        </div>
-      </section>
+  // FULL DASHBOARD ----------------------------------------------------------
+  const greeting = isAuthenticated ? `Olá, ${userName}.` : "Bem-vindo.";
 
-      {/* Primary cards */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 py-10">
-        <div className="flex items-end justify-between mb-5">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-purple mb-2">
-              Comece por aqui
-            </p>
-            <h2 style={heroFont} className="text-2xl sm:text-3xl font-bold text-foreground">
-              Três cliques. Um caminho claro.
-            </h2>
+  return (
+    <div className="flex-1 overflow-y-auto scrollbar-thin bg-[#020617]">
+      {/* Hero — dark cockpit */}
+      <div className="relative overflow-hidden border-b border-white/5">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.08] via-purple-500/[0.04] to-teal-500/[0.06] pointer-events-none" />
+        <div className="absolute -top-40 -right-32 w-[480px] h-[480px] rounded-full bg-gradient-to-br from-indigo-500/15 via-purple-500/10 to-transparent blur-3xl pointer-events-none" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-8 pt-10 sm:pt-14 pb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-foreground/80 mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+            ClickStart AI · Sua bússola digital
           </div>
+          <p className="text-sm text-muted-foreground mb-2">{greeting}</p>
+          <h1 style={heroFont} className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-foreground max-w-3xl">
+            Seu plano para começar no digital
+          </h1>
+          <p className="mt-4 text-base text-muted-foreground max-w-2xl leading-relaxed">
+            Acompanhe seu diagnóstico, sua trilha recomendada, suas tarefas e seus planos salvos em um só lugar.
+          </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {primaryCards.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => handleClick(c.id)}
-              className={`group relative text-left p-6 rounded-3xl glass-strong hover:border-brand-purple/50 transition-all duration-300 hover:-translate-y-1 ${c.glow} hover:shadow-2xl overflow-hidden`}
-            >
-              <div className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${c.gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity`} />
-              <div className="relative">
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${c.gradient} shadow-lg mb-5`}>
-                  <c.icon className="w-7 h-7 text-white" strokeWidth={2.2} />
-                </div>
-                <span className="inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md bg-white/5 text-foreground/70 mb-3">
-                  {c.badge}
-                </span>
-                <h3 style={heroFont} className="text-lg font-bold text-foreground mb-2 leading-snug">
-                  {c.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                  {c.subtitle}
-                </p>
-                <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-purple group-hover:gap-3 transition-all">
-                  Abrir <ArrowRight className="w-4 h-4" />
-                </div>
-              </div>
-            </button>
-          ))}
+      {/* Cockpit cards */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-8 pt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <CockpitCard
+            tone="indigo"
+            icon={User}
+            label="Perfil digital"
+            title={hasCompletedDiagnosis ? "Diagnóstico concluído" : "Pendente"}
+            desc="Entenda seu estilo, seu tempo e seu ponto de partida."
+            cta={hasCompletedDiagnosis ? "Revisar perfil" : "Fazer diagnóstico"}
+            onAction={() => (hasCompletedDiagnosis ? onNavigate("diagnostico") : onStartDiagnosis?.())}
+          />
+          <CockpitCard
+            tone="teal"
+            icon={Map}
+            label="Trilha recomendada"
+            title="Produtos Digitais"
+            desc="Caminho mais direto para iniciantes começarem a vender online."
+            cta="Abrir trilha"
+            onAction={() => onNavigate("trilhas")}
+          />
+          <CockpitCard
+            tone="purple"
+            icon={ArrowRight}
+            label="Próxima ação"
+            title="Escolher meu nicho"
+            desc="Definir nicho vem antes de gerar roteiro ou página de venda."
+            cta="Continuar com o agente"
+            onAction={onOpenConversa}
+          />
+          <CockpitCard
+            tone="cyan"
+            icon={Calendar}
+            label="Plano da semana"
+            title={plansGenerated > 0 ? "Você tem planos salvos" : "Monte seu primeiro plano"}
+            desc={plansGenerated > 0
+              ? "Revise o que já decidiu e ajuste a próxima entrega."
+              : "Em 1 conversa você sai com 7 dias de ação organizados."}
+            cta="Abrir planos"
+            onAction={() => onNavigate("planos")}
+          />
+          <CockpitCard
+            tone="amber"
+            icon={TrendingUp}
+            label="Progresso"
+            title={`${plansGenerated} plano${plansGenerated === 1 ? "" : "s"} salvo${plansGenerated === 1 ? "" : "s"}`}
+            desc="Cada plano salvo é uma decisão tirada do papel."
+            cta="Ver evolução"
+            onAction={() => onNavigate("planos")}
+          />
+          <CockpitCard
+            tone="pink"
+            icon={ClipboardList}
+            label="Planos salvos"
+            title="Sua biblioteca"
+            desc="Acesse rapidamente seus planos, checklists e roteiros."
+            cta="Abrir biblioteca"
+            onAction={() => onNavigate("planos")}
+          />
         </div>
       </section>
 
-      {/* Sua jornada (long-term phases) */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-10">
-        <div className="mb-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-teal mb-2">
-            Sua jornada no digital
-          </p>
-          <h2 style={heroFont} className="text-2xl font-bold text-foreground">
-            Cada fase prepara a próxima.
+      {/* Beginner journey order */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-8 py-10">
+        <div className="rounded-3xl border border-white/10 bg-[#0F172A]/70 backdrop-blur p-6 sm:p-8">
+          <div className="flex items-center gap-2 mb-2">
+            <Lightbulb className="w-4 h-4 text-amber-300" />
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+              Sua sequência sugerida
+            </p>
+          </div>
+          <h2 style={heroFont} className="text-xl sm:text-2xl font-bold text-foreground mb-1">
+            Faça na ordem certa e evite atalho furado
           </h2>
-          <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
-            Você não termina o ClickStart AI no primeiro plano. A cada conquista, abrimos a próxima etapa.
+          <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
+            Iniciante que pula para "gerar roteiro" antes de escolher caminho, nicho e oferta perde tempo. Siga esta sequência.
           </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {phases.map((p) => {
-            const done = p.n < currentPhase;
-            const active = p.n === currentPhase;
-            return (
-              <div
-                key={p.n}
-                className={`relative p-4 rounded-2xl border transition-all ${
-                  active
-                    ? "border-brand-purple/60 bg-gradient-to-br from-brand-purple/15 to-brand-pink/5 shadow-lg"
-                    : done
-                    ? "border-brand-teal/40 bg-brand-teal/5"
-                    : "border-border bg-surface"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                    active ? "text-brand-purple" : done ? "text-brand-teal" : "text-muted-foreground"
-                  }`}>
-                    Fase {p.n}
-                  </span>
-                  {done && <CheckCircle2 className="w-3.5 h-3.5 text-brand-teal" />}
-                </div>
-                <h4 className="text-sm font-bold text-foreground mb-1">{p.label}</h4>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            );
-          })}
+          <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              "Diagnóstico",
+              "Caminho recomendado",
+              "Escolha de nicho",
+              "Primeira oferta",
+              "Produto mínimo",
+              "Conteúdo ou roteiro",
+              "Plano de 7 dias",
+              "Execução",
+            ].map((step, i) => (
+              <li key={step} className="flex items-start gap-3 rounded-xl border border-white/5 bg-black/30 p-3">
+                <span className="shrink-0 w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-300 inline-flex items-center justify-center text-xs font-bold">
+                  {i + 1}
+                </span>
+                <span className="text-sm text-foreground/90 leading-snug">{step}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       {/* Value loop chips */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-10">
-        <div className="rounded-3xl glass-strong p-6 sm:p-8">
-          <div className="flex items-start justify-between gap-4 mb-5 flex-wrap">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-amber mb-2">
-                Continue de onde parou
-              </p>
-              <h3 style={heroFont} className="text-xl font-bold text-foreground">
-                O que você quer fazer agora?
-              </h3>
-            </div>
-          </div>
+      <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-12">
+        <div className="rounded-3xl border border-white/10 bg-[#0F172A]/70 backdrop-blur p-6 sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-300 mb-2">
+            O que você quer fazer agora?
+          </p>
+          <h3 style={heroFont} className="text-xl font-bold text-foreground mb-5">
+            Continue de onde parou
+          </h3>
           <div className="flex flex-wrap gap-2">
-            {loopChips.map(({ id, label, icon: Icon, route }) => (
+            {[
+              { id: "trail", label: "Escolher meu caminho", icon: Map, route: "trilhas" },
+              { id: "niche", label: "Definir meu nicho", icon: Target, route: "conversas" },
+              { id: "offer", label: "Montar minha primeira oferta", icon: Sparkles, route: "conversas" },
+              { id: "review", label: "Revisar meu plano", icon: RefreshCw, route: "planos" },
+              { id: "glossary", label: "Aprender um termo", icon: BookOpen, route: "glossario" },
+            ].map(({ id, label, icon: Icon, route }) => (
               <button
                 key={id}
-                onClick={() => handleClick(route)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface border border-border hover:border-brand-purple/50 hover:bg-brand-purple/5 text-sm font-medium text-foreground transition-all"
+                onClick={() => (route === "conversas" ? onOpenConversa() : onNavigate(route))}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-400/40 hover:bg-white/10 text-sm font-medium text-foreground transition-all"
               >
-                <Icon className="w-4 h-4 text-brand-purple" />
+                <Icon className="w-4 h-4 text-indigo-300" />
                 {label}
               </button>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Secondary cards */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-10">
-        <div className="mb-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-teal mb-2">
-            Ferramentas rápidas
-          </p>
-          <h2 style={heroFont} className="text-2xl font-bold text-foreground">
-            Tudo no mesmo lugar
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {secondaryCards.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => handleClick(c.id)}
-              className="group text-left p-5 rounded-2xl bg-surface border border-border hover:border-brand-purple/40 transition-all hover:-translate-y-0.5"
-            >
-              <div className={`inline-flex w-11 h-11 rounded-xl ${c.bg} items-center justify-center mb-4`}>
-                <c.icon className={`w-5 h-5 ${c.accent}`} strokeWidth={2.2} />
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-1">{c.title}</h3>
-              <p className="text-[13px] text-muted-foreground leading-relaxed">{c.subtitle}</p>
-              <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground group-hover:text-brand-purple transition-colors">
-                Acessar <ArrowRight className="w-3.5 h-3.5" />
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Promise */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-12">
-        <div className="relative overflow-hidden rounded-3xl glass-strong p-6 sm:p-10">
-          <div className="absolute -bottom-32 -left-20 w-96 h-96 rounded-full bg-gradient-to-tr from-brand-purple via-brand-pink to-brand-amber opacity-20 blur-3xl" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-amber mb-3">
-                <Sparkles className="w-4 h-4" /> Nossa promessa
-              </div>
-              <h3 style={heroFont} className="text-xl sm:text-2xl font-bold text-foreground leading-snug mb-2">
-                Descubra seu perfil, escolha seu caminho e receba seu plano com IA.
-              </h3>
-              <p className="text-sm text-muted-foreground max-w-xl">
-                Sem fórmula mágica. Sem promessa de milhão. Só o próximo passo que faz sentido pra você hoje.
-              </p>
-            </div>
-            <button
-              onClick={() => onNavigate("diagnostico")}
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-purple to-brand-pink text-white font-semibold text-sm shadow-lg shadow-brand-purple/30 hover:shadow-brand-purple/50 transition-all hover:scale-[1.02]"
-            >
-              <Zap className="w-4 h-4" /> Começar diagnóstico
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
 
-function Stat({ label, value, accent }: { label: string; value: number; accent: string }) {
-  return (
-    <div className="rounded-2xl glass px-4 py-3">
-      <div className={`text-2xl font-extrabold ${accent}`} style={heroFont}>
-        {value}
-      </div>
-      <div className="text-[11px] text-muted-foreground mt-0.5">{label}</div>
-    </div>
-  );
-}
+// ---------------------------------------------------------------------------
 
-function MomentCard({ phase, phaseLabel, phaseDesc }: { phase: number; phaseLabel: string; phaseDesc: string }) {
+type Tone = "indigo" | "teal" | "purple" | "cyan" | "amber" | "pink";
+
+const toneMap: Record<Tone, { grad: string; chip: string; text: string; border: string }> = {
+  indigo: { grad: "from-indigo-500/20 to-indigo-500/0", chip: "bg-indigo-500/15 text-indigo-300", text: "text-indigo-300", border: "border-indigo-500/20" },
+  teal:   { grad: "from-teal-500/20 to-teal-500/0",     chip: "bg-teal-500/15 text-teal-300",     text: "text-teal-300",   border: "border-teal-500/20" },
+  purple: { grad: "from-purple-500/20 to-purple-500/0", chip: "bg-purple-500/15 text-purple-300", text: "text-purple-300", border: "border-purple-500/20" },
+  cyan:   { grad: "from-cyan-500/20 to-cyan-500/0",     chip: "bg-cyan-500/15 text-cyan-300",     text: "text-cyan-300",   border: "border-cyan-500/20" },
+  amber:  { grad: "from-amber-500/20 to-amber-500/0",   chip: "bg-amber-500/15 text-amber-300",   text: "text-amber-300",  border: "border-amber-500/20" },
+  pink:   { grad: "from-pink-500/20 to-pink-500/0",     chip: "bg-pink-500/15 text-pink-300",     text: "text-pink-300",   border: "border-pink-500/20" },
+};
+
+function CockpitCard({
+  tone, icon: Icon, label, title, desc, cta, onAction,
+}: {
+  tone: Tone;
+  icon: React.ElementType;
+  label: string;
+  title: string;
+  desc: string;
+  cta: string;
+  onAction: () => void;
+}) {
+  const c = toneMap[tone];
   return (
-    <div className="rounded-3xl glass-strong p-5 border border-brand-purple/30">
-      <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-brand-purple mb-3">
-        <Target className="w-3.5 h-3.5" /> Seu momento atual
-      </div>
-      <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-[11px] text-muted-foreground">Fase {phase} de 5</span>
-        <div className="flex-1 h-1 rounded-full bg-border overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-brand-purple to-brand-pink"
-            style={{ width: `${(phase / 5) * 100}%` }}
-          />
+    <div className={`relative overflow-hidden rounded-2xl border ${c.border} bg-gradient-to-br ${c.grad} backdrop-blur p-5 group hover:border-white/20 transition-colors`}>
+      <div className="flex items-center justify-between mb-4">
+        <div className={`w-10 h-10 rounded-xl bg-white/5 grid place-items-center ${c.text}`}>
+          <Icon className="w-5 h-5" />
         </div>
+        <span className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded-full ${c.chip}`}>{label}</span>
       </div>
-      <h3 style={heroFont} className="text-lg font-bold text-foreground mt-2">{phaseLabel}</h3>
-      <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">{phaseDesc}</p>
-    </div>
-  );
-}
-
-function NextStepCard({ onAction }: { onAction: () => void }) {
-  return (
-    <div className="rounded-3xl glass-strong p-5 border border-brand-teal/30">
-      <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-brand-teal mb-3">
-        <ArrowRight className="w-3.5 h-3.5" /> Próximo passo
-      </div>
-      <h3 style={heroFont} className="text-lg font-bold text-foreground">Falar com um agente.</h3>
-      <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">
-        Pegue a próxima ação prática a partir do que você já decidiu.
-      </p>
+      <p className="text-base font-bold text-foreground leading-snug">{title}</p>
+      <p className="text-[12px] text-muted-foreground mt-1 mb-4 leading-relaxed">{desc}</p>
       <button
         onClick={onAction}
-        className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-teal/15 hover:bg-brand-teal/25 text-brand-teal text-sm font-semibold transition-colors"
+        className={`inline-flex items-center gap-1.5 text-[12px] font-semibold ${c.text} hover:gap-2.5 transition-all`}
       >
-        Continuar agora <ArrowRight className="w-3.5 h-3.5" />
-      </button>
-    </div>
-  );
-}
-
-function WeekPlanCard({ onAction, plansGenerated }: { onAction: () => void; plansGenerated: number }) {
-  return (
-    <div className="rounded-3xl glass-strong p-5 border border-brand-amber/30">
-      <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-brand-amber mb-3">
-        <Calendar className="w-3.5 h-3.5" /> Plano da semana
-      </div>
-      <h3 style={heroFont} className="text-lg font-bold text-foreground">
-        {plansGenerated > 0 ? "Revisar meu progresso" : "Montar meu primeiro plano"}
-      </h3>
-      <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">
-        {plansGenerated > 0
-          ? "Veja o que foi feito, o que ficou pendente e o que vem nesta semana."
-          : "Em 1 conversa, você sai com 7 dias de ação organizados."}
-      </p>
-      <button
-        onClick={onAction}
-        className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-amber/15 hover:bg-brand-amber/25 text-brand-amber text-sm font-semibold transition-colors"
-      >
-        Abrir planos <ArrowRight className="w-3.5 h-3.5" />
+        {cta} <ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
   );

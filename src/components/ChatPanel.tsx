@@ -79,7 +79,10 @@ export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConver
     } catch (e: any) {
       setMessages([
         ...next,
-        { role: "assistant", content: `⚠️ Erro: ${e.message}` },
+        {
+          role: "assistant",
+          content: e?.message || "Não consegui responder agora. Tente novamente em alguns segundos.",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -195,7 +198,7 @@ export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConver
             </button>
           </div>
           <p className="text-[10px] text-muted-foreground text-center mt-2">
-            Powered by Claude API • Respostas podem conter imprecisões
+            As respostas são geradas por IA e podem conter imprecisões.
           </p>
         </form>
       </div>
