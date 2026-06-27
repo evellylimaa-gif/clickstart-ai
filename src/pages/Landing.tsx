@@ -414,7 +414,8 @@ export default function Landing() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.map((s, i) => (
-            <div key={s.n} className={`relative glass-card card-bloom rounded-2xl p-5 ${stepAccents[i]}`}>
+            <div key={s.n} className={`relative glass-card card-bloom rounded-2xl p-5 fade-up fade-up-${i + 1} ${stepAccents[i]}`}>
+
               {i < steps.length - 1 && <div className="hidden lg:block step-connector" />}
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-teal-500 grid place-items-center font-extrabold text-white shadow-lg shadow-indigo-600/30 text-lg relative z-10">
@@ -443,8 +444,9 @@ export default function Landing() {
             <p className="mt-3 text-muted-foreground">Tudo conectado. Sem precisar montar nada por fora.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
-            {includes.map(({ icon: Icon, label, color, ring }) => (
-              <div key={label} className="flex items-center gap-3 p-4 rounded-xl glass-card card-bloom hover:border-white/20 transition-all">
+            {includes.map(({ icon: Icon, label, color, ring }, i) => (
+              <div key={label} className={`flex items-center gap-3 p-4 rounded-xl glass-card card-bloom hover:border-white/20 transition-all fade-up fade-up-${(i % 4) + 1}`}>
+
                 <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${ring} grid place-items-center ${color} shrink-0 border border-white/5`}>
                   <Icon className="w-[18px] h-[18px]" />
                 </div>
@@ -521,8 +523,9 @@ export default function Landing() {
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
-          {painCards.map(({ icon: Icon, title, text, accent, iconColor }) => (
-            <div key={title} className={`glass-card card-bloom rounded-2xl p-6 ${accent}`}>
+          {painCards.map(({ icon: Icon, title, text, accent, iconColor }, i) => (
+            <div key={title} className={`glass-card card-bloom rounded-2xl p-6 fade-up fade-up-${i + 1} ${accent}`}>
+
               <div className={`w-11 h-11 rounded-xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/5 grid place-items-center ${iconColor}`}>
                 <Icon className="w-5 h-5" />
               </div>

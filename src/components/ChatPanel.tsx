@@ -5,6 +5,10 @@ import { Message, sendMessage } from "@/lib/anthropic";
 import { ResponseCards } from "@/components/ResponseCards";
 import { ProgressTracker } from "@/components/ProgressTracker";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useUser } from "@/hooks/use-user";
+import { useUsage } from "@/hooks/use-usage";
+import { UsageBar, UpgradeDialog } from "@/components/UsageBar";
+
 
 function TypingIndicator() {
   return (
@@ -34,10 +38,14 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isMobile = useIsMobile();
   const sentInitial = useRef(false);
+  const user = useUser();
+  const usage = useUsage();
+
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,11 +69,17 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
+    if (user.isAuthenticated && !user.isAdmin && !usage.canSend) {
+      setShowUpgrade(true);
+      return;
+    }
     const userMsg: Message = { role: "user", content: text.trim() };
     const next = [...messages, userMsg];
     setMessages(next);
     setInput("");
     setLoading(true);
+    if (user.isAuthenticated && !user.isAdmin) usage.increment();
+
     try {
       const systemPrompt = hiddenContext
         ? `${agent.systemPrompt}\n\nCONTEXTO INTERNO DA AÇÃO DO USUÁRIO (não repita como texto bruto; use apenas para orientar a resposta):\n${hiddenContext}`
@@ -99,7 +113,15 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
 
   return (
     <div className={`flex flex-col flex-1 ${isMobile ? "pb-[72px]" : ""}`}>
+      {user.isAuthenticated && !user.isAdmin && (
+        <div className="px-4 sm:px-8 pt-3">
+          <div className="max-w-4xl mx-auto">
+            <UsageBar />
+          </div>
+        </div>
+      )}
       {/* Agent description card + chips */}
+
       {messages.length === 0 && (
         <div className="px-4 sm:px-8 pt-6">
           <div className="max-w-4xl mx-auto">
@@ -208,6 +230,8 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
           </p>
         </form>
       </div>
+      <UpgradeDialog open={showUpgrade} onOpenChange={setShowUpgrade} currentPlan={usage.plan} />
     </div>
   );
 }
+
