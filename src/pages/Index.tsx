@@ -124,7 +124,7 @@ const Index = () => {
       <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 pt-4 pb-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 pt-4 pb-6 space-y-1 min-h-0">
         <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-[hsl(var(--sidebar-foreground)/0.4)]">
           Menu
         </p>
