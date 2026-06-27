@@ -74,7 +74,7 @@ export function MinhaContaView({ user }: MinhaContaViewProps) {
             <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-border text-sm font-semibold text-foreground hover:bg-white/10 transition-colors">
               <LogOut className="w-4 h-4" /> Encerrar outras sessões
             </button>
-            <button className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-destructive/10 border border-destructive/20 text-sm font-semibold text-destructive hover:bg-destructive/20 transition-colors">
+            <button onClick={handleLogout} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-destructive/10 border border-destructive/20 text-sm font-semibold text-destructive hover:bg-destructive/20 transition-colors">
               <LogOut className="w-4 h-4" /> Sair da conta
             </button>
           </div>
