@@ -1,16 +1,27 @@
-import { Bot, Briefcase, TrendingUp, Wand2, ArrowRight } from "lucide-react";
+import {
+  Bot, Briefcase, TrendingUp, Wand2, Compass, Video, Boxes, FileText,
+  Youtube, BookOpen, ClipboardList, ArrowRight, type LucideIcon,
+} from "lucide-react";
 import { agents } from "@/lib/agents";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, LucideIcon> = {
   briefcase: Briefcase,
   "trending-up": TrendingUp,
   "wand-2": Wand2,
+  compass: Compass,
+  video: Video,
+  boxes: Boxes,
+  "file-text": FileText,
+  youtube: Youtube,
+  "book-open": BookOpen,
+  "clipboard-list": ClipboardList,
 };
 
 const accentMap: Record<string, string> = {
   "agent-purple": "from-brand-purple to-brand-pink",
   "agent-teal": "from-brand-teal to-brand-purple",
   "agent-amber": "from-brand-amber to-brand-pink",
+  "agent-pink": "from-brand-pink to-brand-amber",
 };
 
 interface ConversasPickerProps {
