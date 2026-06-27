@@ -247,6 +247,5 @@ const DISPLAY_ORDER = [
 
 export const orderedAgents: Agent[] = DISPLAY_ORDER
   .map((id) => agents.find((a) => a.id === id))
-  .filter((a): a is Agent => Boolean(a))
-  .concat(agents.filter((a) => !DISPLAY_ORDER.includes(a.id)));
+  .filter((a): a is Agent => Boolean(a));
 

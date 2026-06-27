@@ -21,7 +21,7 @@ export const trails: Trail[] = [
     difficulty: "Iniciante",
     timeToStart: "3 a 14 dias",
     profile: "Quem gosta de organizar e escrever",
-    agentId: "afiliados",
+    agentId: "produtos-digitais",
   },
   {
     id: "servicos-com-ia",
@@ -76,7 +76,7 @@ export const trails: Trail[] = [
     difficulty: "Iniciante",
     timeToStart: "1 a 14 dias",
     profile: "Gosta de criar conteúdo e indicar",
-    agentId: "templates-prompts",
+    agentId: "afiliados",
   },
   {
     id: "templates-prompts",
@@ -87,7 +87,7 @@ export const trails: Trail[] = [
     difficulty: "Iniciante",
     timeToStart: "2 a 10 dias",
     profile: "Sabe usar bem ferramentas de IA",
-    agentId: "produtos-digitais",
+    agentId: "templates-prompts",
   },
   {
     id: "revisar-meu-caminho",
