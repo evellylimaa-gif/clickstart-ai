@@ -113,7 +113,15 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
 
   return (
     <div className={`flex flex-col flex-1 ${isMobile ? "pb-[72px]" : ""}`}>
+      {user.isAuthenticated && !user.isAdmin && (
+        <div className="px-4 sm:px-8 pt-3">
+          <div className="max-w-4xl mx-auto">
+            <UsageBar />
+          </div>
+        </div>
+      )}
       {/* Agent description card + chips */}
+
       {messages.length === 0 && (
         <div className="px-4 sm:px-8 pt-6">
           <div className="max-w-4xl mx-auto">
