@@ -122,11 +122,60 @@ const faqQA: { q: string; a: string }[] = [
   { q: "Preciso aparecer em vídeo?", a: "Não. Existem trilhas específicas para quem não quer aparecer, como produtos digitais, YouTube sem aparecer e TikTok Shop sem rosto." },
   { q: "Preciso saber inglês?", a: "Não. Tudo é em português, e o glossário traduz os termos técnicos que aparecem no digital." },
   { q: "Qual a diferença para o ChatGPT?", a: "O ChatGPT é genérico. O ClickStart tem agentes especializados em monetização, trilhas guiadas, glossário e plano de ação salvo no seu painel." },
-  { q: "O que recebo por R$39,90?", a: "Acesso a todos os agentes, trilhas, diagnóstico, glossário, kits digitais, histórico de conversas e planos salvos." },
+  { q: "Quais são os planos?", a: "São três: Essencial (R$39,90/mês), Plus (R$79,90/mês, recomendado) e Pro (R$149,90/mês). Você pode trocar de plano quando quiser." },
+  { q: "Existe limite de uso?", a: "O ClickStart AI inclui uso mensal suficiente para seguir sua trilha, tirar dúvidas e gerar planos. Para manter a qualidade da plataforma para todos, usamos uma política de uso justo." },
   { q: "Como funciona a garantia de 7 dias?", a: "Você testa por 7 dias. Se não fizer sentido para você, pede reembolso. Sem burocracia." },
   { q: "Posso cancelar quando quiser?", a: "Sim. A assinatura é mensal e o cancelamento é a qualquer momento, direto na sua conta." },
-  { q: "Serve para quem começa do zero?", a: "Sim. O ponto de partida do ClickStart é justamente quem nunca vendeu nada online." },
   { q: "O que acontece depois que eu assino?", a: "Você cria sua conta, faz o diagnóstico, recebe sua trilha recomendada e começa a conversar com os agentes." },
+];
+
+const plans = [
+  {
+    id: "essencial",
+    name: "ClickStart Essencial",
+    price: "R$39,90",
+    tagline: "Para começar com direção.",
+    recommended: false,
+    features: [
+      "Diagnóstico digital",
+      "Trilhas guiadas",
+      "Glossário inteligente",
+      "Kits digitais",
+      "Planos salvos",
+      "Uso justo básico de IA",
+    ],
+  },
+  {
+    id: "plus",
+    name: "ClickStart Plus",
+    price: "R$79,90",
+    tagline: "Para quem quer executar com mais apoio.",
+    recommended: true,
+    features: [
+      "Tudo do Essencial",
+      "Mais conversas com agentes",
+      "Plano de 7 dias",
+      "Roadmap de 30 dias",
+      "Revisão de rota",
+      "Respostas mais completas",
+      "Mais planos salvos",
+    ],
+  },
+  {
+    id: "pro",
+    name: "ClickStart Pro",
+    price: "R$149,90",
+    tagline: "Para uso intenso e análise mais profunda.",
+    recommended: false,
+    features: [
+      "Tudo do Plus",
+      "Mais análises estratégicas",
+      "Revisão de ofertas",
+      "Análise de nicho",
+      "Planos avançados",
+      "Uso ampliado de IA",
+    ],
+  },
 ];
 
 const SectionLabel = ({ color, children }: { color: string; children: React.ReactNode }) => (
