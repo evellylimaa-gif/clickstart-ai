@@ -135,6 +135,7 @@ const plans = [
     name: "ClickStart Essencial",
     price: "R$39,90",
     tagline: "Para começar com direção.",
+    cta: "Começar no Essencial",
     recommended: false,
     features: [
       "Diagnóstico digital",
@@ -149,7 +150,8 @@ const plans = [
     id: "plus",
     name: "ClickStart Plus",
     price: "R$79,90",
-    tagline: "Para quem quer executar com mais apoio.",
+    tagline: "Para executar com mais apoio.",
+    cta: "Começar no Plus",
     recommended: true,
     features: [
       "Tudo do Essencial",
@@ -165,7 +167,8 @@ const plans = [
     id: "pro",
     name: "ClickStart Pro",
     price: "R$149,90",
-    tagline: "Para uso intenso e análise mais profunda.",
+    tagline: "Para uso avançado e análises mais profundas.",
+    cta: "Começar no Pro",
     recommended: false,
     features: [
       "Tudo do Plus",
@@ -559,11 +562,13 @@ export default function Landing() {
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
           <SectionLabel color="text-amber-300">PLANOS</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
-            Escolha o plano certo para começar.
+            Escolha como quer começar.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Três opções honestas. Comece pelo básico ou vá direto ao plano com mais apoio.
-            Todos incluem <span className="text-foreground font-semibold">uso justo mensal de IA</span> e garantia de 7 dias.
+            Todos os planos incluem acesso imediato, uso justo mensal de IA e garantia de 7 dias.
+          </p>
+          <p className="mt-3 text-[11px] text-amber-300/90 tracking-wide">
+            Condição de lançamento por tempo limitado.
           </p>
         </div>
 
@@ -572,28 +577,28 @@ export default function Landing() {
             const recommended = p.recommended;
             const Card = (
               <div className={`h-full rounded-[calc(1.5rem-1.5px)] p-7 relative z-10 flex flex-col ${recommended ? "" : "glass-card"}`}>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className={`text-[10px] uppercase tracking-widest font-bold ${recommended ? "text-indigo-300" : "text-muted-foreground"}`}>
                       {p.name}
                     </p>
-                    <h3 className="text-xl font-bold mt-1">{p.tagline}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mt-1 leading-snug">{p.tagline}</h3>
                   </div>
                   {recommended && (
-                    <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
+                    <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20 shrink-0">
                       <Zap className="w-3 h-3" /> RECOMENDADO
                     </span>
                   )}
                 </div>
 
                 <div className="mt-5 flex items-baseline gap-2">
-                  <span className="text-[2.5rem] font-extrabold leading-none bg-gradient-to-br from-white to-white/70 bg-clip-text text-transparent" style={{ fontWeight: 800 }}>
+                  <span className="text-[2rem] sm:text-[2.25rem] font-bold leading-none bg-gradient-to-br from-white to-white/80 bg-clip-text text-transparent" style={{ fontWeight: 700 }}>
                     {p.price}
                   </span>
                   <span className="text-muted-foreground text-sm">/mês</span>
                 </div>
 
-                <ul className="mt-6 space-y-2 flex-1">
+                <ul className="mt-6 space-y-2.5 flex-1">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm">
                       <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-300 grid place-items-center shrink-0 mt-0.5">
@@ -606,14 +611,14 @@ export default function Landing() {
 
                 <Link to={`/checkout?plan=${p.id}`} className="block mt-7">
                   <Button className={`w-full h-11 text-[14px] ${recommended ? "btn-gradient text-white border-0" : "bg-white/5 text-foreground border border-white/10 hover:bg-white/10"}`}>
-                    Começar agora
+                    {p.cta}
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 </Link>
 
-                <div className="mt-4 flex items-center gap-2 text-[11px] text-muted-foreground">
-                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
-                  7 dias de garantia · cancela quando quiser
+                <div className="mt-4 flex items-start gap-2 text-[11px] text-muted-foreground leading-relaxed">
+                  <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
+                  Você acessa hoje. Se não fizer sentido para você, pode pedir reembolso em até 7 dias.
                 </div>
               </div>
             );
@@ -627,6 +632,10 @@ export default function Landing() {
             );
           })}
         </div>
+
+        <p className="text-center mt-6 text-[11px] text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          O pagamento e a recorrência são processados pela plataforma de checkout. O ClickStart AI não armazena dados do seu cartão.
+        </p>
 
         <p className="text-center mt-7 text-xs text-muted-foreground max-w-2xl mx-auto">
           Todos os planos seguem nossa <span className="text-foreground font-semibold">política de uso justo</span>: uso mensal inteligente para manter a qualidade da plataforma para todos.
