@@ -2,7 +2,7 @@ export interface Trail {
   id: string;
   title: string;
   description: string;
-  color: "purple" | "teal" | "pink" | "amber";
+  color: "purple" | "teal" | "pink" | "amber" | "indigo" | "cyan";
   icon: string; // lucide icon name
   difficulty: "Iniciante" | "Intermediário" | "Avançado";
   timeToStart: string;
@@ -10,34 +10,13 @@ export interface Trail {
   agentId?: string; // optional related agent for "Abrir trilha"
 }
 
+// Order matters — used across the whole app.
 export const trails: Trail[] = [
-  {
-    id: "comecar-do-zero",
-    title: "Começar do Zero",
-    description: "Para quem quer entrar no digital, mas ainda não sabe qual caminho escolher.",
-    color: "purple",
-    icon: "compass",
-    difficulty: "Iniciante",
-    timeToStart: "Hoje mesmo",
-    profile: "Quem nunca vendeu nada online",
-    agentId: "diagnostico-digital",
-  },
-  {
-    id: "tiktok-shop",
-    title: "TikTok Shop",
-    description: "Para quem quer vender usando vídeos, produtos, afiliados e social commerce.",
-    color: "teal",
-    icon: "video",
-    difficulty: "Iniciante",
-    timeToStart: "1 a 7 dias",
-    profile: "Gosta de gravar vídeos curtos",
-    agentId: "tiktok-shop",
-  },
   {
     id: "produtos-digitais",
     title: "Produtos Digitais",
-    description: "Para quem quer criar ebooks, planners, templates, prompts ou materiais digitais.",
-    color: "pink",
+    description: "Crie ebooks, planners, templates, prompts e materiais digitais para vender no automático.",
+    color: "indigo",
     icon: "file-text",
     difficulty: "Iniciante",
     timeToStart: "3 a 14 dias",
@@ -47,8 +26,8 @@ export const trails: Trail[] = [
   {
     id: "servicos-com-ia",
     title: "Serviços com IA",
-    description: "Para quem quer vender serviços para empresas usando inteligência artificial.",
-    color: "amber",
+    description: "Empacote e venda serviços para empresas usando inteligência artificial como diferencial.",
+    color: "teal",
     icon: "briefcase",
     difficulty: "Intermediário",
     timeToStart: "7 a 30 dias",
@@ -58,7 +37,7 @@ export const trails: Trail[] = [
   {
     id: "micro-saas",
     title: "Micro-SaaS",
-    description: "Para quem quer criar uma ferramenta online simples e cobrar assinatura.",
+    description: "Crie uma ferramenta online simples e cobre assinatura recorrente todo mês.",
     color: "purple",
     icon: "boxes",
     difficulty: "Avançado",
@@ -67,10 +46,21 @@ export const trails: Trail[] = [
     agentId: "micro-saas",
   },
   {
+    id: "tiktok-shop",
+    title: "TikTok Shop",
+    description: "Venda usando vídeos curtos, produtos físicos, afiliados e social commerce.",
+    color: "cyan",
+    icon: "video",
+    difficulty: "Iniciante",
+    timeToStart: "1 a 7 dias",
+    profile: "Gosta de gravar vídeos curtos",
+    agentId: "tiktok-shop",
+  },
+  {
     id: "youtube-sem-aparecer",
-    title: "YouTube Sem Aparecer",
-    description: "Para quem quer criar canais usando roteiro, voz, imagem e edição com IA.",
-    color: "teal",
+    title: "YouTube sem aparecer",
+    description: "Crie canais usando roteiro, voz, imagem e edição com IA — sem mostrar o rosto.",
+    color: "indigo",
     icon: "youtube",
     difficulty: "Intermediário",
     timeToStart: "14 a 60 dias",
@@ -80,7 +70,7 @@ export const trails: Trail[] = [
   {
     id: "afiliados",
     title: "Afiliados",
-    description: "Para quem quer vender produtos de outras pessoas com conteúdo e estratégia.",
+    description: "Venda produtos de outras pessoas com conteúdo, recomendação e estratégia.",
     color: "amber",
     icon: "link",
     difficulty: "Iniciante",
@@ -91,12 +81,23 @@ export const trails: Trail[] = [
   {
     id: "templates-prompts",
     title: "Templates e Prompts",
-    description: "Para quem quer vender materiais prontos, prompts, checklists e modelos.",
-    color: "pink",
+    description: "Venda materiais prontos, prompts, checklists e modelos para criadores e empresas.",
+    color: "teal",
     icon: "layout-template",
     difficulty: "Iniciante",
     timeToStart: "2 a 10 dias",
     profile: "Sabe usar bem ferramentas de IA",
     agentId: "produtos-digitais",
+  },
+  {
+    id: "comecar-do-zero",
+    title: "Começar do Zero",
+    description: "Para quem ainda não sabe qual caminho escolher. Faça o diagnóstico antes de decidir.",
+    color: "purple",
+    icon: "compass",
+    difficulty: "Iniciante",
+    timeToStart: "Hoje mesmo",
+    profile: "Quem nunca vendeu nada online",
+    agentId: "diagnostico-digital",
   },
 ];

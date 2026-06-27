@@ -19,7 +19,8 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
 import { useHistory } from "@/hooks/use-history";
-import { useUser } from "@/hooks/use-user";
+import { useUser, logout } from "@/hooks/use-user";
+import { useDiagnosis } from "@/hooks/use-diagnosis";
 import { useSavedPlans } from "@/hooks/use-saved-plans";
 
 type View =
@@ -67,6 +68,7 @@ const Index = () => {
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
   const user = useUser();
+  const { completed: hasCompletedDiagnosis, markCompleted: markDiagnosisDone } = useDiagnosis();
 
   const goView = (v: View) => {
     setView(v);
@@ -81,6 +83,10 @@ const Index = () => {
     setInitialMessage(prefill);
     setView("chat");
     setSidebarOpen(false);
+    const agent = agents[idx];
+    if (agent && (agent.id === "diagnostico-digital" || agent.id === "diagnostico")) {
+      markDiagnosisDone();
+    }
   };
 
   const { savePlan } = useSavedPlans();
@@ -162,20 +168,20 @@ const Index = () => {
       </nav>
 
       {/* Bottom: account / plan */}
-      <div className="px-3 pb-4 space-y-2">
-        <div className="rounded-2xl p-4 bg-gradient-to-br from-brand-purple/15 via-brand-pink/8 to-transparent border border-brand-purple/25">
+      <div className="px-3 pb-4 pt-2 space-y-2 shrink-0 border-t border-[hsl(var(--sidebar-border))]">
+        <div className="rounded-2xl p-4 bg-gradient-to-br from-indigo-500/10 via-purple-500/8 to-teal-500/5 border border-white/[0.08]">
           {/* Account header */}
-          <div className="flex items-center gap-2.5 mb-3.5">
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold ${
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
               user.isAuthenticated
-                ? "bg-gradient-to-br from-brand-purple to-brand-pink text-white"
+                ? "bg-gradient-to-br from-indigo-500 via-purple-500 to-teal-500 text-white"
                 : "bg-white/5 text-[hsl(var(--sidebar-foreground)/0.6)] border border-[hsl(var(--sidebar-border))]"
             }`}>
               {user.initial}
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[10px] uppercase tracking-wider text-[hsl(var(--sidebar-foreground)/0.45)] font-semibold leading-none">
-                {user.isAuthenticated ? "Meu perfil" : "Sua conta"}
+                {user.isAuthenticated ? "Perfil" : "Sua conta"}
               </p>
               <p className="text-[13px] font-semibold text-[hsl(var(--sidebar-foreground))] truncate mt-1">
                 {user.displayName}
@@ -183,31 +189,39 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Plan row */}
-          <div className="flex items-center justify-between rounded-lg bg-black/20 px-2.5 py-2 mb-2">
-            <span className="text-[10px] text-[hsl(var(--sidebar-foreground)/0.55)]">Plano atual</span>
-            <span className="text-[11px] font-semibold text-brand-amber">ClickStart Plus</span>
-          </div>
-
-          {/* Guarantee row */}
-          <div className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--sidebar-foreground)/0.65)] mb-3 px-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-brand-teal" />
-            Garantia de 7 dias
-          </div>
-
-          <button className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-pink text-white text-[12px] font-semibold shadow-lg shadow-brand-purple/30 hover:shadow-brand-purple/50 transition-all hover:scale-[1.02]">
-            <Sparkles className="w-3.5 h-3.5" />
-            Assinar por R$39,90/mês
-          </button>
+          {user.hasActiveSubscription ? (
+            <>
+              <div className="flex items-center justify-between rounded-lg bg-black/25 px-2.5 py-2 mb-2">
+                <span className="text-[10px] text-[hsl(var(--sidebar-foreground)/0.55)]">Plano ativo</span>
+                <span className="text-[11px] font-semibold text-teal-300">ClickStart Plus</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--sidebar-foreground)/0.65)] mb-3 px-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-300" />
+                Garantia de 7 dias
+              </div>
+              <button
+                onClick={() => goView("configuracoes")}
+                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/[0.08] text-[12px] font-semibold text-foreground hover:bg-white/10 transition-all mb-1.5"
+              >
+                Gerenciar assinatura
+              </button>
+              <button
+                onClick={() => { logout(); window.location.href = "/"; }}
+                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-transparent text-[11px] font-medium text-[hsl(var(--sidebar-foreground)/0.55)] hover:text-foreground hover:bg-white/5 transition-all"
+              >
+                Sair da conta
+              </button>
+            </>
+          ) : (
+            <a
+              href="/checkout"
+              className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 text-white text-[12px] font-semibold shadow-lg hover:scale-[1.02] transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Assinar por R$39,90/mês
+            </a>
+          )}
         </div>
-
-        <button
-          onClick={toggleTheme}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-[11px] text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-white/5 hover:text-[hsl(var(--sidebar-foreground))] transition-all"
-        >
-          {dark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-          {dark ? "Modo claro" : "Modo escuro"}
-        </button>
       </div>
     </aside>
   );
@@ -223,6 +237,13 @@ const Index = () => {
             plansGenerated={plansGenerated}
             userName={user.displayName}
             isAuthenticated={user.isAuthenticated}
+            hasCompletedDiagnosis={hasCompletedDiagnosis}
+            onStartDiagnosis={() => {
+              const idx = agents.findIndex((a) => a.id === "diagnostico-digital" || a.id === "diagnostico");
+              if (idx >= 0) openAgent(idx, "Quero fazer o diagnóstico digital. Pode começar fazendo a primeira pergunta?");
+              else goView("diagnostico");
+            }}
+            onExploreTrails={() => goView("trilhas")}
           />
         );
       case "diagnostico":
