@@ -9,6 +9,9 @@ interface DashboardProps {
   plansGenerated: number;
   userName: string;
   isAuthenticated: boolean;
+  hasCompletedDiagnosis?: boolean;
+  onStartDiagnosis?: () => void;
+  onExploreTrails?: () => void;
 }
 
 const heroFont = { fontFamily: "Sora, Inter, sans-serif" };
