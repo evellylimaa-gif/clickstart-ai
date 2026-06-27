@@ -119,6 +119,9 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv11", "ss01";
   }
+  h1, h2, h3 {
+    font-family: 'Sora', 'Inter', sans-serif;
+  }
 }
 
 @layer utilities {
