@@ -17,8 +17,8 @@ const benefits = [
 export default function Checkout() {
   const reserve = () => {
     toast({
-      title: "Preço fundador reservado",
-      description: "Assim que o checkout oficial abrir, você entra com R$39,90/mês travado.",
+      title: "Preço de lançamento garantido",
+      description: "Assim que o checkout oficial abrir, você entra com R$39,90/mês.",
     });
   };
 
