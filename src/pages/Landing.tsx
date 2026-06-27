@@ -631,25 +631,25 @@ export default function Landing() {
             <div className="absolute -bottom-20 right-0 w-[500px] h-[300px] rounded-full bg-teal-600/20 blur-3xl" />
             <div className="absolute -bottom-20 left-0 w-[400px] h-[300px] rounded-full bg-indigo-600/15 blur-3xl" />
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-widest uppercase font-bold text-amber-300 mb-5">
-            <Zap className="w-3 h-3" /> Beta fundador aberto
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-widest uppercase font-bold text-cyan-300 mb-5">
+            <Zap className="w-3 h-3" /> Acesso de lançamento aberto
           </div>
-          <h2 className="text-3xl sm:text-5xl tracking-tight max-w-3xl mx-auto leading-[1.05]" style={{ fontWeight: 800 }}>
-            Comece com <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
+          <h2 className="text-3xl sm:text-5xl tracking-tight max-w-3xl mx-auto leading-[1.12] pb-1" style={{ fontWeight: 800 }}>
+            Comece com <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
           </h2>
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-[15px]">
-            O próximo passo não precisa ser mais um curso solto. Entre como fundadora e construa do seu jeito.
+            O próximo passo não precisa ser mais um curso solto. Entre hoje por R$39,90/mês e construa do seu jeito.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Assinar por R$39,90/mês
+                Começar agora por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#faq">
-              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke text-foreground hover:bg-transparent">
-                Tirar dúvidas antes
+              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke-glow text-foreground hover:bg-transparent">
+                Tirar dúvidas antes de assinar
               </Button>
             </a>
           </div>
