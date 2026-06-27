@@ -41,10 +41,10 @@ export default function Login() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold tracking-tight">
-              {mode === "signin" ? "Entrar no ClickStart AI" : "Criar sua conta"}
+              {mode === "signin" ? "Entrar no ClickStart AI" : "Criar sua conta de assinante"}
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Acesse seu painel de assinante e continue sua trilha.
+              Use esta área apenas se você já tem acesso ao ClickStart AI.
             </p>
           </div>
 
