@@ -4,6 +4,8 @@ import { ChatPanel } from "@/components/ChatPanel";
 import { Dashboard } from "@/components/Dashboard";
 import { PlaceholderView } from "@/components/PlaceholderView";
 import { ConversasPicker } from "@/components/ConversasPicker";
+import { TrilhasView } from "@/components/TrilhasView";
+import type { Trail } from "@/lib/trails";
 import { SettingsPage } from "@/pages/Settings";
 import {
   Compass, Map as MapIcon, MessageSquare, BookOpen, Package, ClipboardList,
@@ -206,12 +208,12 @@ const Index = () => {
         );
       case "trilhas":
         return (
-          <PlaceholderView
-            title="Trilhas"
-            description="Passo a passo guiado para cada perfil: do zero ao primeiro resultado real, sem pular etapas, sem se perder em cursos soltos."
-            icon={MapIcon}
-            accent="teal"
-            onBack={() => goView("dashboard")}
+          <TrilhasView
+            onOpenTrail={(trail: Trail) => {
+              const idx = trail.agentId ? agents.findIndex((a) => a.id === trail.agentId) : -1;
+              if (idx >= 0) openAgent(idx, `Quero seguir a trilha "${trail.title}". Me ajude com o primeiro passo prático.`);
+              else goView("conversas");
+            }}
           />
         );
       case "glossario":
