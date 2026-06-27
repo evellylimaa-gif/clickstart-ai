@@ -88,22 +88,22 @@ const glossaryPreviews = [
 const painCards = [
   {
     icon: Compass,
-    title: "Eu não sei o que vender.",
-    text: "Para quem está perdida entre produtos digitais, afiliados, TikTok Shop, SaaS, serviços com IA e mil promessas diferentes.",
+    title: "Não sei o que vender.",
+    text: "Para quem está entre produtos digitais, afiliados, TikTok Shop, SaaS, serviços com IA e várias promessas diferentes.",
     accent: "accent-l-purple",
     iconColor: "text-purple-300",
   },
   {
     icon: Heart,
-    title: "Eu já vi muito conteúdo, mas continuo travada.",
-    text: "O problema nem sempre é falta de informação. Muitas vezes é falta de direção, sequência e próximo passo.",
+    title: "Já vi muito conteúdo, mas continuo sem direção.",
+    text: "O problema nem sempre é falta de informação. Muitas vezes é falta de sequência, clareza e próximo passo.",
     accent: "accent-l-pink",
     iconColor: "text-pink-300",
   },
   {
     icon: ShieldCheck,
-    title: "Eu quero começar, mas sem cair em promessa falsa.",
-    text: "O ClickStart AI organiza os caminhos, traduz os termos difíceis e mostra uma ação prática para começar com clareza.",
+    title: "Quero começar sem cair em promessa falsa.",
+    text: "O ClickStart AI organiza os caminhos, traduz os termos difíceis e mostra uma ação prática para começar com mais clareza.",
     accent: "accent-l-teal",
     iconColor: "text-teal-300",
   },
@@ -112,11 +112,12 @@ const painCards = [
 const validationCards = [
   { intent: "Quero começar com produtos digitais, mas não sei o que vender.", tag: "Produtos digitais", color: "text-pink-300", accent: "accent-l-pink" },
   { intent: "Quero oferecer serviços com IA, mas não sei como empacotar e cobrar.", tag: "Serviços com IA", color: "text-teal-300", accent: "accent-l-teal" },
-  { intent: "Quero algo mais inteligente, como micro-SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
+  { intent: "Quero algo mais avançado, como micro-SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
 ];
 
+
 const faqQA: { q: string; a: string }[] = [
-  { q: "O ClickStart AI é para mim?", a: "Se você quer começar no digital e se sente perdida entre tantos caminhos, sim. Foi feito para quem está no zero ou já tentou e desistiu." },
+  { q: "O ClickStart AI é para mim?", a: "Se você quer começar no digital e se sente sem direção entre tantos caminhos, sim. Foi feito para quem está no zero ou já tentou e ainda não conseguiu avançar." },
   { q: "Isso promete dinheiro rápido?", a: "Não. Nada de fórmula mágica. O ClickStart te ajuda a escolher um caminho honesto e dar os primeiros passos com clareza." },
   { q: "Preciso aparecer em vídeo?", a: "Não. Existem trilhas específicas para quem não quer aparecer, como produtos digitais, YouTube sem aparecer e TikTok Shop sem rosto." },
   { q: "Preciso saber inglês?", a: "Não. Tudo é em português, e o glossário traduz os termos técnicos que aparecem no digital." },
@@ -334,9 +335,7 @@ export default function Landing() {
             </div>
             <div className="md:col-span-2">
               <p className="text-muted-foreground leading-relaxed">
-                Afiliados, TikTok Shop, ebooks, SaaS, YouTube, templates, prompts, tráfego, funil, copy…
-                cada vídeo fala uma coisa diferente e cada guru jura ter o método definitivo.
-                Você termina o dia mais confuso do que começou, e ainda sem faturar nada.
+                Afiliados, TikTok Shop, ebooks, SaaS, YouTube, templates, prompts, tráfego, funil, copy. Cada vídeo diz uma coisa diferente. Cada guru jura ter o método definitivo. Você termina o dia mais confuso do que começou, e ainda sem faturar nada.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {["Afiliados", "TikTok Shop", "Ebooks", "SaaS", "YouTube", "Templates", "Prompts", "Tráfego", "Funil", "Copy"].map((t) => (
@@ -488,7 +487,7 @@ export default function Landing() {
         <div className="text-center max-w-2xl mx-auto mb-7 flex flex-col items-center">
           <SectionLabel color="text-indigo-300">VALIDAÇÃO INICIAL</SectionLabel>
           <h2 className="text-2xl sm:text-3xl tracking-tight" style={{ fontWeight: 800 }}>
-            Intenções reais de quem está chegando.
+            Intenções reais de quem está começando.
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">Não é depoimento. É o ponto de partida que ouvimos com mais frequência.</p>
         </div>
@@ -514,8 +513,8 @@ export default function Landing() {
             Entre agora com preço de lançamento.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quem entrar hoje paga <span className="text-foreground font-semibold">R$39,90/mês</span>.
-            Depois do lançamento, o valor para novas assinantes será <span className="text-foreground font-semibold">R$79,90/mês</span>.
+            Quem entrar agora paga <span className="text-foreground font-semibold">R$39,90/mês</span> enquanto a assinatura estiver ativa.
+            Depois do lançamento, o valor para novos assinantes será <span className="text-foreground font-semibold">R$79,90/mês</span>.
           </p>
         </div>
 
@@ -538,7 +537,7 @@ export default function Landing() {
                 <span className="text-muted-foreground">/mês</span>
               </div>
               <p className="mt-1.5 text-xs text-muted-foreground">
-                <span className="line-through opacity-60">R$79,90</span> · valor pós-lançamento para novas assinantes
+                <span className="line-through opacity-60">R$79,90</span> · valor pós-lançamento para novos assinantes
               </p>
 
               <ul className="mt-7 space-y-2.5">
@@ -685,7 +684,7 @@ export default function Landing() {
             </div>
             <h3 className="mt-4 text-xl font-bold">Este recurso faz parte do ClickStart Plus.</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Para acessar trilhas completas, kits e agentes, é preciso assinar. O preço fundador segue ativo.
+              Para acessar trilhas completas, kits e agentes, é preciso assinar. O preço de lançamento segue ativo.
             </p>
             <div className="mt-6 flex flex-col gap-2">
               <Link to="/checkout">

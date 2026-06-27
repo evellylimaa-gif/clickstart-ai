@@ -77,7 +77,7 @@ export default function Checkout() {
               </ul>
 
               <div className="mt-7 p-4 rounded-xl border border-white/10 bg-[#020617]/60 text-sm text-muted-foreground">
-                Entre hoje por R$39,90/mês. Depois do lançamento, o valor para novas assinantes será R$79,90/mês.
+                Quem entrar agora paga R$39,90/mês enquanto a assinatura estiver ativa. Depois do lançamento, o valor para novos assinantes será R$79,90/mês.
               </div>
 
               <Button
