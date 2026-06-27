@@ -150,20 +150,36 @@ const Index = () => {
         </button>
       </nav>
 
-      {/* Bottom: plan / CTA */}
+      {/* Bottom: account / plan */}
       <div className="px-3 pb-4 space-y-2">
-        <div className="rounded-2xl p-4 bg-gradient-to-br from-brand-purple/20 via-brand-pink/10 to-transparent border border-brand-purple/30">
-          <div className="flex items-center gap-2.5 mb-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-pink flex items-center justify-center text-white text-sm font-bold">
-              E
+        <div className="rounded-2xl p-4 bg-gradient-to-br from-brand-purple/15 via-brand-pink/8 to-transparent border border-brand-purple/25">
+          {/* Account header */}
+          <div className="flex items-center gap-2.5 mb-3.5">
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold ${
+              user.isAuthenticated
+                ? "bg-gradient-to-br from-brand-purple to-brand-pink text-white"
+                : "bg-white/5 text-[hsl(var(--sidebar-foreground)/0.6)] border border-[hsl(var(--sidebar-border))]"
+            }`}>
+              {user.initial}
             </div>
-            <div className="min-w-0">
-              <p className="text-[13px] font-semibold text-[hsl(var(--sidebar-foreground))] truncate">Evelly</p>
-              <p className="text-[10px] text-brand-amber font-medium">ClickStart Plus</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] uppercase tracking-wider text-[hsl(var(--sidebar-foreground)/0.45)] font-semibold leading-none">
+                {user.isAuthenticated ? "Meu perfil" : "Sua conta"}
+              </p>
+              <p className="text-[13px] font-semibold text-[hsl(var(--sidebar-foreground))] truncate mt-1">
+                {user.displayName}
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--sidebar-foreground)/0.7)] mb-3">
+          {/* Plan row */}
+          <div className="flex items-center justify-between rounded-lg bg-black/20 px-2.5 py-2 mb-2">
+            <span className="text-[10px] text-[hsl(var(--sidebar-foreground)/0.55)]">Plano atual</span>
+            <span className="text-[11px] font-semibold text-brand-amber">ClickStart Plus</span>
+          </div>
+
+          {/* Guarantee row */}
+          <div className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--sidebar-foreground)/0.65)] mb-3 px-1">
             <ShieldCheck className="w-3.5 h-3.5 text-brand-teal" />
             Garantia de 7 dias
           </div>
@@ -194,6 +210,8 @@ const Index = () => {
             onNavigate={(v) => goView(v as View)}
             onOpenConversa={() => goView("conversas")}
             plansGenerated={plansGenerated}
+            userName={user.displayName}
+            isAuthenticated={user.isAuthenticated}
           />
         );
       case "diagnostico":
