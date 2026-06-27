@@ -523,8 +523,9 @@ export default function Landing() {
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
-          {painCards.map(({ icon: Icon, title, text, accent, iconColor }) => (
-            <div key={title} className={`glass-card card-bloom rounded-2xl p-6 ${accent}`}>
+          {painCards.map(({ icon: Icon, title, text, accent, iconColor }, i) => (
+            <div key={title} className={`glass-card card-bloom rounded-2xl p-6 fade-up fade-up-${i + 1} ${accent}`}>
+
               <div className={`w-11 h-11 rounded-xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/5 grid place-items-center ${iconColor}`}>
                 <Icon className="w-5 h-5" />
               </div>
