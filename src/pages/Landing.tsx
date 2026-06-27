@@ -461,10 +461,10 @@ export default function Landing() {
 
       <Divider />
 
-      {/* Pain validation */}
+      {/* Por que isso existe */}
       <section className="max-w-6xl mx-auto px-5 py-10">
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
-          <SectionLabel color="text-pink-300">DORES REAIS</SectionLabel>
+          <SectionLabel color="text-pink-300">POR QUE ISSO EXISTE</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Dores reais que o ClickStart resolve.
           </h2>
@@ -480,10 +480,8 @@ export default function Landing() {
             </div>
           ))}
         </div>
-        <p className="mt-7 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
-          Sem depoimento inventado. As primeiras assinantes entram como fundadoras e ajudam a moldar a plataforma.
-        </p>
       </section>
+
 
       {/* Validação inicial */}
       <section className="max-w-6xl mx-auto px-5 py-8">
