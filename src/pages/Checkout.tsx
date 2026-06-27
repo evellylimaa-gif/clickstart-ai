@@ -77,15 +77,14 @@ export default function Checkout() {
               </ul>
 
               <div className="mt-7 p-4 rounded-xl border border-white/10 bg-[#020617]/60 text-sm text-muted-foreground">
-                O checkout oficial será conectado em breve. Por enquanto, esta é a prévia da oferta.
-                Reserve sua vaga e garanta o valor de fundador.
+                Entre hoje por R$39,90/mês. Depois do lançamento, o valor para novas assinantes será R$79,90/mês.
               </div>
 
               <Button
                 onClick={reserve}
                 className="mt-6 w-full h-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 hover:opacity-95 shadow-lg shadow-indigo-600/30"
               >
-                Quero reservar o preço fundador
+                Começar agora por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
 
