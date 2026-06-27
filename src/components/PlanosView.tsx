@@ -25,13 +25,11 @@ export function PlanosView({ onCreatePlan }: PlanosViewProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const grouped = useMemo(() => {
-    const map = new Map<SavedPlanCategory, typeof plans>();
-    for (const cat of allCategories) map.set(cat, []);
+    const map: Record<SavedPlanCategory, typeof plans> = {} as Record<SavedPlanCategory, typeof plans>;
+    for (const cat of allCategories) map[cat] = [];
     for (const p of plans) {
       if (filter !== "Todos" && p.category !== filter) continue;
-      const arr = map.get(p.category) || [];
-      arr.push(p);
-      map.set(p.category, arr);
+      map[p.category] = [...(map[p.category] || []), p];
     }
     return map;
   }, [plans, filter]);
