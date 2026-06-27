@@ -24,7 +24,7 @@ interface ChatPanelProps {
   initialMessage?: string;
   extraChips?: string[];
   onSaveConversation?: (data: { agentId: string; agentName: string; agentBadge: string; firstQuestion: string; messages: Message[] }) => void;
-  onPlanSaved?: () => void;
+  onPlanSaved?: (content: string) => void;
 }
 
 export function ChatPanel({ agent, initialMessage, extraChips = [], onSaveConversation, onPlanSaved }: ChatPanelProps) {

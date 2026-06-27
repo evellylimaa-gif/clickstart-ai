@@ -20,6 +20,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
 import { useHistory } from "@/hooks/use-history";
 import { useUser } from "@/hooks/use-user";
+import { useSavedPlans } from "@/hooks/use-saved-plans";
 
 type View =
   | "dashboard"
@@ -82,7 +83,11 @@ const Index = () => {
     setSidebarOpen(false);
   };
 
-  const incrementPlans = () => {
+  const { savePlan } = useSavedPlans();
+
+  const handlePlanSaved = (content: string) => {
+    const agent = agents[activeIdx];
+    savePlan({ content, agentBadge: agent?.badge || "Plano" });
     setPlansGenerated((p) => {
       const next = p + 1;
       localStorage.setItem("evelly_plans_generated", String(next));
@@ -285,7 +290,7 @@ const Index = () => {
               initialMessage={initialMessage}
               extraChips={[]}
               onSaveConversation={(data) => saveConversation(data)}
-              onPlanSaved={incrementPlans}
+              onPlanSaved={handlePlanSaved}
             />
           </div>
         );
