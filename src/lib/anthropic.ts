@@ -10,21 +10,26 @@ export interface Message {
 const USER_FACING_ERROR = "Não consegui responder agora. Tente novamente em alguns segundos.";
 
 /**
- * Sends a chat message. Today this still calls Anthropic directly using a key
- * stored client-side for the owner/admin demo flow, but the contract is
- * intentionally narrow so we can later swap to a secure backend function or
- * Supabase Edge Function without changing callers.
+ * Sends a chat message.
  *
- * On any failure (missing key, network, rate limit, validation), throws a
- * friendly error that can be shown to end users.
+ * TODO (backend migration):
+ *   - Move this call to a Supabase Edge Function.
+ *   - Store the Anthropic key as a server-side secret only (never VITE_*).
+ *   - Subscribers must never see API keys, models, providers, or config UI.
+ *
+ * Today, for local/admin development only, the call reads:
+ *   1. VITE_ANTHROPIC_API_KEY (preferred, dev env)
+ *   2. localStorage `anthropic_api_key` (legacy fallback)
+ * If neither is present, fail SILENTLY with a generic friendly error.
  */
 export async function sendMessage(
   messages: Message[],
   systemPrompt: string
 ): Promise<string> {
   const apiKey =
-    (typeof localStorage !== "undefined" && localStorage.getItem("anthropic_api_key")) ||
-    (import.meta as any).env?.VITE_ANTHROPIC_API_KEY;
+    (import.meta as any).env?.VITE_ANTHROPIC_API_KEY ||
+    (typeof localStorage !== "undefined" && localStorage.getItem("anthropic_api_key"));
+
 
   if (!apiKey) {
     // Do NOT instruct users to configure anything. Silent fail with generic copy.
