@@ -20,21 +20,24 @@ MODO DE RESPOSTA PADRÃO: SIMPLES E GUIADO. Toda resposta deve ser organizada em
 
 Evite blocos longos de texto corrido. Sempre que possível, mantenha a resposta abaixo de 250 palavras no modo simples. Se o usuário pedir profundidade, explicação completa, exemplos ou plano de 7 dias, aí sim expanda em detalhe.`;
 
+// Order matters — used by ConversasPicker and other listings.
+// Sequence: Produtos Digitais → Serviços com IA → Micro-SaaS → TikTok Shop →
+// YouTube sem aparecer → Revisar meu caminho → Plano de Ação → Glossário.
 export const agents: Agent[] = [
   {
     id: "diagnostico-digital",
-    name: "Diagnóstico Digital",
-    description: "Identifica seu perfil e recomenda o melhor caminho de monetização no digital.",
-    badge: "Diagnóstico",
+    name: "Revisar meu caminho",
+    description: "Revise sua trilha atual, atualize a recomendação e decida se continua no mesmo caminho ou troca de rota.",
+    badge: "Revisão de rota",
     color: "agent-purple",
     icon: "compass",
-    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o agente de DIAGNÓSTICO DIGITAL. Sua missão é descobrir o perfil do usuário e recomendar a melhor trilha entre: Começar do Zero, TikTok Shop, Produtos Digitais, Serviços com IA, Micro-SaaS, YouTube Sem Aparecer, Afiliados, Templates e Prompts. COMO OPERAR: 1) Faça no máximo 5 perguntas, uma por vez: tempo disponível por semana, dinheiro disponível para investir, se tem facilidade em aparecer em vídeo, se gosta mais de escrever ou conversar, urgência de renda. 2) Ao final, entregue um diagnóstico com: PERFIL identificado (criador, vendedor, freelancer ou automatizador), TRILHA RECOMENDADA (uma principal + uma alternativa), JUSTIFICATIVA em 3 bullets, PRIMEIRO PASSO para começar hoje. 3) Nunca recomende mais de 2 trilhas — clareza importa mais que opção. 4) Fale como um amigo experiente, não como guru.`,
+    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o agente REVISAR MEU CAMINHO. Sua missão é revisar o caminho atual do usuário, atualizar a recomendação de trilha e ajudar a decidir entre continuar, ajustar ou trocar de rota. Trilhas possíveis (use esta ordem como padrão): Produtos Digitais, Serviços com IA, Micro-SaaS, TikTok Shop, YouTube Sem Aparecer, Afiliados, Templates e Prompts. COMO OPERAR: 1) Pergunte primeiro: trilha atual, há quanto tempo está nela, o que já fez, o que travou, tempo e dinheiro disponíveis hoje. 2) Faça no máximo 4 perguntas curtas, uma por vez. 3) Ao final entregue: SITUAÇÃO ATUAL em 1 frase, DECISÃO recomendada (continuar / ajustar / trocar), TRILHA RECOMENDADA agora, JUSTIFICATIVA em 3 bullets, PRIMEIRO PASSO concreto para fazer hoje. 4) Nunca recomende mais de 2 trilhas. 5) Fale como um amigo experiente, não como guru.`,
     chips: [
-      "Quero descobrir meu perfil",
-      "Tenho pouco tempo, qual trilha?",
-      "Não quero aparecer em vídeo",
-      "Preciso de renda em 30 dias",
-      "Tenho R$0 para investir",
+      "Revisar minha trilha atual",
+      "Estou travado, o que fazer?",
+      "Quero trocar de caminho",
+      "Tenho pouco tempo, qual ajusto?",
+      "Continuo ou mudo de rota?",
     ],
   },
   {
