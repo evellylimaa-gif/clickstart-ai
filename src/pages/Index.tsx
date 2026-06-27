@@ -2,14 +2,18 @@ import { useState } from "react";
 import { agents } from "@/lib/agents";
 import { ChatPanel } from "@/components/ChatPanel";
 import { Dashboard } from "@/components/Dashboard";
-import { PlaceholderView } from "@/components/PlaceholderView";
 import { ConversasPicker } from "@/components/ConversasPicker";
 import { TrilhasView } from "@/components/TrilhasView";
+import { GlossarioView } from "@/components/GlossarioView";
+import { KitsView } from "@/components/KitsView";
+import { PlanosView } from "@/components/PlanosView";
+import { DiagnosticoView } from "@/components/DiagnosticoView";
+import { MinhaContaView } from "@/components/MinhaContaView";
 import type { Trail } from "@/lib/trails";
-import { SettingsPage } from "@/pages/Settings";
+import type { Kit } from "@/lib/kits";
 import {
   Compass, Map as MapIcon, MessageSquare, BookOpen, Package, ClipboardList,
-  LayoutDashboard, Settings, Menu, X, Sun, Moon, ShieldCheck, Sparkles,
+  LayoutDashboard, UserCircle, Menu, X, Sun, Moon, ShieldCheck, Sparkles,
   ArrowLeft, History, Trash2, ChevronDown, ChevronRight,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
