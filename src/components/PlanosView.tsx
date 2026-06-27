@@ -126,7 +126,7 @@ export function PlanosView({ onCreatePlan }: PlanosViewProps) {
 
             <div className="space-y-6">
               {allCategories.map((cat) => {
-                const list = grouped.get(cat) || [];
+                const list = grouped[cat] || [];
                 if (list.length === 0) return null;
                 const meta = categoryMeta[cat];
                 const Icon = meta.icon;
