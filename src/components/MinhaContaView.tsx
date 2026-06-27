@@ -1,5 +1,10 @@
 import { ShieldCheck, Sparkles, LogOut, Settings as SettingsIcon, Bell, Lock, Monitor } from "lucide-react";
-import type { ClickStartUser } from "@/hooks/use-user";
+import { logout, type ClickStartUser } from "@/hooks/use-user";
+
+function handleLogout() {
+  logout();
+  window.location.href = "/";
+}
 
 interface MinhaContaViewProps {
   user: ClickStartUser;
