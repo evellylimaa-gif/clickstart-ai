@@ -33,6 +33,7 @@ const toneMap: Record<string, string> = {
 };
 
 const platforms = ["Kiwify", "Cakto", "Hotmart", "Stripe"];
+const planTiers = ["Essencial", "Plus", "Pro"];
 
 export default function Admin() {
   const user = useUser();
