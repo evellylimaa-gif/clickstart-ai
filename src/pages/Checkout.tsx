@@ -48,10 +48,10 @@ export default function Checkout() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-indigo-300 font-semibold">Assinar ClickStart Plus</p>
-                  <h1 className="text-2xl font-bold mt-1">Preço fundador</h1>
+                  <h1 className="text-2xl font-bold mt-1">Preço de lançamento</h1>
                 </div>
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-amber-400/15 text-amber-300 border border-amber-400/30">
-                  FUNDADOR
+                  LANÇAMENTO
                 </span>
               </div>
 
