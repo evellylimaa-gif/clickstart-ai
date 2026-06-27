@@ -13,32 +13,37 @@ import {
   Check,
   ArrowRight,
   AlertTriangle,
-  Target,
   Route as RouteIcon,
-  Map,
   Lock,
-  HelpCircle,
   Heart,
   Languages,
+  FileText,
+  Wrench,
+  Boxes,
+  Video,
+  Youtube,
+  Zap,
+  Star,
+  Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const includes = [
-  { icon: Brain, label: "Diagnóstico digital com IA" },
-  { icon: RouteIcon, label: "Trilhas de monetização" },
-  { icon: MessageSquare, label: "Agentes especializados" },
-  { icon: BookOpen, label: "Glossário inteligente" },
-  { icon: History, label: "Histórico de conversas" },
-  { icon: ClipboardList, label: "Planos de ação" },
-  { icon: Package, label: "Kits digitais" },
-  { icon: ShieldCheck, label: "Garantia de 7 dias" },
+  { icon: Brain, label: "Diagnóstico digital com IA", color: "text-purple-300", ring: "from-purple-500/25 to-indigo-500/25" },
+  { icon: RouteIcon, label: "Trilhas de monetização", color: "text-teal-300", ring: "from-teal-500/25 to-cyan-500/25" },
+  { icon: MessageSquare, label: "Agentes especializados", color: "text-indigo-300", ring: "from-indigo-500/25 to-purple-500/25" },
+  { icon: BookOpen, label: "Glossário inteligente", color: "text-cyan-300", ring: "from-cyan-500/25 to-teal-500/25" },
+  { icon: History, label: "Histórico de conversas", color: "text-purple-300", ring: "from-purple-500/25 to-pink-500/25" },
+  { icon: ClipboardList, label: "Planos de ação salvos", color: "text-amber-300", ring: "from-amber-500/25 to-pink-500/25" },
+  { icon: Package, label: "Kits digitais prontos", color: "text-pink-300", ring: "from-pink-500/25 to-purple-500/25" },
+  { icon: ShieldCheck, label: "Garantia de 7 dias", color: "text-teal-300", ring: "from-teal-500/25 to-indigo-500/25" },
 ];
 
-const stepAccents = ["accent-l-purple", "accent-l-teal", "accent-l-amber", "accent-l-pink"];
+const stepAccents = ["accent-l-purple", "accent-l-indigo", "accent-l-teal", "accent-l-cyan"];
 
 const steps = [
   { n: "1", title: "Faça o diagnóstico", desc: "A IA entende seu perfil, seu tempo e seu ponto de partida." },
-  { n: "2", title: "Receba sua trilha", desc: "TikTok Shop, produtos digitais, serviços com IA, YouTube ou micro-SaaS." },
+  { n: "2", title: "Receba sua trilha", desc: "Produtos digitais, serviços com IA, micro-SaaS, TikTok Shop ou YouTube sem aparecer." },
   { n: "3", title: "Converse com os agentes", desc: "Tire dúvidas com especialistas em monetização e prompts." },
   { n: "4", title: "Transforme em plano", desc: "Cada conversa vira passos práticos salvos no seu painel." },
 ];
@@ -54,17 +59,21 @@ const planBenefits = [
   "Garantia de 7 dias",
 ];
 
+// Strategic order: Produtos Digitais → Serviços IA → Micro-SaaS → TikTok Shop → YouTube
 const trailPreviews = [
-  { title: "TikTok Shop sem aparecer", desc: "Venda produtos físicos com vídeos simples." },
-  { title: "Produtos digitais", desc: "Ebooks, templates e ofertas que vendem sozinhas." },
-  { title: "Serviços com IA", desc: "Entregas premium usando agentes." },
-  { title: "Micro-SaaS", desc: "Software de assinatura pequeno e rentável." },
+  { icon: FileText, title: "Produtos digitais", desc: "Ebooks, templates e ofertas que vendem sozinhas.", color: "text-pink-300" },
+  { icon: Wrench, title: "Serviços com IA", desc: "Entregas premium usando agentes.", color: "text-teal-300" },
+  { icon: Boxes, title: "Micro-SaaS", desc: "Software de assinatura pequeno e rentável.", color: "text-purple-300" },
+  { icon: Video, title: "TikTok Shop", desc: "Venda produtos físicos com vídeos simples.", color: "text-cyan-300" },
+  { icon: Youtube, title: "YouTube sem aparecer", desc: "Canais com voz, imagem e edição por IA.", color: "text-amber-300" },
 ];
 
 const kitPreviews = [
   { title: "Kit Lançamento Express", items: ["Checklist de 7 dias", "Roteiro de vídeo", "Modelo de oferta"] },
-  { title: "Kit Conteúdo que Vende", items: ["20 ganchos prontos", "CTAs", "Calendário semanal"] },
+  { title: "Kit Oferta que Converte", items: ["Estrutura de página", "20 gatilhos", "Garantia pronta"] },
   { title: "Kit Diagnóstico de Nicho", items: ["Validação", "Mapa de dores", "Critérios de público"] },
+  { title: "Kit Roteiro de Venda", items: ["Abertura", "Quebra de objeção", "Fechamento"] },
+  { title: "Kit Primeira Oferta Digital", items: ["Promessa", "Entregáveis", "Preço inicial"] },
 ];
 
 const glossaryPreviews = [
@@ -72,6 +81,8 @@ const glossaryPreviews = [
   { term: "MVP", short: "Versão mínima de um produto, só com o essencial." },
   { term: "Funil", short: "Caminho que leva alguém de visitante a cliente." },
   { term: "Copy", short: "Texto escrito para vender ou convencer." },
+  { term: "Lead", short: "Pessoa interessada que ainda não comprou." },
+  { term: "CTA", short: "Chamada que pede uma ação clara." },
 ];
 
 const painCards = [
@@ -98,10 +109,16 @@ const painCards = [
   },
 ];
 
+const validationCards = [
+  { intent: "Quero começar com produtos digitais, mas não sei o que vender.", tag: "Produtos digitais", color: "text-pink-300", accent: "accent-l-pink" },
+  { intent: "Tenho interesse em TikTok Shop, mas não sei se é o melhor caminho para mim.", tag: "TikTok Shop", color: "text-cyan-300", accent: "accent-l-cyan" },
+  { intent: "Quero algo mais inteligente, como SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
+];
+
 const faqQA: { q: string; a: string }[] = [
   { q: "O ClickStart AI é para mim?", a: "Se você quer começar no digital e se sente perdida entre tantos caminhos, sim. Foi feito para quem está no zero ou já tentou e desistiu." },
   { q: "Isso promete dinheiro rápido?", a: "Não. Nada de fórmula mágica. O ClickStart te ajuda a escolher um caminho honesto e dar os primeiros passos com clareza." },
-  { q: "Preciso aparecer em vídeo?", a: "Não. Existem trilhas específicas para quem não quer aparecer, como TikTok Shop sem rosto, YouTube sem aparecer e produtos digitais." },
+  { q: "Preciso aparecer em vídeo?", a: "Não. Existem trilhas específicas para quem não quer aparecer, como produtos digitais, YouTube sem aparecer e TikTok Shop sem rosto." },
   { q: "Preciso saber inglês?", a: "Não. Tudo é em português, e o glossário traduz os termos técnicos que aparecem no digital." },
   { q: "Qual a diferença para o ChatGPT?", a: "O ChatGPT é genérico. O ClickStart tem agentes especializados em monetização, trilhas guiadas, glossário e plano de ação salvo no seu painel." },
   { q: "O que recebo por R$39,90?", a: "Acesso a todos os agentes, trilhas, diagnóstico, glossário, kits digitais, histórico de conversas e planos salvos." },
@@ -112,7 +129,7 @@ const faqQA: { q: string; a: string }[] = [
 ];
 
 const SectionLabel = ({ color, children }: { color: string; children: React.ReactNode }) => (
-  <div className={`section-label section-dot ${color} mb-4 justify-center`}>{children}</div>
+  <div className={`section-label-xl ${color} mb-4`}>{children}</div>
 );
 
 const Divider = () => (
@@ -132,11 +149,14 @@ export default function Landing() {
       {/* Nav */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#020617]/80 border-b border-white/5">
         <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-600 to-teal-500 grid place-items-center shadow-lg shadow-indigo-600/30">
-              <Sparkles className="w-4 h-4 text-white" />
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="logo-mark w-9 h-9 rounded-xl grid place-items-center">
+              <Compass className="w-[18px] h-[18px] text-white relative z-10" strokeWidth={2.4} />
             </div>
-            <span className="font-bold text-lg tracking-tight">ClickStart AI</span>
+            <div className="flex flex-col leading-none">
+              <span className="font-bold text-[15px] tracking-tight">ClickStart <span className="bg-gradient-to-r from-indigo-300 to-teal-300 bg-clip-text text-transparent">AI</span></span>
+              <span className="text-[9px] uppercase tracking-[0.18em] text-muted-foreground mt-0.5">Bússola digital</span>
+            </div>
           </Link>
           <div className="flex items-center gap-2">
             <a href="#como-funciona" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3 py-2">Como funciona</a>
@@ -146,9 +166,7 @@ export default function Landing() {
               <Button variant="ghost" size="sm">Entrar</Button>
             </Link>
             <Link to="/checkout" className="hidden sm:block">
-              <Button size="sm" className="btn-gradient text-white border-0">
-                Assinar
-              </Button>
+              <Button size="sm" className="btn-gradient text-white border-0">Assinar</Button>
             </Link>
           </div>
         </div>
@@ -158,20 +176,22 @@ export default function Landing() {
       <section className="relative overflow-hidden">
         <div className="hero-aura" />
         <div className="absolute inset-0 -z-10">
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1100px] h-[700px] rounded-full bg-purple-600/[0.10] blur-[120px]" />
-          <div className="absolute top-40 right-0 w-[500px] h-[500px] rounded-full bg-teal-500/[0.10] blur-3xl" />
-          <div className="absolute top-60 left-0 w-[400px] h-[400px] rounded-full bg-indigo-600/[0.08] blur-3xl" />
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] rounded-full bg-purple-600/[0.14] blur-[140px]" />
+          <div className="absolute top-40 right-0 w-[560px] h-[560px] rounded-full bg-teal-500/[0.12] blur-3xl" />
+          <div className="absolute top-60 left-0 w-[460px] h-[460px] rounded-full bg-indigo-600/[0.10] blur-3xl" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-5 pt-16 pb-10 text-center relative">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur text-xs text-muted-foreground mb-6">
+        <div className="max-w-5xl mx-auto px-5 pt-14 pb-8 text-center relative">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur text-xs text-muted-foreground mb-7 shadow-[0_0_20px_-8px_rgba(124,58,237,0.4)]">
             <Compass className="w-3.5 h-3.5 text-teal-300" />
-            Sua bússola no digital
+            <span className="font-medium tracking-wide">Sua bússola no digital</span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="text-amber-300/90 font-semibold">Beta fundador</span>
           </div>
 
           <div className="relative inline-block">
             <div className="headline-aura" />
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.05]" style={{ fontWeight: 800 }}>
+            <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.02]" style={{ fontWeight: 800 }}>
               Sua bússola para começar no digital{" "}
               <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-300 bg-clip-text text-transparent guru-pulse inline-block">
                 sem cair em guru.
@@ -179,59 +199,115 @@ export default function Landing() {
             </h1>
           </div>
 
-          <p className="mt-5 text-lg text-foreground/90 max-w-2xl mx-auto">
+          <p className="mt-6 text-lg text-foreground/90 max-w-2xl mx-auto font-medium">
             Descubra por onde começar antes de comprar outro curso.
           </p>
 
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 text-base sm:text-[17px] text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             O ClickStart AI entende seu perfil, traduz os termos difíceis e mostra qual caminho faz mais sentido para você começar:
-            <span className="text-foreground"> TikTok Shop, produtos digitais, serviços com IA, YouTube sem aparecer ou micro-SaaS.</span>
+            <span className="text-foreground"> produtos digitais, serviços com IA, micro-SaaS, TikTok Shop ou YouTube sem aparecer.</span>
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
-              <Button size="lg" className="h-12 px-6 btn-gradient text-white border-0">
+              <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
                 Assinar por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#faq">
               <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke text-foreground hover:bg-transparent">
-                Tirar dúvidas antes de assinar
+                Tirar dúvidas antes
               </Button>
             </a>
           </div>
 
-          <p className="mt-6 text-sm text-muted-foreground">
-            Sem promessa falsa. Sem fórmula mágica. Sem enrolação.
+          <p className="mt-5 text-xs text-muted-foreground tracking-wide">
+            Sem promessa falsa · Sem fórmula mágica · 7 dias de garantia
           </p>
 
-          {/* Floating UI preview mockup */}
-          <div className="mt-12 relative max-w-3xl mx-auto">
-            <div className="ui-preview rounded-2xl p-4 text-left">
-              <div className="flex items-center gap-1.5 mb-3">
+          {/* Hero product mockup */}
+          <div className="mt-12 relative max-w-4xl mx-auto">
+            <div className="absolute -inset-8 bg-gradient-to-r from-purple-600/20 via-indigo-600/10 to-teal-500/20 blur-3xl -z-10" />
+            <div className="ui-preview rounded-2xl p-4 sm:p-5 text-left">
+              <div className="flex items-center gap-1.5 mb-4">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
-                <span className="ml-3 text-[11px] text-muted-foreground">clickstart.ai / app</span>
+                <span className="ml-3 text-[11px] text-muted-foreground font-mono">clickstart.ai / app</span>
               </div>
-              <div className="grid md:grid-cols-3 gap-3">
-                <div className="glass-card accent-l-purple rounded-xl p-3">
-                  <div className="text-[10px] uppercase tracking-widest text-purple-300 font-bold">Diagnóstico</div>
-                  <div className="mt-1 text-sm font-semibold">Seu perfil hoje</div>
-                  <div className="mt-2 h-1.5 rounded-full bg-white/5 overflow-hidden">
-                    <div className="h-full w-2/3 bg-gradient-to-r from-purple-500 to-teal-400" />
+
+              <div className="grid lg:grid-cols-12 gap-3">
+                {/* Left: diagnostic + trail */}
+                <div className="lg:col-span-5 space-y-3">
+                  <div className="glass-card accent-l-purple card-bloom rounded-xl p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="text-[10px] uppercase tracking-widest text-purple-300 font-bold">Diagnóstico</div>
+                      <span className="text-[10px] text-muted-foreground">76%</span>
+                    </div>
+                    <div className="mt-1.5 text-sm font-semibold">Seu perfil hoje</div>
+                    <div className="mt-2.5 h-1.5 rounded-full bg-white/5 overflow-hidden">
+                      <div className="h-full w-[76%] bg-gradient-to-r from-purple-500 via-indigo-500 to-teal-400" />
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-200">Iniciante</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-500/15 text-teal-200">Sem aparecer</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-200">1h/dia</span>
+                    </div>
+                  </div>
+
+                  <div className="glass-card accent-l-teal card-bloom rounded-xl p-4">
+                    <div className="text-[10px] uppercase tracking-widest text-teal-300 font-bold">Trilha recomendada</div>
+                    <div className="mt-1.5 text-sm font-semibold flex items-center gap-2">
+                      <FileText className="w-3.5 h-3.5 text-pink-300" /> Produtos digitais
+                    </div>
+                    <div className="mt-2.5 text-[11px] text-muted-foreground">Passo 2 de 7 · próximo: definir oferta</div>
+                    <div className="mt-2 h-1 rounded-full bg-white/5 overflow-hidden">
+                      <div className="h-full w-[28%] bg-gradient-to-r from-teal-400 to-cyan-400" />
+                    </div>
                   </div>
                 </div>
-                <div className="glass-card accent-l-teal rounded-xl p-3">
-                  <div className="text-[10px] uppercase tracking-widest text-teal-300 font-bold">Trilha</div>
-                  <div className="mt-1 text-sm font-semibold">TikTok Shop sem rosto</div>
-                  <div className="mt-2 text-[11px] text-muted-foreground">Passo 2 de 7</div>
+
+                {/* Middle: AI plan response */}
+                <div className="lg:col-span-4">
+                  <div className="glass-card accent-l-indigo card-bloom rounded-xl p-4 h-full">
+                    <div className="flex items-center justify-between">
+                      <div className="text-[10px] uppercase tracking-widest text-indigo-300 font-bold">Agente · Plano de hoje</div>
+                      <Sparkles className="w-3 h-3 text-indigo-300" />
+                    </div>
+                    <div className="mt-2 space-y-2 text-[12px]">
+                      <div className="flex items-start gap-2">
+                        <span className="w-4 h-4 rounded-md bg-indigo-500/20 text-indigo-200 grid place-items-center text-[9px] font-bold shrink-0">1</span>
+                        <span className="text-foreground/90">Escolher um nicho de partida</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="w-4 h-4 rounded-md bg-indigo-500/20 text-indigo-200 grid place-items-center text-[9px] font-bold shrink-0">2</span>
+                        <span className="text-foreground/90">Definir uma promessa simples</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="w-4 h-4 rounded-md bg-indigo-500/20 text-indigo-200 grid place-items-center text-[9px] font-bold shrink-0">3</span>
+                        <span className="text-foreground/90">Rascunhar a primeira oferta</span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground">Modo simples</span>
+                      <span className="text-[10px] text-teal-300">Salvar plano →</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="glass-card accent-l-amber rounded-xl p-3">
-                  <div className="text-[10px] uppercase tracking-widest text-amber-300 font-bold">Agente</div>
-                  <div className="mt-1 text-sm font-semibold">Plano de hoje</div>
-                  <div className="mt-2 text-[11px] text-muted-foreground">3 passos prontos para aplicar</div>
+
+                {/* Right: glossary + saved plan */}
+                <div className="lg:col-span-3 space-y-3">
+                  <div className="glass-card accent-l-cyan card-bloom rounded-xl p-4">
+                    <div className="text-[10px] uppercase tracking-widest text-cyan-300 font-bold">Glossário</div>
+                    <div className="mt-2 text-sm font-semibold">Funil</div>
+                    <p className="mt-1 text-[11px] text-muted-foreground leading-snug">Caminho que leva alguém de visitante a cliente.</p>
+                  </div>
+                  <div className="glass-card accent-l-amber card-bloom rounded-xl p-4">
+                    <div className="text-[10px] uppercase tracking-widest text-amber-300 font-bold">Plano salvo</div>
+                    <div className="mt-1.5 text-sm font-semibold">Primeira oferta</div>
+                    <div className="mt-1 text-[11px] text-muted-foreground">7 passos · 3 feitos</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -242,12 +318,12 @@ export default function Landing() {
       <Divider />
 
       {/* Problem */}
-      <section className="max-w-6xl mx-auto px-5 py-10">
-        <div className="glass-card accent-l-amber rounded-3xl p-8 sm:p-10">
+      <section className="max-w-6xl mx-auto px-5 py-9">
+        <div className="glass-card accent-l-amber card-bloom rounded-3xl p-8 sm:p-10">
           <div className="grid md:grid-cols-3 gap-8 items-start">
             <div className="md:col-span-1">
-              <div className="section-label section-dot text-amber-300 mb-3">
-                <AlertTriangle className="w-4 h-4" /> O PROBLEMA
+              <div className="section-label-xl text-amber-300 mb-3">
+                <AlertTriangle className="w-3.5 h-3.5" /> O PROBLEMA
               </div>
               <h2 className="text-2xl sm:text-3xl tracking-tight" style={{ fontWeight: 800 }}>
                 Caminhos demais. Clareza de menos.
@@ -274,20 +350,25 @@ export default function Landing() {
       <Divider />
 
       {/* How it works */}
-      <section id="como-funciona" className="max-w-6xl mx-auto px-5 py-10">
-        <div className="text-center max-w-2xl mx-auto mb-8">
+      <section id="como-funciona" className="max-w-6xl mx-auto px-5 py-10 section-tone">
+        <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
           <SectionLabel color="text-teal-300">COMO FUNCIONA</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Quatro passos para sair do zero com clareza.
           </h2>
+          <p className="mt-3 text-muted-foreground">Um sistema guiado, não mais uma lista de aulas.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.map((s, i) => (
-            <div key={s.n} className={`glass-card rounded-2xl p-5 ${stepAccents[i]}`}>
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-500 grid place-items-center font-bold text-white shadow-lg shadow-indigo-600/20">
-                {s.n}
+            <div key={s.n} className={`relative glass-card card-bloom rounded-2xl p-5 ${stepAccents[i]}`}>
+              {i < steps.length - 1 && <div className="hidden lg:block step-connector" />}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-teal-500 grid place-items-center font-extrabold text-white shadow-lg shadow-indigo-600/30 text-lg relative z-10">
+                  {s.n}
+                </div>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Passo {s.n}</span>
               </div>
-              <h3 className="mt-4 font-semibold">{s.title}</h3>
+              <h3 className="mt-4 font-bold text-[15px]">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </div>
           ))}
@@ -298,20 +379,22 @@ export default function Landing() {
 
       {/* What's included */}
       <section className="max-w-6xl mx-auto px-5 py-10">
-        <div className="glass-card rounded-3xl p-8 sm:p-10">
-          <div className="text-center max-w-2xl mx-auto mb-8">
+        <div className="glass-card rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full bg-indigo-600/10 blur-3xl pointer-events-none" />
+          <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center relative">
             <SectionLabel color="text-cyan-300">O QUE ESTÁ INCLUSO</SectionLabel>
             <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
-              Tudo o que você precisa, em um só lugar.
+              Um sistema operacional para começar no digital.
             </h2>
+            <p className="mt-3 text-muted-foreground">Tudo conectado. Sem precisar montar nada por fora.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {includes.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-3 p-4 rounded-xl glass-card">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500/25 to-teal-500/25 grid place-items-center text-indigo-300 shrink-0">
-                  <Icon className="w-4 h-4" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
+            {includes.map(({ icon: Icon, label, color, ring }) => (
+              <div key={label} className="flex items-center gap-3 p-4 rounded-xl glass-card card-bloom hover:border-white/20 transition-all">
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${ring} grid place-items-center ${color} shrink-0 border border-white/5`}>
+                  <Icon className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-sm font-medium">{label}</span>
+                <span className="text-sm font-semibold">{label}</span>
               </div>
             ))}
           </div>
@@ -322,8 +405,8 @@ export default function Landing() {
 
       {/* Previews */}
       <section className="max-w-6xl mx-auto px-5 py-10">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <SectionLabel color="text-purple-300">PRÉVIA DO QUE VEM DEPOIS</SectionLabel>
+        <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
+          <SectionLabel color="text-purple-300">PRÉVIA PREMIUM</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Veja por cima. O conteúdo completo libera com a assinatura.
           </h2>
@@ -331,13 +414,15 @@ export default function Landing() {
 
         <div className="grid lg:grid-cols-3 gap-5">
           <LockedCard accent="accent-l-purple" title="Trilhas de monetização" subtitle="5 caminhos guiados" onLocked={() => setLockedOpen(true)}>
-            <ul className="space-y-2 text-sm">
-              {trailPreviews.map((t) => (
-                <li key={t.title} className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
+            <ul className="space-y-2.5 text-sm">
+              {trailPreviews.map(({ icon: Icon, title, desc, color }) => (
+                <li key={title} className="flex items-start gap-2.5">
+                  <span className={`w-6 h-6 rounded-lg bg-white/[0.04] border border-white/5 grid place-items-center ${color} shrink-0 mt-0.5`}>
+                    <Icon className="w-3.5 h-3.5" />
+                  </span>
                   <div>
-                    <p className="font-semibold text-foreground">{t.title}</p>
-                    <p className="text-xs text-muted-foreground">{t.desc}</p>
+                    <p className="font-semibold text-foreground text-[13px]">{title}</p>
+                    <p className="text-xs text-muted-foreground leading-snug">{desc}</p>
                   </div>
                 </li>
               ))}
@@ -347,20 +432,23 @@ export default function Landing() {
           <LockedCard accent="accent-l-teal" title="Kits Digitais" subtitle="Prontos para aplicar" onLocked={() => setLockedOpen(true)}>
             <ul className="space-y-3 text-sm">
               {kitPreviews.map((k) => (
-                <li key={k.title}>
-                  <p className="font-semibold text-foreground text-sm">{k.title}</p>
-                  <p className="text-xs text-muted-foreground">{k.items.join(" · ")}</p>
+                <li key={k.title} className="pb-2.5 border-b border-white/5 last:border-0 last:pb-0">
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-3.5 h-3.5 text-teal-300" />
+                    <p className="font-semibold text-foreground text-[13px]">{k.title}</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5 ml-5">{k.items.join(" · ")}</p>
                 </li>
               ))}
             </ul>
           </LockedCard>
 
           <LockedCard accent="accent-l-cyan" title="Glossário inteligente" subtitle="Sem inglês confuso" onLocked={() => setLockedOpen(true)}>
-            <ul className="space-y-3 text-sm">
+            <ul className="grid grid-cols-1 gap-2.5 text-sm">
               {glossaryPreviews.map((g) => (
-                <li key={g.term}>
-                  <p className="font-semibold text-foreground">{g.term}</p>
-                  <p className="text-xs text-muted-foreground">{g.short}</p>
+                <li key={g.term} className="rounded-lg bg-white/[0.02] border border-white/5 px-3 py-2">
+                  <p className="font-bold text-foreground text-[13px] text-cyan-200">{g.term}</p>
+                  <p className="text-xs text-muted-foreground leading-snug mt-0.5">{g.short}</p>
                 </li>
               ))}
             </ul>
@@ -372,7 +460,7 @@ export default function Landing() {
 
       {/* Pain validation */}
       <section className="max-w-6xl mx-auto px-5 py-10">
-        <div className="text-center max-w-2xl mx-auto mb-8">
+        <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
           <SectionLabel color="text-pink-300">DORES REAIS</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Dores reais que o ClickStart resolve.
@@ -380,57 +468,82 @@ export default function Landing() {
         </div>
         <div className="grid md:grid-cols-3 gap-5">
           {painCards.map(({ icon: Icon, title, text, accent, iconColor }) => (
-            <div key={title} className={`glass-card rounded-2xl p-6 ${accent}`}>
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 grid place-items-center ${iconColor}`}>
+            <div key={title} className={`glass-card card-bloom rounded-2xl p-6 ${accent}`}>
+              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/5 grid place-items-center ${iconColor}`}>
                 <Icon className="w-5 h-5" />
               </div>
-              <h3 className="mt-4 font-semibold text-lg">{title}</h3>
+              <h3 className="mt-4 font-bold text-lg">{title}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{text}</p>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+        <p className="mt-7 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
           Sem depoimento inventado. As primeiras assinantes entram como fundadoras e ajudam a moldar a plataforma.
         </p>
+      </section>
+
+      {/* Validação inicial */}
+      <section className="max-w-6xl mx-auto px-5 py-8">
+        <div className="text-center max-w-2xl mx-auto mb-7 flex flex-col items-center">
+          <SectionLabel color="text-indigo-300">VALIDAÇÃO INICIAL</SectionLabel>
+          <h2 className="text-2xl sm:text-3xl tracking-tight" style={{ fontWeight: 800 }}>
+            Intenções reais de quem está chegando.
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">Não é depoimento. É o ponto de partida que ouvimos com mais frequência.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {validationCards.map((v) => (
+            <div key={v.tag} className={`glass-card card-bloom rounded-2xl p-5 ${v.accent}`}>
+              <span className={`inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold ${v.color}`}>
+                <Star className="w-3 h-3" /> {v.tag}
+              </span>
+              <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">"{v.intent}"</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <Divider />
 
       {/* Price */}
-      <section id="preco" className="max-w-6xl mx-auto px-5 py-12">
-        <div className="text-center max-w-2xl mx-auto mb-8">
+      <section id="preco" className="max-w-6xl mx-auto px-5 py-12 relative">
+        <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
           <SectionLabel color="text-amber-300">PREÇO FUNDADOR</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Entre agora com preço fundador.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quem entrar no início mantém <span className="text-foreground">R$39,90/mês</span> enquanto a assinatura estiver ativa.
-            Depois do lançamento, novos assinantes poderão pagar <span className="text-foreground">R$79,90/mês</span>.
+            Quem entrar no início mantém <span className="text-foreground font-semibold">R$39,90/mês</span> enquanto a assinatura estiver ativa.
+            Depois do lançamento, novos assinantes poderão pagar <span className="text-foreground font-semibold">R$79,90/mês</span>.
           </p>
         </div>
 
-        <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto relative">
+          <div className="pricing-bloom" />
           <div className="rotating-border">
             <div className="rounded-[calc(1.5rem-1.5px)] p-8 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-indigo-300 font-semibold">ClickStart Plus</p>
+                  <p className="text-[10px] uppercase tracking-widest text-indigo-300 font-bold">ClickStart Plus</p>
                   <h3 className="text-2xl font-bold mt-1">Plano único</h3>
                 </div>
-                <span className="amber-glow px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300">
-                  FUNDADOR
+                <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
+                  <Zap className="w-3 h-3" /> FUNDADOR
                 </span>
               </div>
 
               <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-5xl font-extrabold" style={{ fontWeight: 800 }}>R$39,90</span>
+                <span className="text-[3.25rem] font-extrabold leading-none bg-gradient-to-br from-white to-white/70 bg-clip-text text-transparent" style={{ fontWeight: 800 }}>R$39,90</span>
                 <span className="text-muted-foreground">/mês</span>
               </div>
+              <p className="mt-1.5 text-xs text-muted-foreground">
+                <span className="line-through opacity-60">R$79,90</span> · preço congelado enquanto ativo
+              </p>
 
-              <ul className="mt-7 space-y-3">
+              <ul className="mt-7 space-y-2.5">
                 {planBenefits.map((b) => (
                   <li key={b} className="flex items-center gap-3 text-sm">
-                    <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-300 grid place-items-center">
+                    <span className="w-5 h-5 rounded-full bg-teal-500/15 text-teal-300 grid place-items-center shrink-0">
                       <Check className="w-3 h-3" />
                     </span>
                     {b}
@@ -439,8 +552,8 @@ export default function Landing() {
               </ul>
 
               <Link to="/checkout" className="block mt-8">
-                <Button className="w-full h-12 btn-gradient text-white border-0">
-                  Assinar por R$39,90/mês
+                <Button className="w-full h-12 btn-gradient text-white border-0 text-[15px]">
+                  Quero ser fundadora por R$39,90
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -448,8 +561,8 @@ export default function Landing() {
               <div className="mt-5 flex items-start gap-2 text-xs text-muted-foreground">
                 <ShieldCheck className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
                 <span>
-                  Você tem <span className="text-foreground">7 dias</span> para testar.
-                  Se não fizer sentido para você, pode pedir reembolso.
+                  Você tem <span className="text-foreground font-semibold">7 dias</span> para testar.
+                  Se não fizer sentido para você, pede reembolso. Sem burocracia.
                 </span>
               </div>
             </div>
@@ -461,8 +574,9 @@ export default function Landing() {
 
       {/* FAQ assistant inline */}
       <section id="faq" className="max-w-6xl mx-auto px-5 py-12">
-        <div className="glass-card accent-l-cyan rounded-3xl p-6 sm:p-10">
-          <div className="grid lg:grid-cols-5 gap-8">
+        <div className="glass-card accent-l-cyan card-bloom rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+          <div className="absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+          <div className="grid lg:grid-cols-5 gap-8 relative">
             <div className="lg:col-span-2">
               <SectionLabel color="text-cyan-300">ASSISTENTE DE COMPRA</SectionLabel>
               <h2 className="text-3xl tracking-tight" style={{ fontWeight: 800 }}>
@@ -483,13 +597,13 @@ export default function Landing() {
               {faqQA.map((item, i) => {
                 const open = openFaq === i;
                 return (
-                  <div key={item.q} className="rounded-xl glass-card overflow-hidden">
+                  <div key={item.q} className={`rounded-xl glass-card overflow-hidden transition-all ${open ? "border-cyan-400/30" : ""}`}>
                     <button
                       onClick={() => setOpenFaq(open ? null : i)}
-                      className="w-full text-left px-4 py-3 flex items-center justify-between gap-3 hover:bg-white/5 transition-colors"
+                      className="w-full text-left px-4 py-3.5 flex items-center justify-between gap-3 hover:bg-white/[0.03] transition-colors"
                     >
-                      <span className="text-sm font-medium">{item.q}</span>
-                      <span className={`text-indigo-300 transition-transform ${open ? "rotate-90" : ""}`}>
+                      <span className="text-sm font-semibold">{item.q}</span>
+                      <span className={`text-cyan-300 transition-transform ${open ? "rotate-90" : ""}`}>
                         <ArrowRight className="w-4 h-4" />
                       </span>
                     </button>
@@ -510,20 +624,24 @@ export default function Landing() {
 
       {/* Final CTA */}
       <section className="max-w-6xl mx-auto px-5 py-12">
-        <div className="relative rounded-3xl glass-card p-8 sm:p-12 text-center overflow-hidden">
+        <div className="relative rounded-3xl glass-card p-10 sm:p-14 text-center overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-purple-600/20 blur-3xl" />
-            <div className="absolute -bottom-20 right-0 w-[500px] h-[300px] rounded-full bg-teal-600/15 blur-3xl" />
+            <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-purple-600/25 blur-3xl" />
+            <div className="absolute -bottom-20 right-0 w-[500px] h-[300px] rounded-full bg-teal-600/20 blur-3xl" />
+            <div className="absolute -bottom-20 left-0 w-[400px] h-[300px] rounded-full bg-indigo-600/15 blur-3xl" />
           </div>
-          <h2 className="text-3xl sm:text-4xl tracking-tight max-w-3xl mx-auto" style={{ fontWeight: 800 }}>
-            Comece com clareza hoje.
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-widest uppercase font-bold text-amber-300 mb-5">
+            <Zap className="w-3 h-3" /> Beta fundador aberto
+          </div>
+          <h2 className="text-3xl sm:text-5xl tracking-tight max-w-3xl mx-auto leading-[1.05]" style={{ fontWeight: 800 }}>
+            Comece com <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-[15px]">
             O próximo passo não precisa ser mais um curso solto. Entre como fundadora e construa do seu jeito.
           </p>
-          <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
-              <Button size="lg" className="h-12 px-6 btn-gradient text-white border-0">
+              <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
                 Assinar por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -534,6 +652,7 @@ export default function Landing() {
               </Button>
             </a>
           </div>
+          <p className="mt-6 text-xs text-muted-foreground">7 dias de garantia · cancela quando quiser</p>
         </div>
       </section>
 
@@ -541,9 +660,9 @@ export default function Landing() {
       <footer className="relative mt-4">
         <div className="gradient-divider" />
         <div className="max-w-6xl mx-auto px-5 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-indigo-500 to-teal-500 grid place-items-center">
-              <Sparkles className="w-3 h-3 text-white" />
+          <div className="flex items-center gap-2.5">
+            <div className="logo-mark w-7 h-7 rounded-lg grid place-items-center">
+              <Compass className="w-3.5 h-3.5 text-white relative z-10" strokeWidth={2.4} />
             </div>
             <span>© {new Date().getFullYear()} ClickStart AI</span>
           </div>
@@ -604,20 +723,20 @@ function LockedCard({
   accent?: string;
 }) {
   return (
-    <div className={`relative rounded-2xl glass-card p-6 overflow-hidden ${accent}`}>
-      <div className="flex items-start justify-between mb-4">
+    <div className={`relative rounded-2xl glass-card card-bloom p-6 overflow-hidden ${accent}`}>
+      <div className="flex items-start justify-between mb-5">
         <div>
-          <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">{subtitle}</p>
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{subtitle}</p>
           <h3 className="text-lg font-bold mt-1">{title}</h3>
         </div>
-        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
-          <Lock className="w-3 h-3" /> Plus
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-200 border border-indigo-400/30 shadow-[0_0_12px_-2px_rgba(99,102,241,0.5)]">
+          <Lock className="w-3 h-3" /> PLUS
         </span>
       </div>
       <div className="text-muted-foreground">{children}</div>
       <div className="mt-5 pt-4 border-t border-white/5">
         <button onClick={onLocked} className="w-full">
-          <span className="block w-full text-center text-sm font-medium px-4 py-2 rounded-lg btn-stroke text-foreground">
+          <span className="block w-full text-center text-sm font-semibold px-4 py-2.5 rounded-lg btn-stroke text-foreground">
             Desbloquear com ClickStart Plus
           </span>
         </button>
