@@ -182,18 +182,21 @@ export default function Landing() {
         </div>
 
         <div className="max-w-5xl mx-auto px-5 pt-14 pb-8 text-center relative">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur text-xs text-muted-foreground mb-7 shadow-[0_0_20px_-8px_rgba(124,58,237,0.4)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur text-xs text-muted-foreground mb-7 shadow-[0_0_20px_-8px_rgba(99,102,241,0.4)]">
             <Compass className="w-3.5 h-3.5 text-teal-300" />
             <span className="font-medium tracking-wide">Sua bússola no digital</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
-            <span className="text-amber-300/90 font-semibold">Beta fundador</span>
+            <span className="text-cyan-300/90 font-semibold">Condição de lançamento</span>
           </div>
 
-          <div className="relative inline-block">
+          <div className="relative inline-block pb-3">
             <div className="headline-aura" />
-            <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.02]" style={{ fontWeight: 800 }}>
+            <h1
+              className="text-[2.5rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.18] pb-2"
+              style={{ fontWeight: 800 }}
+            >
               Sua bússola para começar no digital{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-300 bg-clip-text text-transparent guru-pulse inline-block">
+              <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent guru-pulse inline-block pb-1">
                 sem cair em guru.
               </span>
             </h1>
@@ -211,13 +214,13 @@ export default function Landing() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Assinar por R$39,90/mês
+                Começar agora por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#faq">
-              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke text-foreground hover:bg-transparent">
-                Tirar dúvidas antes
+              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke-glow text-foreground hover:bg-transparent">
+                Tirar dúvidas antes de assinar
               </Button>
             </a>
           </div>
