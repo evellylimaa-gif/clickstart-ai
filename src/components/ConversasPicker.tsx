@@ -15,6 +15,8 @@ const iconMap: Record<string, LucideIcon> = {
   youtube: Youtube,
   "book-open": BookOpen,
   "clipboard-list": ClipboardList,
+  link: TrendingUp,
+  "layout-template": Wand2,
 };
 
 const accentMap: Record<string, string> = {
@@ -44,7 +46,7 @@ export function ConversasPicker({ onSelectAgent }: ConversasPickerProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {orderedAgents.map((a) => {
             const i = agents.findIndex((x) => x.id === a.id);
             const Icon = iconMap[a.icon] || Bot;
@@ -53,23 +55,23 @@ export function ConversasPicker({ onSelectAgent }: ConversasPickerProps) {
               <button
                 key={a.id}
                 onClick={() => onSelectAgent(i)}
-                className="group relative text-left p-6 rounded-3xl glass-strong hover:border-brand-purple/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
+                className="group relative flex h-full min-h-[305px] flex-col text-left p-6 rounded-3xl glass-strong hover:border-brand-purple/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
               >
                 <div className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity`} />
-                <div className="relative">
+                <div className="relative flex h-full flex-col">
                   <div className={`inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} items-center justify-center shadow-lg mb-4`}>
                     <Icon className="w-7 h-7 text-white" strokeWidth={2.2} />
                   </div>
-                  <span className="inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md bg-white/5 text-foreground/70 mb-3">
+                  <span className="inline-block w-fit text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md bg-white/5 text-foreground/70 mb-3">
                     {a.badge}
                   </span>
-                  <h3 style={{ fontFamily: "Sora, Inter, sans-serif" }} className="text-base font-bold text-foreground leading-snug mb-2">
+                  <h3 style={{ fontFamily: "Sora, Inter, sans-serif" }} className="text-base font-bold text-foreground leading-snug mb-2 line-clamp-2 min-h-[2.75rem]">
                     {a.name}
                   </h3>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+                  <p className="text-[13px] text-muted-foreground leading-relaxed mb-4 line-clamp-3 min-h-[4.65rem]">
                     {a.description}
                   </p>
-                  <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-purple group-hover:gap-3 transition-all">
+                  <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-brand-purple group-hover:gap-3 transition-all">
                     Iniciar conversa <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

@@ -77,30 +77,30 @@ export function TrilhasView({ onOpenTrail }: TrilhasViewProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
           {trails.map((trail) => {
             const Icon = iconMap[trail.icon] || Bot;
             const c = colorMap[trail.color];
             return (
               <div
                 key={trail.id}
-                className={`group relative p-6 rounded-3xl glass-strong border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden ${c.ring}`}
+                className={`group relative flex h-full min-h-[360px] flex-col p-6 rounded-3xl glass-strong border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden ${c.ring}`}
               >
                 <div className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br ${c.grad} opacity-15 blur-3xl group-hover:opacity-30 transition-opacity`} />
 
-                <div className="relative">
+                <div className="relative flex h-full flex-col">
                   <div className={`inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br ${c.grad} items-center justify-center shadow-lg mb-4`}>
                     <Icon className="w-7 h-7 text-white" strokeWidth={2.2} />
                   </div>
 
-                  <h3 style={{ fontFamily: "Sora, Inter, sans-serif" }} className="text-lg font-bold text-foreground mb-2">
+                  <h3 style={{ fontFamily: "Sora, Inter, sans-serif" }} className="text-lg font-bold text-foreground mb-2 leading-snug line-clamp-2 min-h-[3.1rem]">
                     {trail.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 min-h-[4.9rem]">
                     {trail.description}
                   </p>
 
-                  <div className="space-y-2 mb-5 pt-3 border-t border-border/70">
+                  <div className="space-y-2 mb-5 pt-3 border-t border-border/70 min-h-[6.75rem]">
                     <div className="flex items-center gap-2 text-xs">
                       <Gauge className={`w-3.5 h-3.5 ${c.text}`} />
                       <span className="text-muted-foreground">Nível:</span>
@@ -120,7 +120,7 @@ export function TrilhasView({ onOpenTrail }: TrilhasViewProps) {
 
                   <button
                     onClick={() => onOpenTrail(trail)}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r ${c.grad} text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all group-hover:gap-3`}
+                    className={`mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r ${c.grad} text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all group-hover:gap-3`}
                   >
                     Abrir trilha <ArrowRight className="w-4 h-4" />
                   </button>

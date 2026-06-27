@@ -58,6 +58,7 @@ const Index = () => {
   const [view, setView] = useState<View>("dashboard");
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [initialMessage, setInitialMessage] = useState<string | undefined>();
+  const [hiddenContext, setHiddenContext] = useState<string | undefined>();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
   const [plansGenerated, setPlansGenerated] = useState(() => {
@@ -75,12 +76,14 @@ const Index = () => {
     setSidebarOpen(false);
     if (v !== "chat") {
       setInitialMessage(undefined);
+      setHiddenContext(undefined);
     }
   };
 
-  const openAgent = (idx: number, prefill?: string) => {
+  const openAgent = (idx: number, prefill?: string, context?: string) => {
     setActiveIdx(idx);
     setInitialMessage(prefill);
+    setHiddenContext(context);
     setView("chat");
     setSidebarOpen(false);
     const agent = agents[idx];
@@ -250,7 +253,7 @@ const Index = () => {
         return (
           <DiagnosticoView
             onStart={() => {
-              const idx = agents.findIndex((a) => a.id === "diagnostico");
+              const idx = agents.findIndex((a) => a.id === "diagnostico-digital" || a.id === "diagnostico");
               if (idx >= 0) openAgent(idx, "Quero fazer o diagnóstico digital. Pode começar fazendo a primeira pergunta?");
               else goView("conversas");
             }}
@@ -261,7 +264,15 @@ const Index = () => {
           <TrilhasView
             onOpenTrail={(trail: Trail) => {
               const idx = trail.agentId ? agents.findIndex((a) => a.id === trail.agentId) : -1;
-              if (idx >= 0) openAgent(idx, `Quero seguir a trilha "${trail.title}". Me ajude com o primeiro passo prático.`);
+              const visibleMessage = `Quero seguir a trilha ${trail.title}. Me guie pelo primeiro passo.`;
+              const context = [
+                `Trilha: ${trail.title}`,
+                `Descrição: ${trail.description}`,
+                `Nível: ${trail.difficulty}`,
+                `Tempo para começar: ${trail.timeToStart}`,
+                `Perfil recomendado: ${trail.profile}`,
+              ].join("\n");
+              if (idx >= 0) openAgent(idx, visibleMessage, context);
               else goView("conversas");
             }}
           />
@@ -273,11 +284,20 @@ const Index = () => {
           <KitsView
             onGeneratePlan={(kit: Kit) => {
               const idx = kit.agentId ? agents.findIndex((a) => a.id === kit.agentId) : -1;
-              const prompt = `Quero usar o kit "${kit.title}". Gere um plano de ação prático com base nesse checklist: ${kit.checklist.join("; ")}.`;
-              if (idx >= 0) openAgent(idx, prompt);
+              const visibleMessage = `Quero usar o kit ${kit.title}. Me guie pelo primeiro passo.`;
+              const context = [
+                `Kit: ${kit.title}`,
+                `Descrição: ${kit.description}`,
+                `Visão geral: ${kit.overview}`,
+                `Perfil recomendado: ${kit.recommendedProfile}`,
+                `Primeira ação sugerida: ${kit.firstAction}`,
+                `Checklist: ${kit.checklist.join("; ")}`,
+                `Seções: ${kit.sections.map((section) => `${section.title}: ${section.items.join(", ")}`).join(" | ")}`,
+              ].join("\n");
+              if (idx >= 0) openAgent(idx, visibleMessage, context);
               else {
-                const di = agents.findIndex((a) => a.id === "plano-acao");
-                if (di >= 0) openAgent(di, prompt);
+                const di = agents.findIndex((a) => a.id === "plano-de-acao");
+                if (di >= 0) openAgent(di, visibleMessage, context);
                 else goView("conversas");
               }
             }}
@@ -309,6 +329,7 @@ const Index = () => {
               key={`${agents[activeIdx].id}-${initialMessage || ""}`}
               agent={agents[activeIdx]}
               initialMessage={initialMessage}
+              hiddenContext={hiddenContext}
               extraChips={[]}
               onSaveConversation={(data) => saveConversation(data)}
               onPlanSaved={handlePlanSaved}
