@@ -4,129 +4,158 @@
 
 @layer base {
   :root {
-    --background: 240 5% 96%;
-    --foreground: 260 30% 10%;
+    /* ClickStart AI — dark navy by default (premium SaaS) */
+    --background: 222 47% 6%;          /* #060A18 ~ between navy & deep */
+    --foreground: 210 40% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 260 30% 10%;
+    --surface: 222 47% 11%;             /* #0F172A */
+    --surface-2: 222 47% 9%;
+    --surface-deep: 224 71% 4%;         /* #020617 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 260 30% 10%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 96%;
 
-    --primary: 263 70% 76%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 262 83% 58%;             /* #7C3AED */
     --primary-foreground: 0 0% 100%;
+    --primary-glow: 262 90% 70%;
 
-    --secondary: 263 30% 95%;
-    --secondary-foreground: 263 40% 30%;
+    --secondary: 222 40% 16%;
+    --secondary-foreground: 210 40% 96%;
 
-    --muted: 240 5% 93%;
-    --muted-foreground: 240 5% 46%;
+    --muted: 222 30% 14%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 263 50% 94%;
-    --accent-foreground: 263 60% 40%;
+    --accent: 262 60% 20%;
+    --accent-foreground: 262 90% 85%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 263 70% 76%;
+    --border: 222 30% 18%;
+    --input: 222 30% 16%;
+    --ring: 262 83% 58%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --chat-user: 263 40% 95%;
-    --chat-ai: 240 5% 97%;
+    /* Brand accents */
+    --brand-purple: 262 83% 58%;
+    --brand-teal: 175 84% 32%;
+    --brand-amber: 38 92% 50%;
+    --brand-pink: 330 81% 60%;
+    --brand-navy: 222 47% 11%;
+    --brand-deep: 224 71% 4%;
 
-    --sidebar-bg: 263 60% 9%;
-    --sidebar-foreground: 263 30% 90%;
-    --sidebar-muted: 263 50% 15%;
-    --sidebar-accent: 263 70% 76%;
-    --sidebar-border: 263 40% 16%;
+    /* Sidebar */
+    --sidebar-bg: 224 71% 4%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-muted: 222 47% 11%;
+    --sidebar-border: 222 30% 14%;
+    --sidebar-accent: 262 83% 58%;
 
-    --sidebar-background: 263 60% 9%;
-    --sidebar-primary: 263 70% 76%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent-foreground: 263 30% 90%;
-    --sidebar-ring: 263 70% 76%;
-
-    --agent-purple: 263 70% 76%;
+    /* Legacy aliases */
+    --chat-user: 262 83% 58%;
+    --chat-ai: 222 47% 11%;
+    --gold: 38 92% 50%;
+    --gold-foreground: 224 71% 4%;
+    --accent-secondary: 262 60% 70%;
+    --agent-purple: 262 83% 58%;
     --agent-purple-foreground: 0 0% 100%;
-    --agent-teal: 174 84% 32%;
+    --agent-teal: 175 84% 32%;
     --agent-teal-foreground: 0 0% 100%;
-    --agent-amber: 32 95% 44%;
-    --agent-amber-foreground: 0 0% 100%;
+    --agent-amber: 38 92% 50%;
+    --agent-amber-foreground: 224 71% 4%;
+    --sidebar-background: 224 71% 4%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-ring: 262 83% 58%;
 
-    --accent-secondary: 263 60% 86%;
-    --gold: 45 96% 53%;
-    --gold-foreground: 0 0% 100%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(330 81% 60%));
+    --gradient-teal: linear-gradient(135deg, hsl(175 84% 32%), hsl(262 83% 58%));
+    --gradient-amber: linear-gradient(135deg, hsl(38 92% 50%), hsl(330 81% 60%));
+    --gradient-hero: radial-gradient(circle at 20% 20%, hsl(262 83% 58% / 0.25), transparent 50%),
+                      radial-gradient(circle at 80% 0%, hsl(330 81% 60% / 0.2), transparent 50%),
+                      radial-gradient(circle at 60% 100%, hsl(175 84% 32% / 0.15), transparent 50%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 60px -10px hsl(262 83% 58% / 0.5);
+    --shadow-card: 0 10px 30px -10px hsl(224 71% 4% / 0.6);
   }
 
-  .dark {
-    --background: 263 50% 5%;
-    --foreground: 263 20% 92%;
-
-    --card: 263 45% 8%;
-    --card-foreground: 263 20% 92%;
-
-    --popover: 263 45% 8%;
-    --popover-foreground: 263 20% 92%;
-
-    --primary: 263 70% 76%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 263 40% 14%;
-    --secondary-foreground: 263 30% 85%;
-
-    --muted: 263 35% 12%;
-    --muted-foreground: 263 15% 55%;
-
-    --accent: 263 40% 18%;
-    --accent-foreground: 263 70% 80%;
-
-    --destructive: 0 63% 50%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 263 35% 14%;
-    --input: 263 35% 14%;
-    --ring: 263 70% 76%;
-
-    --chat-user: 263 40% 14%;
-    --chat-ai: 263 45% 10%;
-
-    --sidebar-bg: 263 55% 5%;
-    --sidebar-muted: 263 45% 10%;
-    --sidebar-border: 263 40% 12%;
-
-    --agent-purple: 263 70% 76%;
-    --agent-teal: 174 84% 38%;
-    --agent-amber: 32 95% 50%;
-
-    --accent-secondary: 263 60% 80%;
-    --gold: 45 96% 53%;
-    --gold-foreground: 0 0% 100%;
+  .light {
+    --background: 210 40% 98%;          /* #F8FAFC */
+    --foreground: 222 47% 11%;
+    --surface: 0 0% 100%;
+    --surface-2: 210 40% 96%;
+    --surface-deep: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 20% 40%;
+    --accent: 262 60% 95%;
+    --accent-foreground: 262 83% 40%;
+    --border: 214 32% 88%;
+    --input: 214 32% 91%;
+    --chat-ai: 210 40% 98%;
+    --sidebar-bg: 224 71% 4%;
+    --sidebar-foreground: 210 40% 96%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
+  html { color-scheme: dark; }
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv11", "ss01";
   }
 }
 
 @layer utilities {
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 5px;
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+
+  .glass {
+    background: linear-gradient(135deg, hsl(var(--surface) / 0.6), hsl(var(--surface-2) / 0.4));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border) / 0.6);
   }
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
+  .glass-strong {
+    background: hsl(var(--surface) / 0.85);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid hsl(var(--border));
   }
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 3px;
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-purple { box-shadow: 0 0 40px -10px hsl(262 83% 58% / 0.6); }
+  .glow-amber { box-shadow: 0 0 40px -10px hsl(38 92% 50% / 0.5); }
+  .glow-teal  { box-shadow: 0 0 40px -10px hsl(175 84% 32% / 0.5); }
+  .bg-hero-gradient { background: var(--gradient-hero); }
+
+  /* Subtle grid backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   }
 }
 
@@ -134,7 +163,12 @@
   0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
   30% { opacity: 1; transform: translateY(-4px); }
 }
-
 .typing-dot:nth-child(1) { animation: typing-dot 1.4s infinite 0s; }
 .typing-dot:nth-child(2) { animation: typing-dot 1.4s infinite 0.2s; }
 .typing-dot:nth-child(3) { animation: typing-dot 1.4s infinite 0.4s; }
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }

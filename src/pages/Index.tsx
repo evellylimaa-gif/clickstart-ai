@@ -1,112 +1,77 @@
 import { useState } from "react";
 import { agents } from "@/lib/agents";
 import { ChatPanel } from "@/components/ChatPanel";
-import { HeroScreen } from "@/components/HeroScreen";
+import { Dashboard } from "@/components/Dashboard";
+import { PlaceholderView } from "@/components/PlaceholderView";
+import { ConversasPicker } from "@/components/ConversasPicker";
 import { SettingsPage } from "@/pages/Settings";
 import {
-  Bot, Briefcase, TrendingUp, Wand2, Menu, X,
-  Sun, Moon, Zap, BarChart3, Settings, DollarSign,
-  History, Trash2, ChevronDown, ChevronRight,
+  Compass, Map as MapIcon, MessageSquare, BookOpen, Package, ClipboardList,
+  LayoutDashboard, Settings, Menu, X, Sun, Moon, ShieldCheck, Sparkles,
+  ArrowLeft, History, Trash2, ChevronDown, ChevronRight,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
-import { Progress } from "@/components/ui/progress";
-import { useHistory, ConversationRecord } from "@/hooks/use-history";
+import { useHistory } from "@/hooks/use-history";
 
-const iconMap: Record<string, React.ElementType> = {
-  briefcase: Briefcase,
-  "trending-up": TrendingUp,
-  "wand-2": Wand2,
-};
+type View =
+  | "dashboard"
+  | "diagnostico"
+  | "trilhas"
+  | "conversas"
+  | "chat"
+  | "glossario"
+  | "kits"
+  | "planos"
+  | "configuracoes"
+  | "historico";
 
-const sidebarLabels = [
-  { emoji: "💰", label: "Ganhar Dinheiro Agora" },
-  { emoji: "🌐", label: "Monetizar na Web" },
-  { emoji: "🧠", label: "Criar Prompts que Vendem" },
+interface NavItem {
+  id: View;
+  label: string;
+  icon: React.ElementType;
+}
+
+const navItems: NavItem[] = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "diagnostico", label: "Diagnóstico Digital", icon: Compass },
+  { id: "trilhas", label: "Trilhas", icon: MapIcon },
+  { id: "conversas", label: "Conversas", icon: MessageSquare },
+  { id: "glossario", label: "Glossário", icon: BookOpen },
+  { id: "kits", label: "Kits Digitais", icon: Package },
+  { id: "planos", label: "Planos Salvos", icon: ClipboardList },
+  { id: "configuracoes", label: "Configurações", icon: Settings },
 ];
 
-const sidebarChips: { emoji: string; title: string; agentIdx: number; chips: string[] }[] = [
-  {
-    emoji: "💰", title: "Agentes de IA", agentIdx: 0,
-    chips: [
-      "O que as empresas mais compram",
-      "Como precificar agentes",
-      "Primeiros clientes sem experiência",
-      "Melhores nichos no Brasil",
-      "Portfólio partindo do zero",
-      "Quanto cobrar por um agente de atendimento",
-      "Como vender agentes para dentistas e clínicas",
-      "Criar agente de onboarding para SaaS",
-      "Automação de follow-up com IA para vendas",
-      "Como apresentar um agente de IA numa reunião de vendas",
-    ],
-  },
-  {
-    emoji: "🌐", title: "Monetização Web", agentIdx: 1,
-    chips: [
-      "Renda rápida com IA",
-      "Vender templates e prompts",
-      "Micro-SaaS no-code",
-      "Melhores plataformas para vender",
-      "Curso de IA online",
-      "Como criar e vender pacote de automações no Make",
-      "Monetizar canal do YouTube com IA em 2026",
-      "Criar comunidade paga no Skool sobre IA",
-      "Vender serviço de criação de GPTs personalizados",
-      "Lançar infoproduto digital em 7 dias com IA",
-    ],
-  },
-  {
-    emoji: "🧠", title: "Engenheiro de Prompts", agentIdx: 2,
-    chips: [
-      "Prompt para agente de vendas B2B",
-      "Prompt para coach de finanças",
-      "Prompt para atendimento ao cliente",
-      "Prompt para criador de conteúdo",
-      "Revisão do meu prompt atual",
-      "Prompt para agente de qualificação de leads",
-      "System prompt para assistente jurídico",
-      "Criar prompt que gera copy de vendas automaticamente",
-      "Prompt para agente de suporte técnico nível 1",
-      "Como estruturar guardrails para agentes sensíveis",
-    ],
-  },
-];
+const heroFont = { fontFamily: "Sora, Inter, sans-serif" };
 
 const Index = () => {
+  const [view, setView] = useState<View>("dashboard");
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
-  const [view, setView] = useState<"hero" | "agent" | "settings" | "history">("hero");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string | undefined>();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
   const [plansGenerated, setPlansGenerated] = useState(() => {
     try { return parseInt(localStorage.getItem("evelly_plans_generated") || "0", 10); } catch { return 0; }
   });
-  const [expandedConvoId, setExpandedConvoId] = useState<string | null>(null);
-  // openChipGroups removed — no longer collapsible
+
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
 
-  const handleSelect = (i: number) => {
-    setActiveIdx(i);
-    setView("agent");
-    setInitialMessage(undefined);
+  const goView = (v: View) => {
+    setView(v);
     setSidebarOpen(false);
+    if (v !== "chat") {
+      setInitialMessage(undefined);
+    }
   };
 
-  const handleChipClick = (agentIdx: number, chip: string) => {
-    setActiveIdx(agentIdx);
-    setInitialMessage(chip);
-    setView("agent");
-    setSidebarOpen(false);
-  };
-
-  // toggleChipGroup removed
-
-  const handleHeroPath = (agentIdx: number, prefill: string) => {
-    setActiveIdx(agentIdx);
+  const openAgent = (idx: number, prefill?: string) => {
+    setActiveIdx(idx);
     setInitialMessage(prefill);
-    setView("agent");
+    setView("chat");
+    setSidebarOpen(false);
   };
 
   const incrementPlans = () => {
@@ -117,241 +82,208 @@ const Index = () => {
     });
   };
 
-  const goHome = () => {
-    setView("hero");
-    setActiveIdx(null);
-    setInitialMessage(undefined);
-  };
-
-  return (
-    <div className="min-h-screen flex bg-background">
-      {/* Desktop Sidebar */}
-      {!isMobile && (
-        <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 min-h-screen">
-          {/* Logo */}
-          <button onClick={goHome} className="px-5 pt-6 pb-4 text-left hover:opacity-80 transition-opacity">
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-9 h-9 rounded-xl bg-primary/20 flex items-center justify-center">
-                <Bot className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <span className="text-sm font-bold text-primary tracking-tight">Evelly AI Hub</span>
-                <p className="text-[10px] text-[hsl(var(--accent-secondary))] leading-none mt-0.5">Agentes de Monetização</p>
-              </div>
-            </div>
-          </button>
-
-          {/* Progress summary */}
-          <div className="mx-4 mb-3 p-3 rounded-xl bg-[hsl(var(--sidebar-muted))] space-y-2">
-            <div className="flex items-center justify-between text-[10px]">
-              <span className="text-[hsl(var(--sidebar-foreground)/0.5)]">Planos gerados</span>
-              <span className="font-bold text-gold">{plansGenerated}</span>
-            </div>
-            <Progress value={Math.min(plansGenerated * 20, 100)} className="h-1.5 bg-[hsl(var(--sidebar-border))]" />
-            <div className="flex items-center justify-between text-[10px]">
-              <span className="text-[hsl(var(--sidebar-foreground)/0.5)]">Potencial</span>
-              <span className="font-bold text-gold">R${plansGenerated > 0 ? "1.000+" : "0"}</span>
-            </div>
+  // Sidebar (desktop & mobile drawer share markup)
+  const Sidebar = (
+    <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 h-screen border-r border-[hsl(var(--sidebar-border))]">
+      {/* Brand */}
+      <button onClick={() => goView("dashboard")} className="px-5 pt-6 pb-5 text-left hover:opacity-90 transition-opacity">
+        <div className="flex items-center gap-3">
+          <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-purple via-brand-pink to-brand-amber flex items-center justify-center shadow-lg glow-purple">
+            <Compass className="w-5 h-5 text-white" strokeWidth={2.4} />
           </div>
+          <div>
+            <div style={heroFont} className="text-sm font-extrabold text-[hsl(var(--sidebar-foreground))] tracking-tight">
+              ClickStart <span className="gradient-text">AI</span>
+            </div>
+            <p className="text-[10px] text-[hsl(var(--sidebar-foreground)/0.5)] leading-none mt-1">
+              Sua bússola digital
+            </p>
+          </div>
+        </div>
+      </button>
 
-          <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
+      <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
 
-          {/* Nav label */}
-          <div className="px-5 pt-4 pb-2">
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--sidebar-foreground)/0.35)]">
-              Seus agentes
+      {/* Nav */}
+      <nav className="flex-1 overflow-y-auto scrollbar-thin px-3 pt-4 pb-4 space-y-1">
+        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-[hsl(var(--sidebar-foreground)/0.4)]">
+          Menu
+        </p>
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = view === item.id || (item.id === "conversas" && view === "chat");
+          return (
+            <button
+              key={item.id}
+              onClick={() => goView(item.id)}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left ${
+                isActive
+                  ? "bg-gradient-to-r from-brand-purple/20 to-brand-pink/10 text-[hsl(var(--sidebar-foreground))] border border-brand-purple/30 shadow-sm"
+                  : "text-[hsl(var(--sidebar-foreground)/0.6)] hover:bg-white/5 hover:text-[hsl(var(--sidebar-foreground))]"
+              }`}
+            >
+              <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-brand-purple" : ""}`} />
+              <span className="truncate">{item.label}</span>
+              {isActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-amber" />}
+            </button>
+          );
+        })}
+
+        {/* Histórico */}
+        <button
+          onClick={() => goView("historico")}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left ${
+            view === "historico"
+              ? "bg-gradient-to-r from-brand-purple/20 to-brand-pink/10 text-[hsl(var(--sidebar-foreground))] border border-brand-purple/30"
+              : "text-[hsl(var(--sidebar-foreground)/0.6)] hover:bg-white/5 hover:text-[hsl(var(--sidebar-foreground))]"
+          }`}
+        >
+          <History className="w-4 h-4 shrink-0" />
+          <span>Histórico</span>
+          {history.length > 0 && (
+            <span className="ml-auto text-[10px] bg-brand-purple/20 text-brand-purple px-1.5 py-0.5 rounded-full font-bold">
+              {history.length}
             </span>
-          </div>
+          )}
+        </button>
+      </nav>
 
-          {/* Nav items */}
-          <nav className="flex-1 px-3 space-y-1">
-            {agents.map((a, i) => {
-              const Icon = iconMap[a.icon] || Bot;
-              const isActive = activeIdx === i && view === "agent";
-              const sl = sidebarLabels[i];
-              return (
-                <button
-                  key={a.id}
-                  onClick={() => handleSelect(i)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
-                    isActive
-                      ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] shadow-sm"
-                      : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
-                  }`}
-                >
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
-                    style={{ backgroundColor: `hsl(var(--${a.color}))` }}
-                  >
-                    <Icon className="w-4 h-4 text-primary-foreground" />
-                  </span>
-                  <div className="min-w-0">
-                    <span className="block truncate">
-                      {sl.emoji} {sl.label}
-                    </span>
-                  </div>
-                  {isActive && (
-                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
-                  )}
-                </button>
-              );
-            })}
-
-            {/* Progress nav item */}
-            <button
-              onClick={goHome}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
-                view === "hero"
-                  ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] shadow-sm"
-                  : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
-              }`}
-            >
-              <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-gold/20">
-                <BarChart3 className="w-4 h-4 text-gold" />
-              </span>
-              <span>📊 Meu Progresso</span>
-            </button>
-
-            {/* Histórico nav item */}
-            <button
-              onClick={() => { setView("history"); setActiveIdx(null); setSidebarOpen(false); }}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
-                view === "history"
-                  ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] shadow-sm"
-                  : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
-              }`}
-            >
-              <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-primary/20">
-                <History className="w-4 h-4 text-primary" />
-              </span>
-              <span>📝 Histórico</span>
-              {history.length > 0 && (
-                <span className="ml-auto text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full font-bold">
-                  {history.length}
-                </span>
-              )}
-            </button>
-          </nav>
-
-          {/* Consultas Rápidas — simple nav labels */}
-          <div className="px-3 mt-2">
-            <div className="mx-2 mb-2">
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--sidebar-foreground)/0.35)]">
-                ⚡ Consultas rápidas
-              </span>
+      {/* Bottom: plan / CTA */}
+      <div className="px-3 pb-4 space-y-2">
+        <div className="rounded-2xl p-4 bg-gradient-to-br from-brand-purple/20 via-brand-pink/10 to-transparent border border-brand-purple/30">
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-pink flex items-center justify-center text-white text-sm font-bold">
+              E
             </div>
-            <div className="space-y-0.5">
-              {sidebarChips.map((group) => (
-                <button
-                  key={group.agentIdx}
-                  onClick={() => handleSelect(group.agentIdx)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-[12px] font-medium transition-all text-left ${
-                    activeIdx === group.agentIdx && view === "agent"
-                      ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))]"
-                      : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
-                  }`}
-                >
-                  <span>{group.emoji} {group.title}</span>
-                  <span className="ml-auto text-[10px] opacity-40">{group.chips.length}</span>
-                </button>
-              ))}
+            <div className="min-w-0">
+              <p className="text-[13px] font-semibold text-[hsl(var(--sidebar-foreground))] truncate">Evelly</p>
+              <p className="text-[10px] text-brand-amber font-medium">ClickStart Plus</p>
             </div>
           </div>
 
-          {/* Bottom */}
-          <div className="mt-auto">
-            <div className="mx-5 h-px bg-[hsl(var(--sidebar-border))]" />
-            <div className="px-3 py-3 space-y-1">
-              <button
-                onClick={() => { setView("settings"); setSidebarOpen(false); }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] transition-all ${
-                  view === "settings"
-                    ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))] font-medium"
-                    : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)]"
-                }`}
-              >
-                <Settings className="w-4 h-4" />
-                <span>Configurações</span>
-              </button>
-              <button
-                onClick={toggleTheme}
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-[hsl(var(--sidebar-muted)/0.5)] hover:text-[hsl(var(--sidebar-foreground)/0.85)] transition-all"
-              >
-                {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                <span>{dark ? "Modo Claro" : "Modo Escuro"}</span>
-              </button>
-              <div className="flex items-center gap-3 px-3 py-2.5">
-                <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
-                  <span className="text-xs font-bold text-gold">E</span>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[13px] font-medium text-[hsl(var(--sidebar-foreground))] truncate">Evelly</p>
-                  <p className="text-[10px] text-gold/60">Premium Plan</p>
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--sidebar-foreground)/0.7)] mb-3">
+            <ShieldCheck className="w-3.5 h-3.5 text-brand-teal" />
+            Garantia de 7 dias
           </div>
-        </aside>
-      )}
 
-      {/* Mobile top bar */}
-      {isMobile && (
-        <div className="fixed top-0 left-0 right-0 z-40 bg-[hsl(var(--sidebar-bg))] px-4 py-3 flex items-center gap-3">
-          <button onClick={goHome} className="flex items-center gap-2 flex-1">
-            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-              <Bot className="w-4 h-4 text-primary" />
-            </div>
-            <span className="text-sm font-bold text-primary">Evelly AI Hub</span>
-          </button>
-          <button onClick={toggleTheme} className="p-1.5 text-[hsl(var(--sidebar-foreground)/0.6)]">
-            {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 text-[hsl(var(--sidebar-foreground))]">
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <button className="w-full inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-pink text-white text-[12px] font-semibold shadow-lg shadow-brand-purple/30 hover:shadow-brand-purple/50 transition-all hover:scale-[1.02]">
+            <Sparkles className="w-3.5 h-3.5" />
+            Assinar por R$39,90/mês
           </button>
         </div>
-      )}
 
-      {/* Mobile slide-down menu */}
-      {isMobile && sidebarOpen && (
-        <div className="fixed top-[52px] left-0 right-0 z-30 bg-[hsl(var(--sidebar-bg))] px-3 py-2 space-y-1 animate-fade-in">
-          {agents.map((a, i) => {
-            const Icon = iconMap[a.icon] || Bot;
-            const isActive = activeIdx === i && view === "agent";
-            const sl = sidebarLabels[i];
-            return (
+        <button
+          onClick={toggleTheme}
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-[11px] text-[hsl(var(--sidebar-foreground)/0.5)] hover:bg-white/5 hover:text-[hsl(var(--sidebar-foreground))] transition-all"
+        >
+          {dark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          {dark ? "Modo claro" : "Modo escuro"}
+        </button>
+      </div>
+    </aside>
+  );
+
+  // Render current view body
+  const renderBody = () => {
+    switch (view) {
+      case "dashboard":
+        return (
+          <Dashboard
+            onNavigate={(v) => goView(v as View)}
+            onOpenConversa={() => goView("conversas")}
+            plansGenerated={plansGenerated}
+          />
+        );
+      case "diagnostico":
+        return (
+          <PlaceholderView
+            title="Diagnóstico Digital"
+            description="Em 2 minutos, descobrimos seu perfil digital (criador, vendedor, freelancer, automatizador) e indicamos o caminho ideal pra começar."
+            icon={Compass}
+            accent="purple"
+            onBack={() => goView("dashboard")}
+          />
+        );
+      case "trilhas":
+        return (
+          <PlaceholderView
+            title="Trilhas"
+            description="Passo a passo guiado para cada perfil: do zero ao primeiro resultado real, sem pular etapas, sem se perder em cursos soltos."
+            icon={MapIcon}
+            accent="teal"
+            onBack={() => goView("dashboard")}
+          />
+        );
+      case "glossario":
+        return (
+          <PlaceholderView
+            title="Glossário"
+            description="Funil, lead, copy, CTA, SaaS, dropship... Traduzimos cada termo do digital em português claro, com exemplos do dia a dia."
+            icon={BookOpen}
+            accent="teal"
+            onBack={() => goView("dashboard")}
+          />
+        );
+      case "kits":
+        return (
+          <PlaceholderView
+            title="Kits Digitais"
+            description="Templates, prompts, planilhas e automações prontas para usar hoje. Você baixa, adapta e já está pronto pra publicar."
+            icon={Package}
+            accent="amber"
+            onBack={() => goView("dashboard")}
+          />
+        );
+      case "planos":
+        return (
+          <PlaceholderView
+            title="Planos Salvos"
+            description="Todos os planos de ação que você gerou ficam aqui — organizados por data, pra você acompanhar sua jornada sem perder nada."
+            icon={ClipboardList}
+            accent="pink"
+            onBack={() => goView("dashboard")}
+          />
+        );
+      case "configuracoes":
+        return <SettingsPage />;
+      case "conversas":
+        return <ConversasPicker onSelectAgent={(idx) => openAgent(idx)} />;
+      case "chat":
+        if (activeIdx === null) {
+          return <ConversasPicker onSelectAgent={(idx) => openAgent(idx)} />;
+        }
+        return (
+          <div className="flex flex-col flex-1 min-h-0">
+            <div className="px-4 sm:px-8 pt-4 pb-2 border-b border-border flex items-center gap-3">
               <button
-                key={a.id}
-                onClick={() => handleSelect(i)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left ${
-                  isActive
-                    ? "bg-[hsl(263_50%_15%)] text-[hsl(var(--sidebar-foreground))]"
-                    : "text-[hsl(var(--sidebar-foreground)/0.5)] hover:text-[hsl(var(--sidebar-foreground))]"
-                }`}
+                onClick={() => goView("conversas")}
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                <span
-                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `hsl(var(--${a.color}))` }}
-                >
-                  <Icon className="w-4 h-4 text-primary-foreground" />
-                </span>
-                <span>{sl.emoji} {sl.label}</span>
+                <ArrowLeft className="w-4 h-4" /> Conversas
               </button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Main content */}
-      <main className={`flex-1 flex flex-col min-h-screen ${isMobile ? "pt-[52px]" : ""}`}>
-        {view === "hero" && <HeroScreen onSelectPath={handleHeroPath} />}
-        {view === "settings" && <SettingsPage />}
-        {view === "history" && (
-          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6">
+              <span className="text-xs text-muted-foreground">·</span>
+              <span className="text-sm font-medium text-foreground truncate">{agents[activeIdx].badge}</span>
+            </div>
+            <ChatPanel
+              key={`${agents[activeIdx].id}-${initialMessage || ""}`}
+              agent={agents[activeIdx]}
+              initialMessage={initialMessage}
+              extraChips={[]}
+              onSaveConversation={(data) => saveConversation(data)}
+              onPlanSaved={incrementPlans}
+            />
+          </div>
+        );
+      case "historico":
+        return (
+          <div className="flex-1 overflow-y-auto scrollbar-thin px-4 sm:px-8 py-8">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-foreground">📝 Histórico de Conversas</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-purple mb-1">
+                    Sua jornada
+                  </p>
+                  <h2 style={heroFont} className="text-2xl font-bold text-foreground">Histórico de conversas</h2>
                   <p className="text-sm text-muted-foreground mt-1">
                     {history.length === 0 ? "Nenhuma conversa salva ainda." : `${history.length} conversa${history.length > 1 ? "s" : ""} salva${history.length > 1 ? "s" : ""}`}
                   </p>
@@ -361,8 +293,7 @@ const Index = () => {
                     onClick={clearHistory}
                     className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-destructive bg-destructive/10 hover:bg-destructive/20 transition-colors"
                   >
-                    <Trash2 className="w-4 h-4" />
-                    Limpar histórico
+                    <Trash2 className="w-4 h-4" /> Limpar
                   </button>
                 )}
               </div>
@@ -373,35 +304,35 @@ const Index = () => {
                   const dateStr = date.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
                   const timeStr = date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
                   return (
-                    <div key={convo.id} className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+                    <div key={convo.id} className="rounded-2xl glass-strong overflow-hidden">
                       <button
                         onClick={() => setExpandedConvoId(isExpanded ? null : convo.id)}
-                        className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-muted/30 transition-colors"
+                        className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-white/5 transition-colors"
                       >
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                          <History className="w-5 h-5 text-primary" />
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-purple to-brand-pink flex items-center justify-center shrink-0">
+                          <MessageSquare className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-purple/15 text-brand-purple">
                               {convo.agentBadge}
                             </span>
                             <span className="text-[11px] text-muted-foreground">{dateStr} · {timeStr}</span>
                           </div>
                           <p className="text-sm font-medium text-foreground truncate">{convo.firstQuestion}</p>
                         </div>
-                        {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" /> : <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />}
+                        {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
                       </button>
                       {isExpanded && (
-                        <div className="border-t border-border px-5 py-4 space-y-3 bg-muted/10 max-h-[400px] overflow-y-auto">
+                        <div className="border-t border-border px-5 py-4 space-y-3 bg-black/20 max-h-[400px] overflow-y-auto">
                           {convo.messages.map((m, i) => (
                             <div key={i} className={`text-sm ${m.role === "user" ? "text-right" : "text-left"}`}>
                               <span className={`inline-block max-w-[90%] px-4 py-2.5 rounded-2xl ${
                                 m.role === "user"
-                                  ? "bg-primary text-primary-foreground"
-                                  : "bg-card border border-border text-foreground"
+                                  ? "bg-gradient-to-br from-brand-purple to-brand-pink text-white"
+                                  : "bg-surface border border-border text-foreground"
                               }`}>
-                                <span className="text-[10px] font-semibold uppercase tracking-wider block mb-1 opacity-60">
+                                <span className="text-[10px] font-semibold uppercase tracking-wider block mb-1 opacity-70">
                                   {m.role === "user" ? "Você" : convo.agentName}
                                 </span>
                                 <span className="whitespace-pre-wrap break-words">{m.content.slice(0, 500)}{m.content.length > 500 ? "..." : ""}</span>
@@ -416,51 +347,74 @@ const Index = () => {
               </div>
             </div>
           </div>
-        )}
-        {view === "agent" && activeIdx !== null && (
-          <ChatPanel
-            key={`${agents[activeIdx].id}-${initialMessage || ""}`}
-            agent={agents[activeIdx]}
-            initialMessage={initialMessage}
-            extraChips={sidebarChips[activeIdx]?.chips || []}
-            onSaveConversation={(data) => saveConversation(data)}
-            onPlanSaved={incrementPlans}
-          />
-        )}
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex bg-background">
+      {/* Desktop sidebar */}
+      {!isMobile && Sidebar}
+
+      {/* Mobile top bar */}
+      {isMobile && (
+        <div className="fixed top-0 left-0 right-0 z-40 glass-strong px-4 py-3 flex items-center gap-3 border-b border-border">
+          <button onClick={() => goView("dashboard")} className="flex items-center gap-2 flex-1">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-purple via-brand-pink to-brand-amber flex items-center justify-center">
+              <Compass className="w-4 h-4 text-white" />
+            </div>
+            <span style={heroFont} className="text-sm font-extrabold text-foreground">
+              ClickStart <span className="gradient-text">AI</span>
+            </span>
+          </button>
+          <button onClick={toggleTheme} className="p-2 text-muted-foreground hover:text-foreground">
+            {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-foreground">
+            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      )}
+
+      {/* Mobile drawer */}
+      {isMobile && sidebarOpen && (
+        <>
+          <div className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
+          <div className="fixed left-0 top-0 bottom-0 z-40 animate-fade-in">
+            {Sidebar}
+          </div>
+        </>
+      )}
+
+      {/* Main */}
+      <main className={`flex-1 flex flex-col min-h-screen min-w-0 ${isMobile ? "pt-[60px] pb-[72px]" : ""}`}>
+        {renderBody()}
       </main>
 
-      {/* Mobile bottom navigation */}
+      {/* Mobile bottom nav */}
       {isMobile && (
-        <nav className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border flex backdrop-blur-lg">
-          <button
-            onClick={goHome}
-            className={`flex-1 flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition-all ${
-              view === "hero" ? "text-gold" : "text-muted-foreground"
-            }`}
-          >
-            <DollarSign className={`w-5 h-5 ${view === "hero" ? "text-gold" : ""}`} />
-            <span>Início</span>
-          </button>
-          {agents.map((a, i) => {
-            const Icon = iconMap[a.icon] || Bot;
-            const isActive = activeIdx === i && view === "agent";
+        <nav className="fixed bottom-0 left-0 right-0 z-40 glass-strong border-t border-border flex">
+          {([
+            { id: "dashboard", label: "Início", icon: LayoutDashboard },
+            { id: "diagnostico", label: "Diagnóstico", icon: Compass },
+            { id: "conversas", label: "Conversas", icon: MessageSquare },
+            { id: "kits", label: "Kits", icon: Package },
+            { id: "configuracoes", label: "Ajustes", icon: Settings },
+          ] as { id: View; label: string; icon: React.ElementType }[]).map((item) => {
+            const Icon = item.icon;
+            const isActive = view === item.id || (item.id === "conversas" && view === "chat");
             return (
               <button
-                key={a.id}
-                onClick={() => handleSelect(i)}
+                key={item.id}
+                onClick={() => goView(item.id)}
                 className={`flex-1 flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition-all ${
-                  isActive ? "text-primary" : "text-muted-foreground"
+                  isActive ? "text-brand-purple" : "text-muted-foreground"
                 }`}
               >
-                <span
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center transition-transform ${
-                    isActive ? "scale-110 shadow-md" : "opacity-40"
-                  }`}
-                  style={{ backgroundColor: `hsl(var(--${a.color}))` }}
-                >
-                  <Icon className="w-4 h-4 text-primary-foreground" />
-                </span>
-                <span className="truncate max-w-[60px]">{sidebarLabels[i].label.split(" ")[0]}</span>
+                <Icon className={`w-5 h-5 ${isActive ? "" : "opacity-70"}`} />
+                <span className="truncate max-w-[60px]">{item.label}</span>
               </button>
             );
           })}

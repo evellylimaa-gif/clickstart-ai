@@ -73,6 +73,19 @@ export default {
           DEFAULT: "hsl(var(--gold))",
           foreground: "hsl(var(--gold-foreground))",
         },
+        brand: {
+          purple: "hsl(var(--brand-purple))",
+          teal: "hsl(var(--brand-teal))",
+          amber: "hsl(var(--brand-amber))",
+          pink: "hsl(var(--brand-pink))",
+          navy: "hsl(var(--brand-navy))",
+          deep: "hsl(var(--brand-deep))",
+        },
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          2: "hsl(var(--surface-2))",
+          deep: "hsl(var(--surface-deep))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
