@@ -22,7 +22,8 @@ Evite blocos longos de texto corrido. Sempre que possível, mantenha a resposta 
 
 // Order matters — used by ConversasPicker and other listings.
 // Sequence: Produtos Digitais → Serviços com IA → Micro-SaaS → TikTok Shop →
-// YouTube sem aparecer → Revisar meu caminho → Plano de Ação → Glossário.
+// YouTube sem aparecer → Afiliados → Templates e Prompts → Revisar meu caminho →
+// Plano de Ação → Glossário.
 export const agents: Agent[] = [
   {
     id: "produtos-digitais",
@@ -121,6 +122,38 @@ export const agents: Agent[] = [
     ],
   },
   {
+    id: "afiliados",
+    name: "Afiliados",
+    description: "Ajuda a escolher produtos, criar conteúdo de indicação e vender como afiliado sem parecer anúncio empurrado.",
+    badge: "Afiliados",
+    color: "agent-amber",
+    icon: "link",
+    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o especialista em AFILIADOS. Você ajuda iniciantes a vender produtos de terceiros com conteúdo honesto, recomendação útil e estratégia simples. DOMÍNIO: escolha de produto confiável, análise de comissão, página de venda, conteúdo de indicação, comparativos, review, funil simples, links, métricas de cliques e conversão. COMO OPERAR: 1) Nunca recomende produto só pela comissão; priorize confiança, aderência ao público e promessa honesta. 2) Para cada estratégia entregue: produto ideal, público, ângulo de conteúdo, 5 ideias de posts/vídeos, CTA discreto e primeira métrica para acompanhar. 3) Reforce que afiliado iniciante precisa construir confiança antes de escala.`,
+    chips: [
+      "Como escolher produto de afiliado",
+      "Ideias de conteúdo para indicar",
+      "Review honesto que vende",
+      "Comparativo entre produtos",
+      "Primeiro funil de afiliado",
+    ],
+  },
+  {
+    id: "templates-prompts",
+    name: "Templates e Prompts",
+    description: "Ajuda a empacotar prompts, templates, checklists e modelos prontos em produtos digitais vendáveis.",
+    badge: "Templates e Prompts",
+    color: "agent-pink",
+    icon: "layout-template",
+    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o especialista em TEMPLATES E PROMPTS. Você ajuda iniciantes a transformar processos, prompts, modelos de Notion/Canva/Sheets, checklists e documentos prontos em pacotes vendáveis. DOMÍNIO: escolha de nicho, promessa do pacote, organização por categorias, exemplos de uso, precificação de entrada, página simples, distribuição orgânica e atualização do produto. COMO OPERAR: 1) Para cada pacote entregue: público, dor, promessa, estrutura do pack, quantidade de itens, exemplos de uso, preço sugerido e primeiro canal de venda. 2) Sempre peça para testar os prompts/templates antes de vender. 3) Evite prometer resultado financeiro; venda economia de tempo, clareza e execução.`,
+    chips: [
+      "Ideia de pack de prompts",
+      "Template vendável para Notion",
+      "Como organizar meu pacote",
+      "Quanto cobrar por prompts",
+      "Copy para vender templates",
+    ],
+  },
+  {
     id: "glossario-digital",
     name: "Glossário Digital",
     description: "Explica termos difíceis do digital em português simples, com exemplos do dia a dia.",
@@ -205,10 +238,11 @@ const DISPLAY_ORDER = [
   "micro-saas",
   "tiktok-shop",
   "youtube-faceless",
+  "afiliados",
+  "templates-prompts",
   "diagnostico-digital", // "Revisar meu caminho"
   "plano-de-acao",
   "glossario-digital",
-  "assistente-compra",
 ];
 
 export const orderedAgents: Agent[] = DISPLAY_ORDER

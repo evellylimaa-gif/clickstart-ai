@@ -13,26 +13,22 @@ const USER_FACING_ERROR = "Não consegui responder agora. Tente novamente em alg
  * Sends a chat message.
  *
  * TODO (backend migration):
- *   - Move this call to a Supabase Edge Function.
- *   - Store the Anthropic key as a server-side secret only (never VITE_*).
+ *   - Move this call to a Supabase Edge Function for production security.
+ *   - Store the Anthropic key as a server-side secret only.
  *   - Subscribers must never see API keys, models, providers, or config UI.
  *
- * Today, for local/admin development only, the call reads:
- *   1. VITE_ANTHROPIC_API_KEY (preferred, dev env)
- *   2. localStorage `anthropic_api_key` (legacy fallback)
- * If neither is present, fail SILENTLY with a generic friendly error.
+ * Today, for MVP testing only, the browser call reads VITE_ANTHROPIC_API_KEY.
+ * If it is not present in the app environment, fail with generic friendly copy.
  */
 export async function sendMessage(
   messages: Message[],
   systemPrompt: string
 ): Promise<string> {
-  const apiKey =
-    (import.meta as any).env?.VITE_ANTHROPIC_API_KEY ||
-    (typeof localStorage !== "undefined" && localStorage.getItem("anthropic_api_key"));
-
+  const apiKey = String((import.meta as any).env?.VITE_ANTHROPIC_API_KEY || "").trim();
 
   if (!apiKey) {
-    // Do NOT instruct users to configure anything. Silent fail with generic copy.
+    // eslint-disable-next-line no-console
+    console.warn("Missing VITE_ANTHROPIC_API_KEY environment variable.");
     throw new Error(USER_FACING_ERROR);
   }
 

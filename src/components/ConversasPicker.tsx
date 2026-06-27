@@ -15,6 +15,8 @@ const iconMap: Record<string, LucideIcon> = {
   youtube: Youtube,
   "book-open": BookOpen,
   "clipboard-list": ClipboardList,
+  link: TrendingUp,
+  "layout-template": Wand2,
 };
 
 const accentMap: Record<string, string> = {
