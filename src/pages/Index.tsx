@@ -19,7 +19,8 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
 import { useHistory } from "@/hooks/use-history";
-import { useUser } from "@/hooks/use-user";
+import { useUser, logout } from "@/hooks/use-user";
+import { useDiagnosis } from "@/hooks/use-diagnosis";
 import { useSavedPlans } from "@/hooks/use-saved-plans";
 
 type View =
