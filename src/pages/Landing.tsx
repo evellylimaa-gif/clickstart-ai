@@ -88,22 +88,22 @@ const glossaryPreviews = [
 const painCards = [
   {
     icon: Compass,
-    title: "Não sei por onde começar",
-    text: "A pessoa quer entrar no digital, mas fica perdida entre afiliados, TikTok Shop, ebooks, SaaS, YouTube e mil promessas diferentes.",
+    title: "Eu não sei o que vender.",
+    text: "Para quem está perdida entre produtos digitais, afiliados, TikTok Shop, SaaS, serviços com IA e mil promessas diferentes.",
     accent: "accent-l-purple",
     iconColor: "text-purple-300",
   },
   {
     icon: Heart,
-    title: "Comprei conteúdo, mas continuo travada",
+    title: "Eu já vi muito conteúdo, mas continuo travada.",
     text: "O problema nem sempre é falta de informação. Muitas vezes é falta de direção, sequência e próximo passo.",
     accent: "accent-l-pink",
     iconColor: "text-pink-300",
   },
   {
-    icon: Languages,
-    title: "Os termos parecem outro idioma",
-    text: "Funil, copy, SaaS, MVP, lead, CTA, tráfego. O ClickStart traduz esses termos e mostra quando eles realmente importam.",
+    icon: ShieldCheck,
+    title: "Eu quero começar, mas sem cair em promessa falsa.",
+    text: "O ClickStart AI organiza os caminhos, traduz os termos difíceis e mostra uma ação prática para começar com clareza.",
     accent: "accent-l-teal",
     iconColor: "text-teal-300",
   },
@@ -111,8 +111,8 @@ const painCards = [
 
 const validationCards = [
   { intent: "Quero começar com produtos digitais, mas não sei o que vender.", tag: "Produtos digitais", color: "text-pink-300", accent: "accent-l-pink" },
-  { intent: "Tenho interesse em TikTok Shop, mas não sei se é o melhor caminho para mim.", tag: "TikTok Shop", color: "text-cyan-300", accent: "accent-l-cyan" },
-  { intent: "Quero algo mais inteligente, como SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
+  { intent: "Quero oferecer serviços com IA, mas não sei como empacotar e cobrar.", tag: "Serviços com IA", color: "text-teal-300", accent: "accent-l-teal" },
+  { intent: "Quero algo mais inteligente, como micro-SaaS, mas ainda não entendo o básico.", tag: "Micro-SaaS", color: "text-purple-300", accent: "accent-l-purple" },
 ];
 
 const faqQA: { q: string; a: string }[] = [
@@ -182,18 +182,21 @@ export default function Landing() {
         </div>
 
         <div className="max-w-5xl mx-auto px-5 pt-14 pb-8 text-center relative">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur text-xs text-muted-foreground mb-7 shadow-[0_0_20px_-8px_rgba(124,58,237,0.4)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur text-xs text-muted-foreground mb-7 shadow-[0_0_20px_-8px_rgba(99,102,241,0.4)]">
             <Compass className="w-3.5 h-3.5 text-teal-300" />
             <span className="font-medium tracking-wide">Sua bússola no digital</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
-            <span className="text-amber-300/90 font-semibold">Beta fundador</span>
+            <span className="text-cyan-300/90 font-semibold">Condição de lançamento</span>
           </div>
 
-          <div className="relative inline-block">
+          <div className="relative inline-block pb-3">
             <div className="headline-aura" />
-            <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.02]" style={{ fontWeight: 800 }}>
+            <h1
+              className="text-[2.5rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.18] pb-2"
+              style={{ fontWeight: 800 }}
+            >
               Sua bússola para começar no digital{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-300 bg-clip-text text-transparent guru-pulse inline-block">
+              <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent guru-pulse inline-block pb-1">
                 sem cair em guru.
               </span>
             </h1>
@@ -211,13 +214,13 @@ export default function Landing() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Assinar por R$39,90/mês
+                Começar agora por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#faq">
-              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke text-foreground hover:bg-transparent">
-                Tirar dúvidas antes
+              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke-glow text-foreground hover:bg-transparent">
+                Tirar dúvidas antes de assinar
               </Button>
             </a>
           </div>
@@ -458,10 +461,10 @@ export default function Landing() {
 
       <Divider />
 
-      {/* Pain validation */}
+      {/* Por que isso existe */}
       <section className="max-w-6xl mx-auto px-5 py-10">
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
-          <SectionLabel color="text-pink-300">DORES REAIS</SectionLabel>
+          <SectionLabel color="text-pink-300">POR QUE ISSO EXISTE</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
             Dores reais que o ClickStart resolve.
           </h2>
@@ -477,10 +480,8 @@ export default function Landing() {
             </div>
           ))}
         </div>
-        <p className="mt-7 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
-          Sem depoimento inventado. As primeiras assinantes entram como fundadoras e ajudam a moldar a plataforma.
-        </p>
       </section>
+
 
       {/* Validação inicial */}
       <section className="max-w-6xl mx-auto px-5 py-8">
@@ -508,13 +509,13 @@ export default function Landing() {
       {/* Price */}
       <section id="preco" className="max-w-6xl mx-auto px-5 py-12 relative">
         <div className="text-center max-w-2xl mx-auto mb-9 flex flex-col items-center">
-          <SectionLabel color="text-amber-300">PREÇO FUNDADOR</SectionLabel>
+          <SectionLabel color="text-amber-300">PREÇO DE LANÇAMENTO</SectionLabel>
           <h2 className="text-3xl sm:text-4xl tracking-tight" style={{ fontWeight: 800 }}>
-            Entre agora com preço fundador.
+            Entre agora com preço de lançamento.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Quem entrar no início mantém <span className="text-foreground font-semibold">R$39,90/mês</span> enquanto a assinatura estiver ativa.
-            Depois do lançamento, novos assinantes poderão pagar <span className="text-foreground font-semibold">R$79,90/mês</span>.
+            Quem entrar hoje paga <span className="text-foreground font-semibold">R$39,90/mês</span>.
+            Depois do lançamento, o valor para novas assinantes será <span className="text-foreground font-semibold">R$79,90/mês</span>.
           </p>
         </div>
 
@@ -528,7 +529,7 @@ export default function Landing() {
                   <h3 className="text-2xl font-bold mt-1">Plano único</h3>
                 </div>
                 <span className="amber-glow inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/15 text-amber-300 border border-amber-400/20">
-                  <Zap className="w-3 h-3" /> FUNDADOR
+                  <Zap className="w-3 h-3" /> LANÇAMENTO
                 </span>
               </div>
 
@@ -537,7 +538,7 @@ export default function Landing() {
                 <span className="text-muted-foreground">/mês</span>
               </div>
               <p className="mt-1.5 text-xs text-muted-foreground">
-                <span className="line-through opacity-60">R$79,90</span> · preço congelado enquanto ativo
+                <span className="line-through opacity-60">R$79,90</span> · valor pós-lançamento para novas assinantes
               </p>
 
               <ul className="mt-7 space-y-2.5">
@@ -553,7 +554,7 @@ export default function Landing() {
 
               <Link to="/checkout" className="block mt-8">
                 <Button className="w-full h-12 btn-gradient text-white border-0 text-[15px]">
-                  Quero ser fundadora por R$39,90
+                  Começar agora por R$39,90/mês
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -562,7 +563,7 @@ export default function Landing() {
                 <ShieldCheck className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
                 <span>
                   Você tem <span className="text-foreground font-semibold">7 dias</span> para testar.
-                  Se não fizer sentido para você, pede reembolso. Sem burocracia.
+                  Se não fizer sentido para você, pode pedir reembolso.
                 </span>
               </div>
             </div>
@@ -587,7 +588,7 @@ export default function Landing() {
               </p>
               <Link to="/checkout" className="inline-block mt-6">
                 <Button className="btn-gradient text-white border-0">
-                  Assinar por R$39,90/mês
+                  Começar agora por R$39,90/mês
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -630,25 +631,25 @@ export default function Landing() {
             <div className="absolute -bottom-20 right-0 w-[500px] h-[300px] rounded-full bg-teal-600/20 blur-3xl" />
             <div className="absolute -bottom-20 left-0 w-[400px] h-[300px] rounded-full bg-indigo-600/15 blur-3xl" />
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-widest uppercase font-bold text-amber-300 mb-5">
-            <Zap className="w-3 h-3" /> Beta fundador aberto
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] tracking-widest uppercase font-bold text-cyan-300 mb-5">
+            <Zap className="w-3 h-3" /> Acesso de lançamento aberto
           </div>
-          <h2 className="text-3xl sm:text-5xl tracking-tight max-w-3xl mx-auto leading-[1.05]" style={{ fontWeight: 800 }}>
-            Comece com <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
+          <h2 className="text-3xl sm:text-5xl tracking-tight max-w-3xl mx-auto leading-[1.12] pb-1" style={{ fontWeight: 800 }}>
+            Comece com <span className="bg-gradient-to-r from-indigo-300 via-cyan-300 to-teal-300 bg-clip-text text-transparent">clareza</span> hoje.
           </h2>
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-[15px]">
-            O próximo passo não precisa ser mais um curso solto. Entre como fundadora e construa do seu jeito.
+            O próximo passo não precisa ser mais um curso solto. Entre hoje por R$39,90/mês e construa do seu jeito.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/checkout">
               <Button size="lg" className="h-12 px-7 btn-gradient text-white border-0 text-[15px]">
-                Assinar por R$39,90/mês
+                Começar agora por R$39,90/mês
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <a href="#faq">
-              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke text-foreground hover:bg-transparent">
-                Tirar dúvidas antes
+              <Button size="lg" variant="outline" className="h-12 px-6 btn-stroke-glow text-foreground hover:bg-transparent">
+                Tirar dúvidas antes de assinar
               </Button>
             </a>
           </div>
