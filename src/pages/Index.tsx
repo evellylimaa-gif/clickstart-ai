@@ -237,6 +237,13 @@ const Index = () => {
             plansGenerated={plansGenerated}
             userName={user.displayName}
             isAuthenticated={user.isAuthenticated}
+            hasCompletedDiagnosis={hasCompletedDiagnosis}
+            onStartDiagnosis={() => {
+              const idx = agents.findIndex((a) => a.id === "diagnostico-digital" || a.id === "diagnostico");
+              if (idx >= 0) openAgent(idx, "Quero fazer o diagnóstico digital. Pode começar fazendo a primeira pergunta?");
+              else goView("diagnostico");
+            }}
+            onExploreTrails={() => goView("trilhas")}
           />
         );
       case "diagnostico":
