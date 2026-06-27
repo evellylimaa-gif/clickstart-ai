@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 
+// Default theme is dark (ClickStart premium navy). `light` toggles the `.light` class.
 export function useTheme() {
-  const [dark, setDark] = useState(() => {
+  const [light, setLight] = useState(() => {
     if (typeof window === "undefined") return false;
-    return localStorage.getItem("theme") === "dark";
+    return localStorage.getItem("theme") === "light";
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
+    document.documentElement.classList.toggle("light", light);
+    document.documentElement.classList.toggle("dark", !light);
+    localStorage.setItem("theme", light ? "light" : "dark");
+  }, [light]);
 
-  return { dark, toggle: () => setDark((d) => !d) };
+  // Keep API stable: `dark` reflects current state for existing callers.
+  return { dark: !light, toggle: () => setLight((l) => !l) };
 }
