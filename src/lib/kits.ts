@@ -24,7 +24,7 @@ export const kits: Kit[] = [
     description: "Para quem nunca vendeu nada online e quer dar o primeiro passo com clareza.",
     recommendedProfile: "Iniciante absoluto, sem audiência e sem produto.",
     color: "purple",
-    agentId: "diagnostico",
+    agentId: "diagnostico-digital",
     overview: "Esse kit organiza sua primeira semana no digital, sem você precisar adivinhar nada. Foco em entender seu perfil, escolher um caminho e dar o primeiro passo real.",
     firstAction: "Reserve 20 minutos hoje e responda às 'Perguntas para descobrir seu perfil'. Sem isso, todo o resto vira tentativa.",
     sections: [
@@ -179,7 +179,7 @@ export const kits: Kit[] = [
     description: "Para quem quer criar canal usando roteiro, voz e IA, sem mostrar o rosto.",
     recommendedProfile: "Quem prefere bastidor, gosta de pesquisar e tem paciência para crescer médio prazo.",
     color: "teal",
-    agentId: "youtube-sem-aparecer",
+    agentId: "youtube-faceless",
     overview: "Esse kit organiza a produção de canal faceless de ponta a ponta, evitando o erro mais comum: conteúdo genérico que não engaja.",
     firstAction: "Defina hoje o tema central do canal em 1 frase. Sem isso, nenhum roteiro funciona.",
     sections: [
@@ -210,7 +210,7 @@ export const kits: Kit[] = [
     description: "Para quem quer vender produtos de outras pessoas com conteúdo e estratégia.",
     recommendedProfile: "Quem quer começar rápido, sem criar produto próprio.",
     color: "amber",
-    agentId: "diagnostico",
+    agentId: "afiliados",
     overview: "Esse kit te ajuda a virar afiliado de verdade, escolhendo produto certo e criando conteúdo que vende sem parecer venda.",
     firstAction: "Escolha hoje 1 produto que você já usaria, mesmo sem comissão. Esse é o produto para começar.",
     sections: [
