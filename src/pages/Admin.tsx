@@ -93,6 +93,27 @@ export default function Admin() {
           <span className="ml-auto text-[10px] text-muted-foreground">Apenas seleção. Integração real será adicionada depois.</span>
         </div>
 
+        {/* Plan tier selector (placeholder) */}
+        <div className="rounded-2xl border border-white/10 bg-[#0F172A] p-4 mb-6 flex items-center gap-3 flex-wrap">
+          <span className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Filtrar por plano</span>
+          <div className="flex gap-2 flex-wrap">
+            {planTiers.map((p, i) => (
+              <button
+                key={p}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                  i === 1
+                    ? "bg-teal-500/20 text-teal-200 border-teal-500/40"
+                    : "bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10"
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
+          <span className="ml-auto text-[10px] text-muted-foreground">Métricas serão segmentadas por plano após integração.</span>
+        </div>
+
+
         <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           {metrics.map(({ icon: Icon, label, value, hint, tone }) => (
             <div
