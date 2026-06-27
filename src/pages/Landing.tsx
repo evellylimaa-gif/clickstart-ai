@@ -588,7 +588,7 @@ export default function Landing() {
               </p>
               <Link to="/checkout" className="inline-block mt-6">
                 <Button className="btn-gradient text-white border-0">
-                  Assinar por R$39,90/mês
+                  Começar agora por R$39,90/mês
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
