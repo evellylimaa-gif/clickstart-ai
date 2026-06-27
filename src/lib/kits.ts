@@ -86,7 +86,7 @@ export const kits: Kit[] = [
     description: "Para quem quer criar ebooks, planners, templates ou pacotes digitais.",
     recommendedProfile: "Quem tem conhecimento ou habilidade que pode virar produto.",
     color: "pink",
-    agentId: "produtos-digitais",
+    agentId: "templates-prompts",
     overview: "Esse kit te mostra como transformar conhecimento em produto digital vendável, com estrutura clara e oferta que convence.",
     firstAction: "Escolha 1 problema que você sabe resolver e descreva em uma frase. Esse é o seu produto.",
     sections: [
