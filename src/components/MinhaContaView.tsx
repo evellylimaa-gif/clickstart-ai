@@ -1,4 +1,5 @@
-import { ShieldCheck, Sparkles, LogOut, Settings as SettingsIcon, Bell, Lock, Monitor } from "lucide-react";
+import { ShieldCheck, Sparkles, LogOut, Settings as SettingsIcon, Bell, Lock, Monitor, ShieldAlert } from "lucide-react";
+import { Link } from "react-router-dom";
 import { logout, type ClickStartUser } from "@/hooks/use-user";
 
 function handleLogout() {
