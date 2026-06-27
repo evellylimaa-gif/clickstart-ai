@@ -60,7 +60,7 @@ export function ResponseCards({ content, badge, onDeeper, onPlanSaved }: Respons
         <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            {badge} — Seu caminho recomendado
+            {badge} · Seu caminho recomendado
           </span>
         </div>
         <div className="prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:rounded">
@@ -73,7 +73,7 @@ export function ResponseCards({ content, badge, onDeeper, onPlanSaved }: Respons
         <div className="rounded-2xl border border-gold/20 bg-card p-5 shadow-sm">
           <h4 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <CheckSquare className="w-4 h-4 text-gold" />
-            Plano de ação — próximos 7 dias
+            Plano de ação · próximos 7 dias
           </h4>
           <div className="space-y-2">
             {actionItems.map((item, idx) => (
