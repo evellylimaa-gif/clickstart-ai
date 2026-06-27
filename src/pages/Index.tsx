@@ -61,6 +61,7 @@ const Index = () => {
   const isMobile = useIsMobile();
   const { dark, toggle: toggleTheme } = useTheme();
   const { history, saveConversation, clearHistory } = useHistory();
+  const user = useUser();
 
   const goView = (v: View) => {
     setView(v);
