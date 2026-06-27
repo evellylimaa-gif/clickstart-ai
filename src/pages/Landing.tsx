@@ -414,7 +414,8 @@ export default function Landing() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.map((s, i) => (
-            <div key={s.n} className={`relative glass-card card-bloom rounded-2xl p-5 ${stepAccents[i]}`}>
+            <div key={s.n} className={`relative glass-card card-bloom rounded-2xl p-5 fade-up fade-up-${i + 1} ${stepAccents[i]}`}>
+
               {i < steps.length - 1 && <div className="hidden lg:block step-connector" />}
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-teal-500 grid place-items-center font-extrabold text-white shadow-lg shadow-indigo-600/30 text-lg relative z-10">
