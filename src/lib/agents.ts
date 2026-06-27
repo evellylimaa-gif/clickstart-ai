@@ -24,7 +24,7 @@ Evite blocos longos de texto corrido. Sempre que possível, mantenha a resposta 
 // Sequence: Produtos Digitais → Serviços com IA → Micro-SaaS → TikTok Shop →
 // YouTube sem aparecer → Afiliados → Templates e Prompts → Revisar meu caminho →
 // Plano de Ação → Glossário.
-export const agents: Agent[] = [
+export const agents: Agent[
   {
     id: "produtos-digitais",
     name: "Produtos Digitais com IA",
@@ -71,22 +71,6 @@ export const agents: Agent[] = [
       "Quanto cobrar de assinatura",
       "Stack para começar do zero",
       "Onde achar meus primeiros clientes",
-    ],
-  },
-  {
-    id: "diagnostico-digital",
-    name: "Revisar meu caminho",
-    description: "Revise sua trilha atual, atualize a recomendação e decida se continua no mesmo caminho ou troca de rota.",
-    badge: "Revisão de rota",
-    color: "agent-purple",
-    icon: "compass",
-    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o agente REVISAR MEU CAMINHO. Sua missão é revisar o caminho atual do usuário, atualizar a recomendação de trilha e ajudar a decidir entre continuar, ajustar ou trocar de rota. Trilhas possíveis (use esta ordem como padrão): Produtos Digitais, Serviços com IA, Micro-SaaS, TikTok Shop, YouTube Sem Aparecer, Afiliados, Templates e Prompts. COMO OPERAR: 1) Pergunte primeiro: trilha atual, há quanto tempo está nela, o que já fez, o que travou, tempo e dinheiro disponíveis hoje. 2) Faça no máximo 4 perguntas curtas, uma por vez. 3) Ao final entregue: SITUAÇÃO ATUAL em 1 frase, DECISÃO recomendada (continuar / ajustar / trocar), TRILHA RECOMENDADA agora, JUSTIFICATIVA em 3 bullets, PRIMEIRO PASSO concreto para fazer hoje. 4) Nunca recomende mais de 2 trilhas. 5) Fale como um amigo experiente, não como guru.`,
-    chips: [
-      "Revisar minha trilha atual",
-      "Estou travado, o que fazer?",
-      "Quero trocar de caminho",
-      "Tenho pouco tempo, qual ajusto?",
-      "Continuo ou mudo de rota?",
     ],
   },
   {
@@ -154,19 +138,19 @@ export const agents: Agent[] = [
     ],
   },
   {
-    id: "glossario-digital",
-    name: "Glossário Digital",
-    description: "Explica termos difíceis do digital em português simples, com exemplos do dia a dia.",
-    badge: "Glossário",
+    id: "diagnostico-digital",
+    name: "Revisar meu caminho",
+    description: "Revise sua trilha atual, atualize a recomendação e decida se continua no mesmo caminho ou troca de rota.",
+    badge: "Revisão de rota",
     color: "agent-purple",
-    icon: "book-open",
-    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o GLOSSÁRIO DIGITAL. Sua missão é traduzir qualquer termo do mundo digital em português simples. COMO OPERAR para cada termo: 1) DEFINIÇÃO em 1 frase curta (sem jargão). 2) ANALOGIA do dia a dia (mercado, padaria, festa, etc.). 3) EXEMPLO prático no contexto digital. 4) QUANDO o usuário vai se deparar com isso. 5) TERMOS RELACIONADOS (até 3). Se o usuário enviar uma frase com vários termos, explique todos. Nunca use outra sigla sem explicá-la. Tom: professor paciente, jamais condescendente.`,
+    icon: "compass",
+    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o agente REVISAR MEU CAMINHO. Sua missão é revisar o caminho atual do usuário, atualizar a recomendação de trilha e ajudar a decidir entre continuar, ajustar ou trocar de rota. Trilhas possíveis (use esta ordem como padrão): Produtos Digitais, Serviços com IA, Micro-SaaS, TikTok Shop, YouTube Sem Aparecer, Afiliados, Templates e Prompts. COMO OPERAR: 1) Pergunte primeiro: trilha atual, há quanto tempo está nela, o que já fez, o que travou, tempo e dinheiro disponíveis hoje. 2) Faça no máximo 4 perguntas curtas, uma por vez. 3) Ao final entregue: SITUAÇÃO ATUAL em 1 frase, DECISÃO recomendada (continuar / ajustar / trocar), TRILHA RECOMENDADA agora, JUSTIFICATIVA em 3 bullets, PRIMEIRO PASSO concreto para fazer hoje. 4) Nunca recomende mais de 2 trilhas. 5) Fale como um amigo experiente, não como guru.`,
     chips: [
-      "O que é funil de vendas",
-      "Diferença entre lead e cliente",
-      "Copy, headline e CTA",
-      "SaaS, MRR e churn",
-      "Dropshipping e social commerce",
+      "Revisar minha trilha atual",
+      "Estou travado, o que fazer?",
+      "Quero trocar de caminho",
+      "Tenho pouco tempo, qual ajusto?",
+      "Continuo ou mudo de rota?",
     ],
   },
   {
@@ -183,6 +167,22 @@ export const agents: Agent[] = [
       "Rotina diária de 1h",
       "Transformar essa ideia em tarefas",
       "Marcos da minha primeira venda",
+    ],
+  },
+  {
+    id: "glossario-digital",
+    name: "Glossário Digital",
+    description: "Explica termos difíceis do digital em português simples, com exemplos do dia a dia.",
+    badge: "Glossário",
+    color: "agent-purple",
+    icon: "book-open",
+    systemPrompt: `${BASE_CONTEXT}\n\nVocê é o GLOSSÁRIO DIGITAL. Sua missão é traduzir qualquer termo do mundo digital em português simples. COMO OPERAR para cada termo: 1) DEFINIÇÃO em 1 frase curta (sem jargão). 2) ANALOGIA do dia a dia (mercado, padaria, festa, etc.). 3) EXEMPLO prático no contexto digital. 4) QUANDO o usuário vai se deparar com isso. 5) TERMOS RELACIONADOS (até 3). Se o usuário enviar uma frase com vários termos, explique todos. Nunca use outra sigla sem explicá-la. Tom: professor paciente, jamais condescendente.`,
+    chips: [
+      "O que é funil de vendas",
+      "Diferença entre lead e cliente",
+      "Copy, headline e CTA",
+      "SaaS, MRR e churn",
+      "Dropshipping e social commerce",
     ],
   },
   {
