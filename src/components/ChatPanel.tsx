@@ -230,6 +230,8 @@ export function ChatPanel({ agent, initialMessage, hiddenContext, extraChips = [
           </p>
         </form>
       </div>
+      <UpgradeDialog open={showUpgrade} onOpenChange={setShowUpgrade} currentPlan={usage.plan} />
     </div>
   );
 }
+
