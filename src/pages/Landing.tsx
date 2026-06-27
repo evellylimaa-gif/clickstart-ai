@@ -444,8 +444,9 @@ export default function Landing() {
             <p className="mt-3 text-muted-foreground">Tudo conectado. Sem precisar montar nada por fora.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
-            {includes.map(({ icon: Icon, label, color, ring }) => (
-              <div key={label} className="flex items-center gap-3 p-4 rounded-xl glass-card card-bloom hover:border-white/20 transition-all">
+            {includes.map(({ icon: Icon, label, color, ring }, i) => (
+              <div key={label} className={`flex items-center gap-3 p-4 rounded-xl glass-card card-bloom hover:border-white/20 transition-all fade-up fade-up-${(i % 4) + 1}`}>
+
                 <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${ring} grid place-items-center ${color} shrink-0 border border-white/5`}>
                   <Icon className="w-[18px] h-[18px]" />
                 </div>
