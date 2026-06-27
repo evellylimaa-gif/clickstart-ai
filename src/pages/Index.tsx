@@ -103,7 +103,7 @@ const Index = () => {
 
   // Sidebar (desktop & mobile drawer share markup)
   const Sidebar = (
-    <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 h-screen border-r border-[hsl(var(--sidebar-border))]">
+    <aside className="w-[260px] bg-[hsl(var(--sidebar-bg))] flex flex-col shrink-0 h-screen sticky top-0 border-r border-[hsl(var(--sidebar-border))]">
       {/* Brand */}
       <button onClick={() => goView("dashboard")} className="px-5 pt-6 pb-5 text-left hover:opacity-90 transition-opacity">
         <div className="flex items-center gap-3">
